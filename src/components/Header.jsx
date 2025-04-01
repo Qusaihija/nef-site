@@ -96,10 +96,10 @@ const Header = () => {
             <a 
               href="#home" 
               className="header-logo relative text-white font-bold text-lg md:text-xl"
-              aria-label="Alex Morgan - Home"
+              aria-label="Otoibhi Anthony - Home"
             >
               <span className="relative z-10 px-3 py-2">
-                Alex Morgan
+                Anthony
                 <span className="header-logo-highlight"></span>
               </span>
             </a>
