@@ -8,11 +8,11 @@ const Header = () => {
 
   // Navigation items with icons for mobile app-like experience
   const navigationItems = [
-    { id: 'home', label: 'Home', icon: <Home size={22} /> },
-    { id: 'skills', label: 'Skills', icon: <Code size={22} /> },
-    { id: 'projects', label: 'Projects', icon: <FolderOpen size={22} /> },
-    { id: 'about', label: 'About', icon: <User size={22} /> },
-    { id: 'contact', label: 'Contact', icon: <Mail size={22} /> }
+    { id: 'home', label: 'Home', icon: <Home size={24} strokeWidth={1.5} /> },
+    { id: 'skills', label: 'Skills', icon: <Code size={24} strokeWidth={1.5} /> },
+    { id: 'projects', label: 'Projects', icon: <FolderOpen size={24} strokeWidth={1.5} /> },
+    { id: 'about', label: 'About', icon: <User size={24} strokeWidth={1.5} /> },
+    { id: 'contact', label: 'Contact', icon: <Mail size={24} strokeWidth={1.5} /> }
   ];
 
   // Memoized scroll handler with throttling for better performance
@@ -38,6 +38,28 @@ const Header = () => {
   // Toggle menu with accessibility considerations
   const toggleMenu = useCallback(() => {
     setIsMenuOpen(prevState => !prevState);
+    
+    // Play haptic feedback if supported
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+  }, []);
+
+  // Handle navigation item click
+  const handleNavClick = useCallback((sectionId) => {
+    setActiveSection(sectionId);
+    setIsMenuOpen(false);
+    
+    // Play haptic feedback if supported
+    if (navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+    
+    // Smooth scroll to section
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   }, []);
 
   // Handle escape key to close menu - accessibility improvement
@@ -106,6 +128,7 @@ const Header = () => {
             ) : (
               <Menu size={24} strokeWidth={2} />
             )}
+            <span className="toggle-pulse"></span>
           </button>
 
           {/* Desktop navigation */}
@@ -146,7 +169,10 @@ const Header = () => {
                 <a 
                   key={link.id}
                   href={`#${link.id}`}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.id);
+                  }}
                   className={activeSection === link.id ? 'bottom-nav-item active' : 'bottom-nav-item'}
                   aria-current={activeSection === link.id ? 'page' : undefined}
                   aria-label={link.label}
@@ -420,8 +446,10 @@ const Header = () => {
           padding: 0.5rem;
           cursor: pointer;
           z-index: 20;
-          border-radius: 8px;
+          border-radius: 12px;
           line-height: 0;
+          position: relative;
+          overflow: hidden;
         }
         
         .toggle-btn:hover,
@@ -431,6 +459,28 @@ const Header = () => {
         
         .toggle-btn:focus-visible {
           outline: 2px solid rgba(96, 165, 250, 0.7);
+        }
+        
+        .toggle-pulse {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) scale(0);
+          width: 60px;
+          height: 60px;
+          background: radial-gradient(circle, 
+            rgba(52, 211, 153, 0.5) 0%, 
+            rgba(59, 130, 246, 0) 70%);
+          border-radius: 50%;
+          z-index: -1;
+          opacity: 0;
+          transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        
+        .toggle-btn:hover .toggle-pulse,
+        .toggle-btn:focus .toggle-pulse {
+          transform: translate(-50%, -50%) scale(1.2);
+          opacity: 1;
         }
 
         /* Mobile Navigation */
@@ -448,24 +498,40 @@ const Header = () => {
         .mobile-bottom-nav {
           display: none;
           position: fixed;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 70px;
-          background: rgba(18, 18, 23, 0.95);
-          backdrop-filter: blur(12px);
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%) translateY(100px);
+          width: 90%;
+          max-width: 450px;
+          height: 80px;
+          background: rgba(15, 15, 20, 0.7);
+          backdrop-filter: blur(20px);
           display: flex;
           justify-content: space-around;
           align-items: center;
-          box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+          border-radius: 20px;
           z-index: 30;
-          transform: translateY(100%);
-          transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          overflow: hidden;
         }
 
+        .mobile-bottom-nav::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 1px;
+          background: linear-gradient(90deg, 
+            rgba(255, 255, 255, 0) 0%, 
+            rgba(255, 255, 255, 0.1) 50%, 
+            rgba(255, 255, 255, 0) 100%);
+        }
+        
         .mobile-navigation.menu-open .mobile-bottom-nav {
-          transform: translateY(0);
+          transform: translateX(-50%) translateY(0);
         }
 
         .bottom-nav-item {
@@ -473,16 +539,38 @@ const Header = () => {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          color: rgba(255, 255, 255, 0.6);
+          color: rgba(255, 255, 255, 0.5);
           text-decoration: none;
           padding: 0.5rem;
           width: 20%;
-          transition: all 0.2s ease;
+          transition: all 0.35s ease;
+          position: relative;
+          z-index: 1;
+        }
+
+        .bottom-nav-item::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 55px;
+          height: 55px;
+          border-radius: 16px;
+          background: rgba(52, 211, 153, 0.06);
+          transform: translate(-50%, -50%) scale(0);
+          transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+          z-index: -1;
         }
 
         .bottom-nav-item.active {
-          color: #34d399;
-          transform: translateY(-5px);
+          color: white;
+        }
+
+        .bottom-nav-item.active::before {
+          transform: translate(-50%, -50%) scale(1);
+          background: linear-gradient(135deg, 
+            rgba(52, 211, 153, 0.15), 
+            rgba(59, 130, 246, 0.15));
         }
 
         .bottom-nav-item:hover,
@@ -490,27 +578,55 @@ const Header = () => {
           color: white;
         }
 
+        .bottom-nav-item:hover::before,
+        .bottom-nav-item:focus::before {
+          transform: translate(-50%, -50%) scale(1);
+          background: rgba(255, 255, 255, 0.08);
+        }
+
         .bottom-nav-icon {
-          margin-bottom: 0.25rem;
           position: relative;
+          margin-bottom: 0.5rem;
+          transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .bottom-nav-item.active .bottom-nav-icon {
+          transform: translateY(-4px);
+        }
+
+        .bottom-nav-icon::after {
+          content: '';
+          position: absolute;
+          bottom: -12px;
+          left: 50%;
+          width: 4px;
+          height: 4px;
+          background: linear-gradient(90deg, #34d399, #3b82f6);
+          border-radius: 50%;
+          transform: translateX(-50%) scale(0);
+          opacity: 0;
+          transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
         }
 
         .bottom-nav-item.active .bottom-nav-icon::after {
-          content: '';
-          position: absolute;
-          bottom: -8px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 4px;
-          height: 4px;
-          background: #34d399;
-          border-radius: 50%;
+          transform: translateX(-50%) scale(1);
+          opacity: 1;
         }
 
         .bottom-nav-label {
           font-size: 0.7rem;
           font-weight: 500;
+          letter-spacing: 0.01em;
           text-align: center;
+          transform: translateY(0);
+          opacity: 0.7;
+          transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .bottom-nav-item.active .bottom-nav-label {
+          opacity: 1;
+          transform: translateY(2px);
+          text-shadow: 0 0 10px rgba(52, 211, 153, 0.3);
         }
 
         /* Responsive Design */
@@ -547,6 +663,24 @@ const Header = () => {
 
           .logo-tagline {
             font-size: 0.65rem;
+          }
+
+          .mobile-bottom-nav {
+            width: 95%;
+            bottom: 15px;
+          }
+        }
+
+        /* Reduced Motion Preferences */
+        @media (prefers-reduced-motion: reduce) {
+          .mobile-bottom-nav,
+          .bottom-nav-item,
+          .bottom-nav-icon,
+          .bottom-nav-label,
+          .bottom-nav-item::before,
+          .bottom-nav-icon::after {
+            transition-duration: 0.1s !important;
+            animation-duration: 0.1s !important;
           }
         }
 
