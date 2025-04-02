@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Github, Linkedin, Mail, ArrowRight, Code, Server, Database, Briefcase, Download, ChevronRight } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowRight, Code, Server, Database, BarChart } from 'lucide-react';
 
 const Hero = () => {
   // Add a subtle scroll animation to the hero elements
@@ -7,11 +7,11 @@ const Hero = () => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const heroContent = document.querySelector('.hero-content');
-      const profileImage = document.querySelector('.profile-container');
+      const logoSection = document.querySelector('.logo-section');
       
-      if (heroContent && profileImage && scrollPosition < 500) {
+      if (heroContent && logoSection && scrollPosition < 500) {
         heroContent.style.transform = `translateY(${scrollPosition * 0.05}px)`;
-        profileImage.style.transform = `translateY(${scrollPosition * 0.03}px)`;
+        logoSection.style.transform = `translateY(${scrollPosition * 0.03}px)`;
       }
     };
     
@@ -20,8 +20,8 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="min-vh-100 d-flex align-items-center position-relative overflow-hidden">
-      {/* Enhanced background with multiple gradients and particle effect */}
+    <section id="home" className="min-vh-100 d-flex align-items-center position-relative overflow-hidden pt-lg-0">
+      {/* Background elements with improved gradients */}
       <div className="position-absolute top-0 start-0 w-100 h-100 hero-background">
         <div className="position-absolute gradient-sphere gradient-primary"></div>
         <div className="position-absolute gradient-sphere gradient-secondary"></div>
@@ -46,27 +46,27 @@ const Hero = () => {
       <div className="container position-relative">
         <div className="row align-items-center">
           {/* Content Column */}
-          <div className="col-12 col-lg-7 hero-content mb-5 mb-lg-0" data-aos="fade-up">
-            {/* Role Badge */}
-            <div className="role-badge d-inline-flex align-items-center mb-4">
-              <span className="role-dot me-2"></span>
-              <span className="role-text">Full-Stack Developer</span>
+          <div className="col-lg-6 hero-content mb-5 mb-lg-0 order-2 order-lg-1" data-aos="fade-up">
+            {/* Company Badge */}
+            <div className="company-badge d-inline-flex align-items-center mb-4">
+              <span className="company-dot me-2"></span>
+              <span className="company-text">Digital Solutions Agency</span>
             </div>
             
             {/* Hero Title */}
             <h1 className="hero-title display-4 fw-bolder mb-3">
-              Hi, I'm <span className="gradient-text">Otoibhi Anthony</span>
+              We are <span className="gradient-text">StarkWave</span> Technologies
             </h1>
             
-            <h2 className="hero-subtitle fs-3 fw-light mb-4 text-white-50">Building exceptional digital experiences</h2>
+            <h2 className="hero-subtitle fs-3 fw-light mb-4 text-white-50">Transforming ideas into exceptional digital products</h2>
             
             <p className="hero-description fs-5 mb-4 text-white-50">
-              I specialize in crafting modern, high-performance web applications 
-              that solve real business problems. With expertise in both frontend and backend technologies, 
-              I deliver solutions that are not only visually appealing but also scalable and maintainable.
+              We specialize in building modern, high-performance digital experiences
+              that help businesses thrive in the digital landscape. Our team delivers
+              innovative solutions that combine cutting-edge technology with strategic thinking.
             </p>
             
-            {/* Hero Stats */}
+            {/* Company Stats */}
             <div className="hero-stats d-flex flex-wrap align-items-center mb-4">
               <div className="stat-item">
                 <span className="stat-number gradient-text fs-2 fw-bold">5+</span>
@@ -76,27 +76,27 @@ const Hero = () => {
               <div className="stat-divider d-none d-md-block"></div>
               
               <div className="stat-item">
-                <span className="stat-number gradient-text fs-2 fw-bold">50+</span>
-                <span className="stat-label d-block">Projects Completed</span>
+                <span className="stat-number gradient-text fs-2 fw-bold">20+</span>
+                <span className="stat-label d-block">Projects Delivered</span>
               </div>
               
               <div className="stat-divider d-none d-md-block"></div>
               
               <div className="stat-item">
-                <span className="stat-number gradient-text fs-2 fw-bold">20+</span>
-                <span className="stat-label d-block">Happy Clients</span>
+                <span className="stat-number gradient-text fs-2 fw-bold">5+</span>
+                <span className="stat-label d-block">Global Clients</span>
               </div>
             </div>
             
             {/* CTA Buttons */}
             <div className="hero-cta d-flex flex-wrap gap-3 mb-4">
-              <a href="#projects" className="btn-primary btn d-flex align-items-center gap-2">
-                <span>View Projects</span>
+              <a href="#projects" className="btn-primary">
+                <span>Our Work</span>
                 <ArrowRight size={18} />
               </a>
-              <a href="/resume.pdf" className="btn-secondary btn d-flex align-items-center gap-2" target="_blank" rel="noopener noreferrer">
-                <Download size={18} />
-                <span>Download CV</span>
+              <a href="#contact" className="btn-secondary">
+                <Mail size={18} />
+                <span>Get in Touch</span>
               </a>
             </div>
             
@@ -110,7 +110,7 @@ const Hero = () => {
                 <Linkedin size={20} />
                 <span className="d-none d-sm-inline ms-2">LinkedIn</span>
               </a>
-              <a href="mailto:contact@example.com" className="social-link d-flex align-items-center text-white-50" aria-label="Email Contact">
+              <a href="mailto:contact@starkwave.com" className="social-link d-flex align-items-center text-white-50" aria-label="Email Contact">
                 <Mail size={20} />
                 <span className="d-none d-sm-inline ms-2">Email</span>
               </a>
@@ -122,64 +122,63 @@ const Hero = () => {
                   <span className="dot position-absolute"></span>
                   <span className="pulse position-absolute"></span>
                 </div>
-                <span className="availability-text">Available for work</span>
+                <span className="availability-text">Accepting new projects</span>
               </div>
             </div>
           </div>
           
-          {/* Profile Image Column */}
-          <div className="col-12 col-lg-5 profile-container" data-aos="fade-up" data-aos-delay="200">
-            <div className="profile-wrapper position-relative mx-auto">
-              {/* Profile image */}
-              <div className="profile-image-container position-relative overflow-hidden">
-                <img 
-                  src="/logo.png" 
-                  alt="Otoibhi Anthony" 
-                  className="profile-image img-fluid"
-                />
+          {/* Logo Section - Now with SVG logo */}
+          <div className="col-lg-6 logo-section order-1 order-lg-2 mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="200">
+            <div className="logo-wrapper position-relative mx-auto">
+              {/* SVG Logo Tag */}
+              <div className="logo-container">
+                <div className="svg-logo-container">
+                  <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" className="svg-logo">
+                    <defs>
+                      <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#34d399" />
+                        <stop offset="100%" stopColor="#3b82f6" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M40,20 L160,20 L180,70 L160,120 L40,120 L20,70 L40,20 Z" fill="rgba(17, 25, 40, 0.8)" stroke="url(#logoGradient)" strokeWidth="2"/>
+                    <text x="100" y="65" fontFamily="Arial" fontSize="28" fontWeight="bold" fill="white" textAnchor="middle">STARKWAVE</text>
+                    <text x="100" y="90" fontFamily="Arial" fontSize="16" fill="rgba(255,255,255,0.7)" textAnchor="middle">TECHNOLOGIES</text>
+                  </svg>
+                </div>
               </div>
               
-              {/* Tech Badges */}
+              {/* Service Badges */}
               <div className="badge-container position-absolute top-0 start-0 w-100 h-100">
-                <div className="tech-badgee frontend-badge position-absolute d-flex align-items-center">
+                <div className="service-badge development-badge position-absolute d-flex align-items-center">
                   <Code size={20} className="me-2" />
-                  <span>Frontend</span>
+                  <span>Web Development</span>
                 </div>
                 
-                <div className="tech-badgee backend-badge position-absolute d-flex align-items-center">
+                <div className="service-badge backend-badge position-absolute d-flex align-items-center">
                   <Server size={20} className="me-2" />
-                  <span>Backend</span>
+                  <span>Cloud Solutions</span>
                 </div>
                 
-                <div className="tech-badgee database-badge position-absolute d-flex align-items-center">
+                <div className="service-badge database-badge position-absolute d-flex align-items-center">
                   <Database size={20} className="me-2" />
-                  <span>Database</span>
+                  <span>Data Engineering</span>
                 </div>
                 
-                <div className="tech-badgee experience-badge position-absolute d-flex align-items-center">
-                  <Briefcase size={20} className="me-2" />
-                  <span>5+ Years</span>
+                <div className="service-badge analytics-badge position-absolute d-flex align-items-center">
+                  <BarChart size={20} className="me-2" />
+                  <span>Business Analytics</span>
                 </div>
               </div>
               
-              {/* Featured Technologies */}
-              <div className="featured-tech position-relative mt-4 mt-lg-0">
-                <div className="featured-tech-header text-center mb-2">
-                  <span>Top Technologies</span>
+              {/* Client Trust Badge */}
+              <div className="client-trust position-relative mt-4">
+                <div className="client-trust-header text-center mb-2">
+                  <span>Trusted by Leading Companies</span>
                 </div>
-                <div className="featured-tech-list d-flex justify-content-around">
-                  <div className="tech-item d-flex align-items-center">
-                    <ChevronRight size={14} className="text-success me-1" />
-                    <span>React</span>
-                  </div>
-                  <div className="tech-item d-flex align-items-center">
-                    <ChevronRight size={14} className="text-success me-1" />
-                    <span>Node.js</span>
-                  </div>
-                  <div className="tech-item d-flex align-items-center">
-                    <ChevronRight size={14} className="text-success me-1" />
-                    <span>MongoDB</span>
-                  </div>
+                <div className="client-logos d-flex justify-content-around align-items-center">
+                  <div className="client-logo">Acme Inc</div>
+                  <div className="client-logo">TechCorp</div>
+                  <div className="client-logo">Innovate Co</div>
                 </div>
               </div>
             </div>
@@ -204,8 +203,8 @@ const Hero = () => {
           right: 0;
           width: 35vw;
           height: 35vw;
-          background: radial-gradient(circle, rgba(52, 211, 153, 0.08) 0%, rgba(52, 211, 153, 0) 70%);
-          opacity: 0.7;
+          background: radial-gradient(circle, rgba(52, 211, 153, 0.12) 0%, rgba(52, 211, 153, 0) 70%);
+          opacity: 0.8;
         }
         
         .gradient-secondary {
@@ -213,12 +212,12 @@ const Hero = () => {
           left: 0;
           width: 40vw;
           height: 40vw;
-          background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0) 70%);
-          opacity: 0.7;
+          background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0) 70%);
+          opacity: 0.8;
         }
         
         .particle {
-          background-color: rgba(255, 255, 255, 0.03);
+          background-color: rgba(255, 255, 255, 0.05);
           animation: float linear infinite;
         }
         
@@ -237,16 +236,18 @@ const Hero = () => {
         /* Text color for all normal text */
         section {
           color: white;
+          background-color: #0a0a0a;
+          padding-top: 3rem;
         }
         
-        .role-badge {
+        .company-badge {
           background: rgba(52, 211, 153, 0.1);
           border: 1px solid rgba(52, 211, 153, 0.2);
           border-radius: 100px;
           padding: 0.5rem 1rem;
         }
         
-        .role-dot {
+        .company-dot {
           display: block;
           width: 8px;
           height: 8px;
@@ -254,7 +255,7 @@ const Hero = () => {
           border-radius: 50%;
         }
         
-        .role-text {
+        .company-text {
           color: #34d399;
           font-weight: 500;
           font-size: 0.95rem;
@@ -282,12 +283,6 @@ const Hero = () => {
           margin-top: 0.25rem;
         }
         
-        /* Fix for tech badge colors */
-        .tech-item {
-          color: rgba(255, 255, 255, 0.7);
-          font-size: 0.875rem;
-        }
-        
         .stat-divider {
           width: 1px;
           height: 2.5rem;
@@ -295,8 +290,11 @@ const Hero = () => {
           margin: 0 1rem;
         }
         
-        /* CTA Buttons */
+        /* CTA Buttons - Fixed to ensure they're clickable */
         .btn-primary {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
           background: linear-gradient(to right, #34d399, #3b82f6);
           color: white;
           font-weight: 600;
@@ -306,6 +304,7 @@ const Hero = () => {
           box-shadow: 0 4px 15px rgba(52, 211, 153, 0.25);
           border: none;
           transition: all 0.3s ease;
+          cursor: pointer;
         }
         
         .btn-primary:hover {
@@ -315,6 +314,9 @@ const Hero = () => {
         }
         
         .btn-secondary {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
           background: rgba(255, 255, 255, 0.05);
           color: white;
           font-weight: 600;
@@ -322,6 +324,8 @@ const Hero = () => {
           border-radius: 8px;
           border: 1px solid rgba(255, 255, 255, 0.1);
           transition: all 0.3s ease;
+          text-decoration: none;
+          cursor: pointer;
         }
         
         .btn-secondary:hover {
@@ -374,16 +378,37 @@ const Hero = () => {
           font-size: 0.95rem;
         }
         
-        /* Profile Section */
-        .profile-container {
+        /* Logo Section */
+        .logo-section {
           transition: transform 0.5s ease-out;
         }
         
-        .profile-wrapper {
-          max-width: 400px;
+        .logo-wrapper {
+          max-width: 450px;
         }
         
-        .tech-badgee {
+        /* SVG Logo Styling */
+        .logo-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+        }
+        
+        .svg-logo-container {
+          width: 100%;
+          max-width: 350px;
+          margin: 0 auto;
+          position: relative;
+        }
+        
+        .svg-logo {
+          width: 100%;
+          filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+        }
+        
+        /* Service Badges */
+        .service-badge {
           padding: 0.5rem 1rem;
           border-radius: 8px;
           background-color: rgba(17, 25, 40, 0.8);
@@ -397,9 +422,9 @@ const Hero = () => {
           pointer-events: auto;
         }
         
-        .frontend-badge {
+        .development-badge {
           top: 10%;
-          right: -10%;
+          right: -5%;
           transform: rotate(5deg);
           color: #34d399;
           border-color: rgba(52, 211, 153, 0.3);
@@ -408,7 +433,7 @@ const Hero = () => {
         
         .backend-badge {
           bottom: 10%;
-          left: -10%;
+          left: -5%;
           transform: rotate(-8deg);
           color: #60a5fa;
           border-color: rgba(59, 130, 246, 0.3);
@@ -417,15 +442,15 @@ const Hero = () => {
         
         .database-badge {
           top: 50%;
-          left: -15%;
+          left: -10%;
           transform: translateY(-50%) rotate(-5deg);
           color: #a78bfa;
           border-color: rgba(167, 139, 250, 0.3);
           z-index: 10;
         }
         
-        .experience-badge {
-          bottom: 5%;
+        .analytics-badge {
+          bottom: 20%;
           right: -5%;
           transform: rotate(8deg);
           color: #fbbf24;
@@ -433,13 +458,13 @@ const Hero = () => {
           z-index: 10;
         }
         
-        .tech-badgee:hover {
+        .service-badge:hover {
           transform: translateY(-5px) rotate(0deg);
           box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
         
-        /* Featured Technologies */
-        .featured-tech {
+        /* Client Trust Badge */
+        .client-trust {
           background-color: rgba(17, 25, 40, 0.8);
           backdrop-filter: blur(10px);
           border-radius: 12px;
@@ -449,30 +474,24 @@ const Hero = () => {
           box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
         
-        @media (min-width: 992px) {
-
-          .featured-tech {
-            position: absolute;
-            bottom: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-          }
-        }
-        
-        .featured-tech-header {
+        .client-trust-header {
           font-size: 0.875rem;
           font-weight: 600;
           color: rgba(255, 255, 255, 0.9);
         }
         
-        .tech-item {
+        .client-logos {
+          margin-top: 10px;
+        }
+        
+        .client-logo {
           color: rgba(255, 255, 255, 0.7);
           font-size: 0.875rem;
+          font-weight: 500;
         }
         
         /* Fix for badge text */
-        .tech-badgee span {
+        .service-badge span {
           color: inherit;
         }
         
@@ -483,10 +502,33 @@ const Hero = () => {
         }
         
         /* Responsive Adjustments */
+        @media (max-width: 991.98px) {
+          .logo-section {
+            padding: 0 1rem;
+          }
+          
+          .service-badge {
+            transform: scale(0.9);
+          }
+          
+          .development-badge {
+            right: 0;
+          }
+          
+          .backend-badge {
+            left: 0;
+          }
+          
+          .analytics-badge {
+            right: 0;
+          }
+        }
+        
         @media (max-width: 767.98px) {
+
           #home{
-            padding-top: 150px;       
-           }
+            padding-top: 100px;
+          }
           .hero-title {
             font-size: 2.25rem !important;
           }
@@ -499,13 +541,21 @@ const Hero = () => {
             font-size: 1rem !important;
           }
           
-          .tech-badgee {
+          .service-badge {
             padding: 0.4rem 0.8rem;
             font-size: 0.8rem;
+          }
+          
+          .svg-logo-container {
+            max-width: 300px;
           }
         }
 
         @media (max-width: 575.98px) {
+          section {
+            padding-top: 2rem;
+          }
+          
           .hero-title {
             font-size: 2rem !important;
           }
@@ -514,9 +564,32 @@ const Hero = () => {
             gap: 1rem;
           }
           
-          .tech-badgee {
-            /* Make badges a bit smaller on very small screens */
-            transform: scale(0.9);
+          .svg-logo-container {
+            max-width: 260px;
+          }
+          
+          .service-badge {
+            transform: scale(0.8);
+          }
+          
+          .development-badge {
+            top: 5%;
+            right: -5%;
+          }
+          
+          .backend-badge {
+            bottom: 5%;
+            left: -5%;
+          }
+          
+          .database-badge {
+            top: 40%;
+            left: -10%;
+          }
+          
+          .analytics-badge {
+            bottom: 15%;
+            right: -5%;
           }
         }
       `}</style>

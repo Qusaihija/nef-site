@@ -116,7 +116,7 @@ const CreativeSkillsSection = () => {
         <div className="row justify-content-center">
           <div className="col-lg-8 text-center">
             <h2 className="display-5 fw-bold mt-5 text-white mb-4 skills-title">
-              My Tech Toolkit
+              Our Tech Toolkit
             </h2>
             <div className="text-center mb-5">
               <div className="d-inline-block px-4 py-1 rounded-pill skills-subtitle-container">

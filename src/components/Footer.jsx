@@ -105,11 +105,10 @@ const EnhancedFooter = () => {
         <div className="footer-row footer-bottom-row">
           <div className="footer-copyright-container">
             <p className="footer-copyright">
-              &copy; {new Date().getFullYear()} Anthony Otoibhi. All rights reserved.
+              &copy; {new Date().getFullYear()} StarkWave. All rights reserved.
             </p>
             <p className="footer-made-with">
-              Made with <Heart size={14} className="footer-heart-icon" /> and modern web technologies
-            </p>
+              Made with <Heart size={14} className="footer-heart-icon" /></p>
           </div>
           
           <div className="footer-social-container">

@@ -1,30 +1,30 @@
 import React, { useEffect } from 'react';
-import { Award, BookOpen, Code, UserCheck, CodeSquare, ChevronRight } from 'lucide-react';
+import { Award, BookOpen, Code, Globe, CodeSquare, ChevronRight, Building, Users } from 'lucide-react';
 
 const EnhancedAboutSection = () => {
-  const skills = [
-    "JavaScript (ES6+)", "React.js", "Next.js", "TypeScript",
-    "Tailwind CSS", "Node.js", "Redux", "GraphQL",
-    "Framer Motion", "Jest", "Figma", "Git"
+  const expertise = [
+    "Frontend Development", "Backend Systems", "Mobile Applications", "UI/UX Design",
+    "Cloud Architecture", "Database Design", "API Development", "E-commerce",
+    "CMS Solutions", "Performance Optimization", "DevOps", "AI Integration"
   ];
 
   const achievements = [
     {
-      icon: <Award size={20} />,
-      title: "5+ Years Experience",
-      description: "Delivering high-quality web solutions",
+      icon: <Building size={20} />,
+      title: "5+ Years",
+      description: "Delivering digital excellence",
       color: "#34d399" // green
     },
     {
-      icon: <UserCheck size={20} />,
-      title: "30+ Projects",
-      description: "Successfully completed for clients",
+      icon: <Users size={20} />,
+      title: "15+ Clients",
+      description: "Across various industries",
       color: "#60a5fa" // blue
     },
     {
-      icon: <CodeSquare size={20} />,
-      title: "10+ Tech Stack",
-      description: "Technologies mastered and implemented",
+      icon: <Globe size={20} />,
+      title: "4+ Countries",
+      description: "Global presence and projects",
       color: "#a78bfa" // purple
     }
   ];
@@ -116,11 +116,11 @@ const EnhancedAboutSection = () => {
         <div className="row justify-content-center">
           <div className="col-lg-8 text-center">
             <h2 className="display-5 fw-bold mt-5 text-white mb-4 about-title">
-              About Me
+              About Us
             </h2>
             <div className="text-center mb-5">
               <div className="d-inline-block px-4 py-1 rounded-pill about-subtitle-container">
-                <span className="about-subtitle">The Journey Behind The Code</span>
+                <span className="about-subtitle">Innovation Through Technology</span>
               </div>
             </div>
           </div>
@@ -161,24 +161,26 @@ const EnhancedAboutSection = () => {
               <div className="about-section-header">
                 <div className="about-section-badge" style={{ backgroundColor: `#34d39920`, borderColor: '#34d399' }}>
                   <BookOpen size={20} className="about-section-icon" />
-                  <span className="about-section-text" style={{ color: '#34d399' }}>My Background</span>
+                  <span className="about-section-text" style={{ color: '#34d399' }}>Our Story</span>
                 </div>
                 <div className="about-section-line" style={{ backgroundColor: '#34d399' }}></div>
               </div>
               
               <div className="about-panel">
                 <p className="about-text mb-3">
-                  With over 5 years of experience in web development, I've worked with a diverse range of 
-                  clients from startups to large enterprises. I've been passionate about creating intuitive and performant web applications.
+                  Founded in 2019, StarkWave Technologies has evolved into a leading digital solutions provider 
+                  with a clear mission: to empower businesses through innovative technology solutions that drive 
+                  growth and transformation.
                 </p>
                 <p className="about-text mb-3">
-                  I specialize in frontend development with React.js and modern JavaScript, but I'm also 
-                  comfortable working with backend technologies like Node.js and Express. I believe in writing clean, 
-                  maintainable code and delivering exceptional user experiences.
+                  Our team consists of experienced developers, designers, and strategists who work collaboratively 
+                  to deliver exceptional digital experiences. We've partnered with businesses across various industries, 
+                  from startups to large enterprises, helping them navigate the complex digital landscape.
                 </p>
                 <p className="about-text mb-0">
-                  When I'm not coding, you'll find me reading about new technologies, or experimenting 
-                  with digital art. I'm always open to new challenges and opportunities to grow as a developer.
+                  We believe in combining technical excellence with strategic thinking to create solutions that not only 
+                  meet current needs but are also scalable for future growth. Our client-focused approach ensures that 
+                  every project we undertake is aligned with our clients' business objectives.
                 </p>
               </div>
             </div>
@@ -189,14 +191,14 @@ const EnhancedAboutSection = () => {
               <div className="about-section-header">
                 <div className="about-section-badge" style={{ backgroundColor: `#60a5fa20`, borderColor: '#60a5fa' }}>
                   <Code size={20} className="about-section-icon" />
-                  <span className="about-section-text" style={{ color: '#60a5fa' }}>Skills & Expertise</span>
+                  <span className="about-section-text" style={{ color: '#60a5fa' }}>Our Expertise</span>
                 </div>
                 <div className="about-section-line" style={{ backgroundColor: '#60a5fa' }}></div>
               </div>
               
               <div className="about-panel">
                 <div className="row row-cols-1 row-cols-sm-2 g-3">
-                  {skills.map((skill, index) => (
+                  {expertise.map((skill, index) => (
                     <div key={skill} className="col">
                       <div className="about-skill-item">
                         <div className="about-skill-indicator">
