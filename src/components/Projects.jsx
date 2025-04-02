@@ -30,15 +30,15 @@ const Projects = () => {
         githubUrl: "https://github.com/username/project3"
       }
     ],
-    mobileApps: [
+    ecommerce: [
       {
-        id: "Learning Platform",
-        title: "MEBI Learning Platforms",
-        description: "A comprehensive mobile education platform featuring personalized learning paths, interactive content, and progress tracking designed specifically for remote and hybrid learning environments.",
+        id: "E-commerce",
+        title: "TEGHESE",
+        description: "TEGHESE is a feature-rich e-commerce website built with React and Node.js that offers seamless shopping experiences with real-time product browsing, secure payments, and innovative live customer support.",
         image: "/assets/images/proj3.png",
-        technologies: ["React Native", "Node.js", "MongoDB", "WebRTC"],
+        technologies: ["React", "Node.js", "MongoDB", "WebRTC"],
         category: "Mobile App",
-        liveUrl: "https://example.com/project5",
+        liveUrl: "https://teghese.netlify.app/",
         githubUrl: "https://github.com/username/project5"
       }
     ],
@@ -55,12 +55,12 @@ const Projects = () => {
       }
     ]
   };
-
+  
   // Get all projects flattened for filtering
   const allProjects = [
     ...projectsData.featured,
     ...projectsData.webApps,
-    ...projectsData.mobileApps,
+    ...projectsData.ecommerce,
     ...projectsData.aiProjects
   ];
   
@@ -79,7 +79,7 @@ const Projects = () => {
     setActiveSection(section);
     setFilter("All"); // Reset filter when changing sections
   };
-
+  
   return (
     <section id="projects" className="projects-section py-5 py-lg-7 position-relative">
       {/* Background elements */}
@@ -93,6 +93,8 @@ const Projects = () => {
               <Code size={16} className="me-2" />
               <span>Projects Portfolio</span>
             </div>
+            
+            <h2 className="section-title mb-3">My Recent Work</h2>
             
             <p className="section-subtitle">
               Browse through my latest projects showcasing my expertise in web development, 
@@ -190,17 +192,17 @@ const Projects = () => {
                 </div>
               </div>
               
-              {/* Mobile + AI Projects Preview */}
+              {/* E-commerce & AI Projects Preview */}
               <div className="row g-4 mt-5">
                 <div className="col-lg-6">
                   <div className="category-preview">
                     <div className="category-header">
-                      <h3 className="category-title">Mobile Apps</h3>
+                      <h3 className="category-title">E-commerce</h3>
                       <button 
                         className="see-more-link"
                         onClick={() => {
                           handleSectionChange('all');
-                          setFilter('Mobile App');
+                          setFilter('Mobile App'); // Changed from 'ecommerce' to match category
                         }}
                       >
                         See more <ArrowRight size={14} />
@@ -208,7 +210,7 @@ const Projects = () => {
                     </div>
                     
                     <div className="row g-4">
-                      {projectsData.mobileApps.slice(0, 1).map((project, index) => (
+                      {projectsData.ecommerce.slice(0, 1).map((project, index) => (
                         <div className="col-12" key={project.id}>
                           <ProjectCard project={project} index={index} />
                         </div>
@@ -273,7 +275,6 @@ const Projects = () => {
           </>
         )}
       </div>
-
       <style jsx>{`
         .projects-section {
           background-color: #121212;
