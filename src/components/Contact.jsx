@@ -117,8 +117,8 @@ const EnhancedContactSection = () => {
     {
       icon: <Mail size={24} />,
       title: "Email",
-      value: "anuoluwaotoibhi@gmail.com",
-      link: "mailto:anuoluwaotoibhi@gmail.com",
+      value: "starkwave@outlook.com",
+      link: "mailto:starkwave@outlook.com",
       color: "#34d399" // green from skills section
     },
     {

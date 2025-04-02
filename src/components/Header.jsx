@@ -40,18 +40,6 @@ const Header = () => {
     setIsMenuOpen(prevState => !prevState);
   }, []);
 
-  // Close menu when clicking outside
-  useEffect(() => {
-    const closeMenu = (e) => {
-      if (isMenuOpen && !e.target.closest('.header-nav') && !e.target.closest('.toggle-btn')) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('click', closeMenu);
-    return () => document.removeEventListener('click', closeMenu);
-  }, [isMenuOpen]);
-
   // Handle escape key to close menu - accessibility improvement
   useEffect(() => {
     const handleEscKey = (event) => {
@@ -83,18 +71,6 @@ const Header = () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
   }, [handleScroll]);
-
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isMenuOpen]);
 
   return (
     <header className="header-container" role="banner">
@@ -158,76 +134,11 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Mobile navigation overlay */}
+          {/* Mobile navigation - just bottom icons */}
           <div 
             id="navigation-links"
-            className={`mobile-navigation-overlay ${isMenuOpen ? 'menu-open' : ''}`}
+            className={`mobile-navigation ${isMenuOpen ? 'menu-open' : ''}`}
           >
-            <div className="mobile-menu-content">
-              {/* Mobile nav main content */}
-              <div className="mobile-menu-header">
-                <div className="mobile-logo">StarkWave</div>
-                <button 
-                  className="close-menu-btn" 
-                  onClick={() => setIsMenuOpen(false)}
-                  aria-label="Close menu"
-                >
-                  <X size={24} />
-                </button>
-              </div>
-
-              <div className="mobile-menu-user">
-                <div className="user-greeting">
-                  <div className="greeting-text">Welcome to</div>
-                  <div className="greeting-company">StarkWave Technologies</div>
-                </div>
-              </div>
-
-              <ul className="mobile-menu-list">
-                {navigationItems.map((link) => (
-                  <li key={link.id} className="mobile-menu-item">
-                    <a 
-                      href={`#${link.id}`} 
-                      onClick={() => setIsMenuOpen(false)}
-                      className={activeSection === link.id ? 'mobile-nav-link active' : 'mobile-nav-link'}
-                      aria-current={activeSection === link.id ? 'page' : undefined}
-                    >
-                      <span className="mobile-nav-icon">{link.icon}</span>
-                      <span className="mobile-nav-text">{link.label}</span>
-                      <span className="mobile-nav-arrow">
-                        <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M1.5 1L6.5 6L1.5 11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mobile-cta">
-                <a href="#contact" onClick={() => setIsMenuOpen(false)} className="mobile-cta-button">
-                  <Mail size={18} />
-                  <span>Get in Touch</span>
-                </a>
-              </div>
-
-              <div className="mobile-menu-footer">
-                <div className="social-links">
-                  <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                    <Github size={20} />
-                  </a>
-                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                    <Linkedin size={20} />
-                  </a>
-                  <a href="mailto:contact@starkwave.com" aria-label="Email">
-                    <Mail size={20} />
-                  </a>
-                </div>
-                <div className="copyright">
-                  © {new Date().getFullYear()} StarkWave Technologies
-                </div>
-              </div>
-            </div>
 
             {/* Mobile app-like bottom navigation */}
             <div className="mobile-bottom-nav">
@@ -522,149 +433,15 @@ const Header = () => {
           outline: 2px solid rgba(96, 165, 250, 0.7);
         }
 
-        /* Mobile Navigation Overlay */
-        .mobile-navigation-overlay {
+        /* Mobile Navigation */
+        .mobile-navigation {
           display: none;
           position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100vh;
-          background-color: rgba(10, 10, 15, 0.98);
-          backdrop-filter: blur(10px);
           z-index: 15;
-          opacity: 0;
-          visibility: hidden;
-          transition: opacity 0.3s ease, visibility 0.3s ease;
-          overflow: hidden;
         }
 
-        .mobile-navigation-overlay.menu-open {
-          opacity: 1;
-          visibility: visible;
-        }
-
-        .mobile-menu-content {
-          height: calc(100% - 70px); /* Leave space for bottom nav */
-          overflow-y: auto;
-          padding: 2rem 1.5rem;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .mobile-menu-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 2rem;
-        }
-
-        .mobile-logo {
-          font-size: 1.75rem;
-          font-weight: 700;
-          background: linear-gradient(90deg, #34d399, #3b82f6);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-
-        .close-menu-btn {
-          background: transparent;
-          border: none;
-          color: white;
-          padding: 0.5rem;
-          cursor: pointer;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: background-color 0.2s ease;
-        }
-
-        .close-menu-btn:hover,
-        .close-menu-btn:focus {
-          background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .mobile-menu-user {
-          background: linear-gradient(45deg, rgba(52, 211, 153, 0.05), rgba(59, 130, 246, 0.05));
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          border-radius: 12px;
-          padding: 1.5rem;
-          margin-bottom: 2rem;
-        }
-
-        .greeting-text {
-          color: rgba(255, 255, 255, 0.7);
-          font-size: 0.9rem;
-          margin-bottom: 0.25rem;
-        }
-
-        .greeting-company {
-          font-size: 1.25rem;
-          font-weight: 600;
-          background: linear-gradient(90deg, #34d399, #3b82f6);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-
-        .mobile-menu-list {
-          list-style: none;
-          padding: 0;
-          margin: 0 0 2rem 0;
-        }
-
-        .mobile-menu-item {
-          margin-bottom: 0.75rem;
-        }
-
-        .mobile-nav-link {
-          display: flex;
-          align-items: center;
-          padding: 1rem 1.25rem;
-          background: rgba(255, 255, 255, 0.03);
-          color: rgba(255, 255, 255, 0.8);
-          text-decoration: none;
-          border-radius: 10px;
-          transition: all 0.2s ease;
-        }
-
-        .mobile-nav-link.active {
-          background: linear-gradient(45deg, rgba(52, 211, 153, 0.1), rgba(59, 130, 246, 0.1));
-          border: 1px solid rgba(52, 211, 153, 0.2);
-          color: white;
-        }
-
-        .mobile-nav-link:hover,
-        .mobile-nav-link:focus {
-          background: rgba(255, 255, 255, 0.05);
-          color: white;
-        }
-
-        .mobile-nav-icon {
-          margin-right: 1rem;
-          color: rgba(255, 255, 255, 0.7);
-          display: flex;
-          align-items: center;
-        }
-
-        .mobile-nav-link.active .mobile-nav-icon {
-          color: #34d399;
-        }
-
-        .mobile-nav-text {
-          flex: 1;
-          font-weight: 500;
-          font-size: 1rem;
-        }
-
-        .mobile-nav-arrow {
-          color: rgba(255, 255, 255, 0.4);
-        }
-
-        .mobile-nav-link.active .mobile-nav-arrow {
-          color: rgba(255, 255, 255, 0.7);
+        .mobile-navigation.menu-open {
+          display: block;
         }
 
         /* Mobile Bottom Navigation */
@@ -676,18 +453,18 @@ const Header = () => {
           width: 100%;
           height: 70px;
           background: rgba(18, 18, 23, 0.95);
-          backdrop-filter: blur(10px);
+          backdrop-filter: blur(12px);
           display: flex;
           justify-content: space-around;
           align-items: center;
-          box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.15);
-          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
           z-index: 30;
           transform: translateY(100%);
-          transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .mobile-navigation-overlay.menu-open .mobile-bottom-nav {
+        .mobile-navigation.menu-open .mobile-bottom-nav {
           transform: translateY(0);
         }
 
@@ -700,11 +477,12 @@ const Header = () => {
           text-decoration: none;
           padding: 0.5rem;
           width: 20%;
-          transition: color 0.2s ease;
+          transition: all 0.2s ease;
         }
 
         .bottom-nav-item.active {
           color: #34d399;
+          transform: translateY(-5px);
         }
 
         .bottom-nav-item:hover,
@@ -714,78 +492,25 @@ const Header = () => {
 
         .bottom-nav-icon {
           margin-bottom: 0.25rem;
+          position: relative;
+        }
+
+        .bottom-nav-item.active .bottom-nav-icon::after {
+          content: '';
+          position: absolute;
+          bottom: -8px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 4px;
+          height: 4px;
+          background: #34d399;
+          border-radius: 50%;
         }
 
         .bottom-nav-label {
           font-size: 0.7rem;
           font-weight: 500;
           text-align: center;
-        }
-
-        /* Mobile CTA */
-        .mobile-cta {
-          margin-bottom: 2rem;
-        }
-
-        .mobile-cta-button {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.75rem;
-          width: 100%;
-          padding: 1rem;
-          background: linear-gradient(45deg, rgba(52, 211, 153, 0.2), rgba(59, 130, 246, 0.2));
-          border: 1px solid rgba(52, 211, 153, 0.3);
-          border-radius: 10px;
-          color: white;
-          font-size: 1rem;
-          font-weight: 600;
-          text-decoration: none;
-          transition: all 0.3s ease;
-        }
-
-        .mobile-cta-button:hover,
-        .mobile-cta-button:focus {
-          background: linear-gradient(45deg, rgba(52, 211, 153, 0.3), rgba(59, 130, 246, 0.3));
-        }
-
-        /* Mobile Menu Footer */
-        .mobile-menu-footer {
-          margin-top: auto;
-          padding-top: 1.5rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .social-links {
-          display: flex;
-          justify-content: center;
-          gap: 1.5rem;
-          margin-bottom: 1rem;
-        }
-
-        .social-links a {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.05);
-          color: rgba(255, 255, 255, 0.8);
-          transition: all 0.3s ease;
-        }
-
-        .social-links a:hover,
-        .social-links a:focus {
-          background: rgba(52, 211, 153, 0.1);
-          color: white;
-          transform: translateY(-3px);
-        }
-
-        .copyright {
-          text-align: center;
-          color: rgba(255, 255, 255, 0.5);
-          font-size: 0.8rem;
         }
 
         /* Responsive Design */
@@ -798,11 +523,11 @@ const Header = () => {
             display: none;
           }
 
-          .mobile-navigation-overlay {
-            display: block;
+          .mobile-navigation {
+            display: none;
           }
 
-          .mobile-bottom-nav {
+          .mobile-navigation.menu-open .mobile-bottom-nav {
             display: flex;
           }
         }
@@ -822,10 +547,6 @@ const Header = () => {
 
           .logo-tagline {
             font-size: 0.65rem;
-          }
-
-          .mobile-menu-content {
-            padding: 1.5rem 1rem;
           }
         }
 
