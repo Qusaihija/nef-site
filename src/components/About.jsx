@@ -169,8 +169,7 @@ const EnhancedAboutSection = () => {
               <div className="about-panel">
                 <p className="about-text mb-3">
                   With over 5 years of experience in web development, I've worked with a diverse range of 
-                  clients from startups to large enterprises. My journey began with a degree in Computer Science, 
-                  and since then, I've been passionate about creating intuitive and performant web applications.
+                  clients from startups to large enterprises. I've been passionate about creating intuitive and performant web applications.
                 </p>
                 <p className="about-text mb-3">
                   I specialize in frontend development with React.js and modern JavaScript, but I'm also 
@@ -178,7 +177,7 @@ const EnhancedAboutSection = () => {
                   maintainable code and delivering exceptional user experiences.
                 </p>
                 <p className="about-text mb-0">
-                  When I'm not coding, you'll find me hiking, reading about new technologies, or experimenting 
+                  When I'm not coding, you'll find me reading about new technologies, or experimenting 
                   with digital art. I'm always open to new challenges and opportunities to grow as a developer.
                 </p>
               </div>

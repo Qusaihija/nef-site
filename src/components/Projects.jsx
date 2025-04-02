@@ -16,17 +16,6 @@ const Projects = () => {
         liveUrl: "https://example.com/project1",
         githubUrl: "https://github.com/username/project1",
         featured: true
-      },
-      {
-        id: "ai-image-generator",
-        title: "AI Image Generator",
-        description: "A web application that leverages machine learning to generate unique images based on text prompts using DALL-E API.",
-        image: "/assets/images/project2.svg",
-        technologies: ["Next.js", "TypeScript", "OpenAI API", "Framer Motion"],
-        category: "AI",
-        liveUrl: "https://example.com/project2",
-        githubUrl: "https://github.com/username/project2",
-        featured: true
       }
     ],
     webApps: [
@@ -39,16 +28,6 @@ const Projects = () => {
         category: "Web App",
         liveUrl: "https://example.com/project3",
         githubUrl: "https://github.com/username/project3"
-      },
-      {
-        id: "blog-platform",
-        title: "Personal Blog Platform",
-        description: "A lightweight yet powerful blogging platform with markdown support, tagging, and SEO optimization.",
-        image: "/assets/images/project4.svg",
-        technologies: ["Gatsby", "GraphQL", "Styled Components", "Netlify CMS"],
-        category: "Web App",
-        liveUrl: "https://example.com/project4",
-        githubUrl: "https://github.com/username/project4"
       }
     ],
     mobileApps: [

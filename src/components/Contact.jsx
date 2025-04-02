@@ -117,21 +117,21 @@ const EnhancedContactSection = () => {
     {
       icon: <Mail size={24} />,
       title: "Email",
-      value: "contact@example.com",
-      link: "mailto:contact@example.com",
+      value: "anuoluwaotoibhi@gmail.com",
+      link: "mailto:anuoluwaotoibhi@gmail.com",
       color: "#34d399" // green from skills section
     },
     {
       icon: <Phone size={24} />,
       title: "Phone",
-      value: "+1 (123) 456-7890",
-      link: "tel:+11234567890",
+      value: "+234 9077798350",
+      link: "tel:+2349077798350",
       color: "#60a5fa" // blue from skills section
     },
     {
       icon: <MapPin size={24} />,
       title: "Location",
-      value: "San Francisco, California",
+      value: "Lagos, Nigeria",
       link: null,
       color: "#a78bfa" // purple from skills section
     }
