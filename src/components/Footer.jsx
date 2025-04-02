@@ -66,9 +66,7 @@ const EnhancedFooter = () => {
       <div className="container mx-auto px-6 relative z-10">
         {/* Top Row - Logo */}
         <div className="footer-row footer-top-row">
-          <div className="footer-logo-container">
-            <span className="footer-logo">AM</span>
-          </div>
+         
         </div>
         
         {/* Second Row - Navigation */}
