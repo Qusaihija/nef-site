@@ -109,7 +109,7 @@ const CreativeSkillsSection = () => {
   }, []);
 
   return (
-    <section className="skills-section py-6 py-lg-8">
+    <section id="skills" className="skills-section py-6 py-lg-8">
       <div className="skills-bg-gradient"></div>
       
       <div className="container mb-5">

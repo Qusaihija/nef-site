@@ -20,16 +20,16 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="min-vh-100 d-flex align-items-center pt-5 position-relative overflow-hidden">
+    <section id="home" className="min-vh-100 d-flex align-items-center position-relative overflow-hidden">
       {/* Enhanced background with multiple gradients and particle effect */}
-      <div className="hero-background">
-        <div className="gradient-sphere gradient-primary"></div>
-        <div className="gradient-sphere gradient-secondary"></div>
-        <div className="particle-container">
+      <div className="position-absolute top-0 start-0 w-100 h-100 hero-background">
+        <div className="position-absolute gradient-sphere gradient-primary"></div>
+        <div className="position-absolute gradient-sphere gradient-secondary"></div>
+        <div className="particle-container position-absolute w-100 h-100">
           {[...Array(20)].map((_, index) => (
             <div 
               key={index} 
-              className="particle"
+              className="particle position-absolute rounded-circle"
               style={{
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
@@ -44,79 +44,83 @@ const Hero = () => {
       </div>
       
       <div className="container position-relative">
-        <div className="row align-items-center gy-5">
+        <div className="row align-items-center">
           {/* Content Column */}
-          <div className="col-lg-7 hero-content" data-aos="fade-up">
+          <div className="col-12 col-lg-7 hero-content mb-5 mb-lg-0" data-aos="fade-up">
             {/* Role Badge */}
-            <div className="role-badge">
-              <span className="role-dot"></span>
+            <div className="role-badge d-inline-flex align-items-center mb-4">
+              <span className="role-dot me-2"></span>
               <span className="role-text">Full-Stack Developer</span>
             </div>
             
             {/* Hero Title */}
-            <h1 className="hero-title">
+            <h1 className="hero-title display-4 fw-bolder mb-3">
               Hi, I'm <span className="gradient-text">Otoibhi Anthony</span>
             </h1>
             
-            <h2 className="hero-subtitle">Building exceptional digital experiences</h2>
+            <h2 className="hero-subtitle fs-3 fw-light mb-4 text-white-50">Building exceptional digital experiences</h2>
             
-            <p className="hero-description">
+            <p className="hero-description fs-5 mb-4 text-white-50">
               I specialize in crafting modern, high-performance web applications 
               that solve real business problems. With expertise in both frontend and backend technologies, 
               I deliver solutions that are not only visually appealing but also scalable and maintainable.
             </p>
             
             {/* Hero Stats */}
-            <div className="hero-stats">
+            <div className="hero-stats d-flex flex-wrap align-items-center mb-4">
               <div className="stat-item">
-                <span className="stat-number">5+</span>
-                <span className="stat-label">Years Experience</span>
+                <span className="stat-number gradient-text fs-2 fw-bold">5+</span>
+                <span className="stat-label d-block">Years Experience</span>
               </div>
-              <div className="stat-divider"></div>
+              
+              <div className="stat-divider d-none d-md-block"></div>
+              
               <div className="stat-item">
-                <span className="stat-number">50+</span>
-                <span className="stat-label">Projects Completed</span>
+                <span className="stat-number gradient-text fs-2 fw-bold">50+</span>
+                <span className="stat-label d-block">Projects Completed</span>
               </div>
-              <div className="stat-divider"></div>
+              
+              <div className="stat-divider d-none d-md-block"></div>
+              
               <div className="stat-item">
-                <span className="stat-number">20+</span>
-                <span className="stat-label">Happy Clients</span>
+                <span className="stat-number gradient-text fs-2 fw-bold">20+</span>
+                <span className="stat-label d-block">Happy Clients</span>
               </div>
             </div>
             
             {/* CTA Buttons */}
-            <div className="hero-cta">
-              <a href="#projects" className="btn-primary">
+            <div className="hero-cta d-flex flex-wrap gap-3 mb-4">
+              <a href="#projects" className="btn-primary btn d-flex align-items-center gap-2">
                 <span>View Projects</span>
                 <ArrowRight size={18} />
               </a>
-              <a href="/resume.pdf" className="btn-secondary" target="_blank" rel="noopener noreferrer">
+              <a href="/resume.pdf" className="btn-secondary btn d-flex align-items-center gap-2" target="_blank" rel="noopener noreferrer">
                 <Download size={18} />
                 <span>Download CV</span>
               </a>
             </div>
             
             {/* Social Links */}
-            <div className="hero-social">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="GitHub Profile">
-                <Github size={22} />
-                <span className="d-none d-sm-inline">GitHub</span>
+            <div className="hero-social d-flex flex-wrap align-items-center gap-3">
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-link d-flex align-items-center text-white-50" aria-label="GitHub Profile">
+                <Github size={20} />
+                <span className="d-none d-sm-inline ms-2">GitHub</span>
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="LinkedIn Profile">
-                <Linkedin size={22} />
-                <span className="d-none d-sm-inline">LinkedIn</span>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-link d-flex align-items-center text-white-50" aria-label="LinkedIn Profile">
+                <Linkedin size={20} />
+                <span className="d-none d-sm-inline ms-2">LinkedIn</span>
               </a>
-              <a href="mailto:contact@example.com" className="social-link" aria-label="Email Contact">
-                <Mail size={22} />
-                <span className="d-none d-sm-inline">Email</span>
+              <a href="mailto:contact@example.com" className="social-link d-flex align-items-center text-white-50" aria-label="Email Contact">
+                <Mail size={20} />
+                <span className="d-none d-sm-inline ms-2">Email</span>
               </a>
               
-              <div className="social-divider"></div>
+              <div className="social-divider d-none d-md-block mx-2"></div>
               
-              <div className="availability-indicator">
-                <div className="availability-dot">
-                  <span className="dot"></span>
-                  <span className="pulse"></span>
+              <div className="availability-indicator d-flex align-items-center">
+                <div className="availability-dot position-relative me-2">
+                  <span className="dot position-absolute"></span>
+                  <span className="pulse position-absolute"></span>
                 </div>
                 <span className="availability-text">Available for work</span>
               </div>
@@ -124,58 +128,56 @@ const Hero = () => {
           </div>
           
           {/* Profile Image Column */}
-          <div className="col-lg-5 profile-container" data-aos="fade-up" data-aos-delay="200">
-            <div className="profile-wrapper">
-              
-              
+          <div className="col-12 col-lg-5 profile-container" data-aos="fade-up" data-aos-delay="200">
+            <div className="profile-wrapper position-relative mx-auto">
               {/* Profile image */}
-              <div className="profile-image-container">
+              <div className="profile-image-container position-relative overflow-hidden">
                 <img 
                   src="/logo.png" 
                   alt="Otoibhi Anthony" 
-                  className="profile-image"
+                  className="profile-image img-fluid"
                 />
               </div>
               
               {/* Tech Badges */}
-              <div className="badge-container">
-                <div className="tech-badgee frontend-badge">
-                  <Code size={30} />
+              <div className="badge-container position-absolute top-0 start-0 w-100 h-100">
+                <div className="tech-badgee frontend-badge position-absolute d-flex align-items-center">
+                  <Code size={20} className="me-2" />
                   <span>Frontend</span>
                 </div>
                 
-                <div className="tech-badgee backend-badge">
-                  <Server size={30} />
+                <div className="tech-badgee backend-badge position-absolute d-flex align-items-center">
+                  <Server size={20} className="me-2" />
                   <span>Backend</span>
                 </div>
                 
-                <div className="tech-badgee database-badge">
-                  <Database size={30} />
+                <div className="tech-badgee database-badge position-absolute d-flex align-items-center">
+                  <Database size={20} className="me-2" />
                   <span>Database</span>
                 </div>
                 
-                <div className="tech-badgee experience-badge">
-                  <Briefcase size={30} />
+                <div className="tech-badgee experience-badge position-absolute d-flex align-items-center">
+                  <Briefcase size={20} className="me-2" />
                   <span>5+ Years</span>
                 </div>
               </div>
               
               {/* Featured Technologies */}
-              <div className="featured-tech">
-                <div className="featured-tech-header">
+              <div className="featured-tech position-relative mt-4 mt-lg-0">
+                <div className="featured-tech-header text-center mb-2">
                   <span>Top Technologies</span>
                 </div>
-                <div className="featured-tech-list">
-                  <div className="tech-item">
-                    <ChevronRight size={14} />
+                <div className="featured-tech-list d-flex justify-content-around">
+                  <div className="tech-item d-flex align-items-center">
+                    <ChevronRight size={14} className="text-success me-1" />
                     <span>React</span>
                   </div>
-                  <div className="tech-item">
-                    <ChevronRight size={14} />
+                  <div className="tech-item d-flex align-items-center">
+                    <ChevronRight size={14} className="text-success me-1" />
                     <span>Node.js</span>
                   </div>
-                  <div className="tech-item">
-                    <ChevronRight size={14} />
+                  <div className="tech-item d-flex align-items-center">
+                    <ChevronRight size={14} className="text-success me-1" />
                     <span>MongoDB</span>
                   </div>
                 </div>
@@ -188,17 +190,11 @@ const Hero = () => {
       <style jsx>{`
         /* Background Styling */
         .hero-background {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
           z-index: -1;
           overflow: hidden;
         }
         
         .gradient-sphere {
-          position: absolute;
           border-radius: 50%;
           filter: blur(80px);
         }
@@ -221,16 +217,8 @@ const Hero = () => {
           opacity: 0.7;
         }
         
-        .particle-container {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-        }
-        
         .particle {
-          position: absolute;
           background-color: rgba(255, 255, 255, 0.03);
-          border-radius: 50%;
           animation: float linear infinite;
         }
         
@@ -246,15 +234,16 @@ const Hero = () => {
           transition: transform 0.5s ease-out;
         }
         
+        /* Text color for all normal text */
+        section {
+          color: white;
+        }
+        
         .role-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
           background: rgba(52, 211, 153, 0.1);
           border: 1px solid rgba(52, 211, 153, 0.2);
           border-radius: 100px;
           padding: 0.5rem 1rem;
-          margin-bottom: 1.5rem;
         }
         
         .role-dot {
@@ -271,14 +260,6 @@ const Hero = () => {
           font-size: 0.95rem;
         }
         
-        .hero-title {
-          font-size: 3.5rem;
-          font-weight: 800;
-          line-height: 1.1;
-          color: white;
-          margin-bottom: 1rem;
-        }
-        
         .gradient-text {
           background: linear-gradient(to right, #34d399, #3b82f6);
           -webkit-background-clip: text;
@@ -286,43 +267,13 @@ const Hero = () => {
           -webkit-text-fill-color: transparent;
         }
         
-        .hero-subtitle {
-          font-size: 1.5rem;
-          font-weight: 300;
-          color: rgba(255, 255, 255, 0.7);
-          margin-bottom: 1.5rem;
-        }
-        
-        .hero-description {
-          font-size: 1.1rem;
-          line-height: 1.6;
-          color: rgba(255, 255, 255, 0.7);
-          margin-bottom: 2rem;
-          max-width: 90%;
-        }
-        
         /* Stats Section */
         .hero-stats {
-          display: flex;
-          align-items: center;
-          margin-bottom: 2rem;
-          flex-wrap: wrap;
+          gap: 1.5rem;
         }
         
         .stat-item {
-          display: flex;
-          flex-direction: column;
-          padding-right: 1.5rem;
-        }
-        
-        .stat-number {
-          font-size: 1.75rem;
-          font-weight: 700;
-          background: linear-gradient(to right, #34d399, #3b82f6);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          line-height: 1;
+          padding-right: 0;
         }
         
         .stat-label {
@@ -331,33 +282,30 @@ const Hero = () => {
           margin-top: 0.25rem;
         }
         
+        /* Fix for tech badge colors */
+        .tech-item {
+          color: rgba(255, 255, 255, 0.7);
+          font-size: 0.875rem;
+        }
+        
         .stat-divider {
           width: 1px;
           height: 2.5rem;
           background-color: rgba(255, 255, 255, 0.1);
-          margin: 0 1.5rem 0 0;
+          margin: 0 1rem;
         }
         
         /* CTA Buttons */
-        .hero-cta {
-          display: flex;
-          gap: 1rem;
-          margin-bottom: 2rem;
-          flex-wrap: wrap;
-        }
-        
         .btn-primary {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
           background: linear-gradient(to right, #34d399, #3b82f6);
           color: white;
           font-weight: 600;
           padding: 0.75rem 1.5rem;
           border-radius: 8px;
           text-decoration: none;
-          transition: all 0.3s ease;
           box-shadow: 0 4px 15px rgba(52, 211, 153, 0.25);
+          border: none;
+          transition: all 0.3s ease;
         }
         
         .btn-primary:hover {
@@ -367,17 +315,13 @@ const Hero = () => {
         }
         
         .btn-secondary {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
           background: rgba(255, 255, 255, 0.05);
           color: white;
           font-weight: 600;
           padding: 0.75rem 1.5rem;
           border-radius: 8px;
-          text-decoration: none;
-          transition: all 0.3s ease;
           border: 1px solid rgba(255, 255, 255, 0.1);
+          transition: all 0.3s ease;
         }
         
         .btn-secondary:hover {
@@ -387,17 +331,7 @@ const Hero = () => {
         }
         
         /* Social Links */
-        .hero-social {
-          display: flex;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 1.25rem;
-        }
-        
         .social-link {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
           color: rgba(255, 255, 255, 0.7);
           text-decoration: none;
           transition: all 0.3s ease;
@@ -415,20 +349,12 @@ const Hero = () => {
           background-color: rgba(255, 255, 255, 0.1);
         }
         
-        .availability-indicator {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-        
         .availability-dot {
-          position: relative;
           width: 10px;
           height: 10px;
         }
         
         .dot {
-          position: absolute;
           width: 10px;
           height: 10px;
           background-color: #10b981;
@@ -436,7 +362,6 @@ const Hero = () => {
         }
         
         .pulse {
-          position: absolute;
           width: 10px;
           height: 10px;
           background-color: #10b981;
@@ -455,51 +380,10 @@ const Hero = () => {
         }
         
         .profile-wrapper {
-          position: relative;
           max-width: 400px;
-          margin: 0 auto;
-        }
-        
-        .profile-glow {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 90%;
-          height: 90%;
-          background: linear-gradient(135deg, rgba(52, 211, 153, 0.3), rgba(59, 130, 246, 0.3));
-          border-radius: 50%;
-          filter: blur(40px);
-          z-index: -1;
-        }
-        
-        .profile-image-container {
-          position: relative;
-          overflow: hidden;
-          border-radius: 50%;
-        }
-        
-        .profile-image {
-          width: 100%;
-          height: auto;
-          display: block;
-        }
-        
-        /* Tech Badges */
-        .badge-container {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
         }
         
         .tech-badgee {
-          position: absolute;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
           padding: 0.5rem 1rem;
           border-radius: 8px;
           background-color: rgba(17, 25, 40, 0.8);
@@ -556,42 +440,40 @@ const Hero = () => {
         
         /* Featured Technologies */
         .featured-tech {
-          position: absolute;
-          bottom: -60px;
-          left: 50%;
-          transform: translateX(-50%);
           background-color: rgba(17, 25, 40, 0.8);
           backdrop-filter: blur(10px);
           border-radius: 12px;
           padding: 1rem;
-          width: 80%;
+          width: 100%;
           border: 1px solid rgba(255, 255, 255, 0.05);
           box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (min-width: 992px) {
+
+          .featured-tech {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+          }
         }
         
         .featured-tech-header {
           font-size: 0.875rem;
           font-weight: 600;
           color: rgba(255, 255, 255, 0.9);
-          margin-bottom: 0.5rem;
-          text-align: center;
-        }
-        
-        .featured-tech-list {
-          display: flex;
-          justify-content: space-around;
         }
         
         .tech-item {
-          display: flex;
-          align-items: center;
-          gap: 0.25rem;
           color: rgba(255, 255, 255, 0.7);
           font-size: 0.875rem;
         }
         
-        .tech-item svg {
-          color: #34d399;
+        /* Fix for badge text */
+        .tech-badgee span {
+          color: inherit;
         }
         
         /* Animations */
@@ -601,64 +483,40 @@ const Hero = () => {
         }
         
         /* Responsive Adjustments */
-        @media (max-width: 1200px) {
+        @media (max-width: 767.98px) {
+          #home{
+            padding-top: 150px;       
+           }
           .hero-title {
-            font-size: 3rem;
+            font-size: 2.25rem !important;
           }
-        }
-        
-        @media (max-width: 992px) {
-          .hero-title {
-            font-size: 2.5rem;
+          
+          .hero-subtitle {
+            font-size: 1.25rem !important;
+          }
+          
+          .hero-description {
+            font-size: 1rem !important;
           }
           
           .tech-badgee {
             padding: 0.4rem 0.8rem;
             font-size: 0.8rem;
           }
-          
-          .featured-tech {
-            bottom: -50px;
-          }
         }
-        
-        @media (max-width: 768px) {
+
+        @media (max-width: 575.98px) {
+          .hero-title {
+            font-size: 2rem !important;
+          }
+          
           .hero-stats {
             gap: 1rem;
           }
           
-          .stat-divider {
-            display: none;
-          }
-          
-          .stat-item {
-            padding-right: 0;
-            min-width: 90px;
-          }
-          
-          .featured-tech {
-            position: relative;
-            bottom: auto;
-            margin-top: 2rem;
-            width: 100%;
-          }
-        }
-        
-        @media (max-width: 576px) {
-          .hero-title {
-            font-size: 2.25rem;
-          }
-          
-          .hero-subtitle {
-            font-size: 1.25rem;
-          }
-          
-          .hero-description {
-            font-size: 1rem;
-          }
-          
-          .availability-text {
-            font-size: 0.875rem;
+          .tech-badgee {
+            /* Make badges a bit smaller on very small screens */
+            transform: scale(0.9);
           }
         }
       `}</style>
