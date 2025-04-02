@@ -7,36 +7,36 @@ const Projects = () => {
   const projectsData = {
     featured: [
       {
-        id: "ecommerce-dashboard",
-        title: "E-Commerce Dashboard",
-        description: "A comprehensive dashboard for e-commerce businesses with real-time analytics, inventory management, and customer insights.",
-        image: "/assets/images/project1.svg",
-        technologies: ["React", "Redux", "Tailwind CSS", "Chart.js"],
+        id: "Portfolio",
+        title: "Ace Concept Portfolio",
+        description: "A modern, responsive portfolio website showcasing client achievements and creative work with a clean, intuitive interface and seamless navigation experience.",
+        image: "/assets/images/proj1.png",
+        technologies: ["React", "Next.js", "Tailwind CSS", "Framer Motion"],
         category: "Web App",
-        liveUrl: "https://example.com/project1",
-        githubUrl: "https://github.com/username/project1",
+        liveUrl: "https://aceconcept.vercel.app/",
+        githubUrl: "https://github.com/username/project3",
         featured: true
       }
     ],
     webApps: [
       {
-        id: "finance-app",
-        title: "Finance Management App",
-        description: "A personal finance management application that helps users track expenses, set budgets, and visualize spending patterns.",
-        image: "/assets/images/project3.svg",
-        technologies: ["React", "Firebase", "Material UI", "D3.js"],
+        id: "app",
+        title: "Memory Vault",
+        description: "A secure digital storage solution that enables users to preserve, organize, and selectively share life's important memories through an encrypted and intuitive platform.",
+        image: "/assets/images/proj2.png",
+        technologies: ["React", "Firebase", "Cloud Storage", "Authentication"],
         category: "Web App",
-        liveUrl: "https://example.com/project3",
+        liveUrl: "https://memoryvault10.netlify.app/",
         githubUrl: "https://github.com/username/project3"
       }
     ],
     mobileApps: [
       {
-        id: "weather-app",
-        title: "Weather Forecast App",
-        description: "A sleek weather application providing real-time forecasts, radar visualizations, and location-based alerts.",
-        image: "/assets/images/project5.svg",
-        technologies: ["React Native", "Redux", "Weather API", "Geolocation"],
+        id: "Learning Platform",
+        title: "MEBI Learning Platforms",
+        description: "A comprehensive mobile education platform featuring personalized learning paths, interactive content, and progress tracking designed specifically for remote and hybrid learning environments.",
+        image: "/assets/images/proj3.png",
+        technologies: ["React Native", "Node.js", "MongoDB", "WebRTC"],
         category: "Mobile App",
         liveUrl: "https://example.com/project5",
         githubUrl: "https://github.com/username/project5"
@@ -44,13 +44,13 @@ const Projects = () => {
     ],
     aiProjects: [
       {
-        id: "sentiment-analysis",
-        title: "Sentiment Analysis Tool",
-        description: "An NLP-powered tool that analyzes text for sentiment, emotion, and key phrases to provide actionable insights.",
-        image: "/assets/images/project6.svg",
-        technologies: ["Python", "TensorFlow", "Flask", "D3.js"],
+        id: "AI Company website",
+        title: "AI Company",
+        description: "A corporate website for an AI innovation firm showcasing their cutting-edge solutions, research initiatives, and industry applications through an elegant and informative digital presence.",
+        image: "/assets/images/proj4.png",
+        technologies: ["React", "Three.js", "GSAP", "Contentful CMS"],
         category: "AI",
-        liveUrl: "https://example.com/project6",
+        liveUrl: "https://starkwaveinc.netlify.app/",
         githubUrl: "https://github.com/username/project6"
       }
     ]
