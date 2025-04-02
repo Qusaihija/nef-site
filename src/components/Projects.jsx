@@ -94,8 +94,7 @@ const Projects = () => {
               <span>Projects Portfolio</span>
             </div>
             
-            <h2 className="section-title mb-3">My Recent Work</h2>
-            
+           
             <p className="section-subtitle">
               Browse through my latest projects showcasing my expertise in web development, 
               mobile applications, and artificial intelligence solutions.
