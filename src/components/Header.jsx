@@ -104,7 +104,7 @@ const Header = () => {
         <div className="content-wrapper">
           <div className="header-logo-container">
             <a href="#home" className="site-logo" aria-label="Home">
-              <span className="logo-name">Anthony</span>
+              <span className="logo-name">StarkWave</span>
               <span className="logo-accent" aria-hidden="true"></span>
             </a>
           </div>
