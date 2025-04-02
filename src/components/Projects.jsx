@@ -93,8 +93,6 @@ const Projects = () => {
               <Code size={16} className="me-2" />
               <span>Projects Portfolio</span>
             </div>
-            
-           
             <p className="section-subtitle">
               Browse through my latest projects showcasing my expertise in web development, 
               mobile applications, and artificial intelligence solutions.

@@ -1,48 +1,59 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Menu, X, Home, Code, FolderOpen, User, Mail, Github, Linkedin } from 'lucide-react';
+import { Menu, X, Home, Code, FolderOpen, User, Mail } from 'lucide-react';
+
+// Navigation configuration
+const NAVIGATION_ITEMS = [
+  { id: 'home', label: 'Home', icon: <Home size={24} strokeWidth={1.5} /> },
+  { id: 'skills', label: 'Skills', icon: <Code size={24} strokeWidth={1.5} /> },
+  { id: 'projects', label: 'Projects', icon: <FolderOpen size={24} strokeWidth={1.5} /> },
+  { id: 'about', label: 'About', icon: <User size={24} strokeWidth={1.5} /> },
+  { id: 'contact', label: 'Contact', icon: <Mail size={24} strokeWidth={1.5} /> }
+];
+
+// Throttle helper function
+const throttle = (callback, delay = 100) => {
+  let timeoutId = null;
+  return (...args) => {
+    if (!timeoutId) {
+      timeoutId = setTimeout(() => {
+        callback(...args);
+        timeoutId = null;
+      }, delay);
+    }
+  };
+};
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
-  // Navigation items with icons for mobile app-like experience
-  const navigationItems = [
-    { id: 'home', label: 'Home', icon: <Home size={24} strokeWidth={1.5} /> },
-    { id: 'skills', label: 'Skills', icon: <Code size={24} strokeWidth={1.5} /> },
-    { id: 'projects', label: 'Projects', icon: <FolderOpen size={24} strokeWidth={1.5} /> },
-    { id: 'about', label: 'About', icon: <User size={24} strokeWidth={1.5} /> },
-    { id: 'contact', label: 'Contact', icon: <Mail size={24} strokeWidth={1.5} /> }
-  ];
+  // Determine active section based on scroll position
+  const updateActiveSection = useCallback(() => {
+    const currentSection = NAVIGATION_ITEMS.find(({ id }) => {
+      const element = document.getElementById(id);
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        return rect.top <= 100 && rect.bottom > 0;
+      }
+      return false;
+    })?.id || 'home';
+    
+    setActiveSection(currentSection);
+  }, []);
 
-  // Memoized scroll handler with throttling for better performance
+  // Handle scroll with requestAnimationFrame for better performance
   const handleScroll = useCallback(() => {
-    // Use requestAnimationFrame for smoother performance
     requestAnimationFrame(() => {
       setIsScrolled(window.scrollY > 50);
-      
-      // Determine active section based on scroll position
-      const currentSection = navigationItems.find(({ id }) => {
-        const element = document.getElementById(id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom > 0;
-        }
-        return false;
-      })?.id || 'home';
-      
-      setActiveSection(currentSection);
+      updateActiveSection();
     });
-  }, [navigationItems]);
+  }, [updateActiveSection]);
 
-  // Toggle menu with accessibility considerations
+  // Toggle menu with haptic feedback
   const toggleMenu = useCallback(() => {
     setIsMenuOpen(prevState => !prevState);
-    
-    // Play haptic feedback if supported
-    if (navigator.vibrate) {
-      navigator.vibrate(50);
-    }
+    if (navigator.vibrate) navigator.vibrate(50);
   }, []);
 
   // Handle navigation item click
@@ -50,19 +61,13 @@ const Header = () => {
     setActiveSection(sectionId);
     setIsMenuOpen(false);
     
-    // Play haptic feedback if supported
-    if (navigator.vibrate) {
-      navigator.vibrate(50);
-    }
+    if (navigator.vibrate) navigator.vibrate(50);
     
-    // Smooth scroll to section
     const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (element) element.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
-  // Handle escape key to close menu - accessibility improvement
+  // Handle escape key to close menu
   useEffect(() => {
     const handleEscKey = (event) => {
       if (event.key === 'Escape' && isMenuOpen) {
@@ -74,35 +79,21 @@ const Header = () => {
     return () => document.removeEventListener('keydown', handleEscKey);
   }, [isMenuOpen]);
 
-  // Scroll event listener with cleanup
+  // Add scroll event listener with throttling
   useEffect(() => {
-    // Throttled scroll handler for better performance
-    let timeoutId = null;
-    const throttledScrollHandler = () => {
-      if (!timeoutId) {
-        timeoutId = setTimeout(() => {
-          handleScroll();
-          timeoutId = null;
-        }, 100); // 100ms throttle
-      }
-    };
-    
+    const throttledScrollHandler = throttle(handleScroll, 100);
     window.addEventListener('scroll', throttledScrollHandler);
-    return () => {
-      window.removeEventListener('scroll', throttledScrollHandler);
-      if (timeoutId) clearTimeout(timeoutId);
-    };
+    
+    return () => window.removeEventListener('scroll', throttledScrollHandler);
   }, [handleScroll]);
 
   return (
     <header className="header-container" role="banner">
       <div className={`header-bg ${isScrolled ? 'header-scrolled' : ''}`}></div>
       
-      <nav 
-        className="header-nav"
-        aria-label="Main navigation"
-      >
+      <nav className="header-nav" aria-label="Main navigation">
         <div className="content-wrapper">
+          {/* Logo */}
           <div className="header-logo-container">
             <a href="#home" className="site-logo" aria-label="Home">
               <div className="logo-text">
@@ -115,6 +106,7 @@ const Header = () => {
             </a>
           </div>
 
+          {/* Menu Toggle Button */}
           <button 
             className="toggle-btn" 
             onClick={toggleMenu}
@@ -123,18 +115,14 @@ const Header = () => {
             aria-label="Toggle menu"
             type="button"
           >
-            {isMenuOpen ? (
-              <X size={24} strokeWidth={2} />
-            ) : (
-              <Menu size={24} strokeWidth={2} />
-            )}
+            {isMenuOpen ? <X size={24} strokeWidth={2} /> : <Menu size={24} strokeWidth={2} />}
             <span className="toggle-pulse"></span>
           </button>
 
-          {/* Desktop navigation */}
+          {/* Desktop Navigation */}
           <div className="desktop-nav">
             <ul className="navigation-menu" role="menu">
-              {navigationItems.map((link) => (
+              {NAVIGATION_ITEMS.map((link) => (
                 <li key={link.id} className="menu-item" role="none">
                   <a 
                     href={`#${link.id}`} 
@@ -157,15 +145,14 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Mobile navigation - just bottom icons */}
+          {/* Mobile Navigation */}
           <div 
             id="navigation-links"
             className={`mobile-navigation ${isMenuOpen ? 'menu-open' : ''}`}
           >
-
             {/* Mobile app-like bottom navigation */}
             <div className="mobile-bottom-nav">
-              {navigationItems.map((link) => (
+              {NAVIGATION_ITEMS.map((link) => (
                 <a 
                   key={link.id}
                   href={`#${link.id}`}
@@ -306,10 +293,7 @@ const Header = () => {
           left: 0;
           height: 3px;
           width: 30%;
-          background: linear-gradient(90deg, 
-            #34d399, 
-            #3b82f6
-          );
+          background: linear-gradient(90deg, #34d399, #3b82f6);
           border-radius: 3px;
           opacity: 0;
           transform: translateX(-100%);
@@ -376,10 +360,7 @@ const Header = () => {
           left: 0.75rem;
           right: 0.75rem;
           height: 2px;
-          background: linear-gradient(to right, 
-            #34d399,
-            #3b82f6
-          );
+          background: linear-gradient(to right, #34d399, #3b82f6);
           border-radius: 2px;
         }
         
@@ -468,9 +449,7 @@ const Header = () => {
           transform: translate(-50%, -50%) scale(0);
           width: 60px;
           height: 60px;
-          background: radial-gradient(circle, 
-            rgba(52, 211, 153, 0.5) 0%, 
-            rgba(59, 130, 246, 0) 70%);
+          background: radial-gradient(circle, rgba(52, 211, 153, 0.5) 0%, rgba(59, 130, 246, 0) 70%);
           border-radius: 50%;
           z-index: -1;
           opacity: 0;
@@ -509,8 +488,7 @@ const Header = () => {
           display: flex;
           justify-content: space-around;
           align-items: center;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
-                      0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
           border-radius: 20px;
           z-index: 30;
           transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -524,10 +502,7 @@ const Header = () => {
           left: 0;
           right: 0;
           height: 1px;
-          background: linear-gradient(90deg, 
-            rgba(255, 255, 255, 0) 0%, 
-            rgba(255, 255, 255, 0.1) 50%, 
-            rgba(255, 255, 255, 0) 100%);
+          background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
         }
         
         .mobile-navigation.menu-open .mobile-bottom-nav {
@@ -553,8 +528,8 @@ const Header = () => {
           position: absolute;
           top: 50%;
           left: 50%;
-          width: 55px;
-          height: 55px;
+          width: 65px;
+          height: 65px;
           border-radius: 16px;
           background: rgba(52, 211, 153, 0.06);
           transform: translate(-50%, -50%) scale(0);
@@ -568,9 +543,7 @@ const Header = () => {
 
         .bottom-nav-item.active::before {
           transform: translate(-50%, -50%) scale(1);
-          background: linear-gradient(135deg, 
-            rgba(52, 211, 153, 0.15), 
-            rgba(59, 130, 246, 0.15));
+          background: linear-gradient(135deg, rgba(52, 211, 153, 0.15), rgba(59, 130, 246, 0.15));
         }
 
         .bottom-nav-item:hover,
@@ -668,19 +641,6 @@ const Header = () => {
           .mobile-bottom-nav {
             width: 95%;
             bottom: 15px;
-          }
-        }
-
-        /* Reduced Motion Preferences */
-        @media (prefers-reduced-motion: reduce) {
-          .mobile-bottom-nav,
-          .bottom-nav-item,
-          .bottom-nav-icon,
-          .bottom-nav-label,
-          .bottom-nav-item::before,
-          .bottom-nav-icon::after {
-            transition-duration: 0.1s !important;
-            animation-duration: 0.1s !important;
           }
         }
 
