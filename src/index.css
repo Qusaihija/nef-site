@@ -1,5 +1,6 @@
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+body{
+    font-family: "Lexend Deca", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  }
