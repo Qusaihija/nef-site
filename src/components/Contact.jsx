@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Mail, MapPin, Phone } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, MapPin, Phone, Github, Linkedin, Twitter, Terminal, ExternalLink } from 'lucide-react';
 
-const EnhancedContactSection = () => {
+const CyberpunkContactSection = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    subject: '',
     message: ''
   });
   
@@ -13,9 +12,10 @@ const EnhancedContactSection = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
   };
   
@@ -35,664 +35,742 @@ const EnhancedContactSection = () => {
         setFormData({
           name: '',
           email: '',
-          subject: '',
           message: ''
         });
       }, 3000);
     }, 1500);
   };
 
-  // Initialize tilt effect for contact cards
-  useEffect(() => {
-    const contactCards = document.querySelectorAll('.contact-info-card');
-    
-    const handleMouseMove = (e, card) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      const deltaX = (x - centerX) / centerX;
-      const deltaY = (y - centerY) / centerY;
-      
-      card.style.transform = `perspective(800px) rotateX(${deltaY * -3}deg) rotateY(${deltaX * 3}deg) scale3d(1.02, 1.02, 1.02)`;
-      card.style.boxShadow = `${deltaX * 10}px ${deltaY * 10}px 20px rgba(0, 0, 0, 0.15)`;
-      
-      const glare = card.querySelector('.contact-card-glare');
-      if (glare) {
-        glare.style.opacity = '0.1';
-        glare.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
-      }
-    };
-    
-    const handleMouseLeave = (card) => {
-      card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-      card.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
-      
-      const glare = card.querySelector('.contact-card-glare');
-      if (glare) {
-        glare.style.opacity = '0';
-      }
-    };
-    
-    contactCards.forEach(card => {
-      // Create glare effect element
-      const glare = document.createElement('div');
-      glare.className = 'contact-card-glare';
-      card.appendChild(glare);
-      
-      card.addEventListener('mousemove', (e) => handleMouseMove(e, card));
-      card.addEventListener('mouseleave', () => handleMouseLeave(card));
-    });
-    
-    // Form input focus effects
-    const formInputs = document.querySelectorAll('.contact-form-input');
-    formInputs.forEach(input => {
-      input.addEventListener('focus', () => {
-        input.parentElement.classList.add('input-focused');
-      });
-      
-      input.addEventListener('blur', () => {
-        input.parentElement.classList.remove('input-focused');
-      });
-    });
-    
-    return () => {
-      contactCards.forEach(card => {
-        card.removeEventListener('mousemove', handleMouseMove);
-        card.removeEventListener('mouseleave', handleMouseLeave);
-      });
-      
-      formInputs.forEach(input => {
-        input.removeEventListener('focus', () => {});
-        input.removeEventListener('blur', () => {});
-      });
-    };
-  }, []);
-
-  // Contact info data with consistent color scheme from previous sections
+  // Contact info data
   const contactInfo = [
     {
-      icon: <Mail size={24} />,
+      icon: <Mail size={20} />,
       title: "Email",
       value: "starkwave@outlook.com",
-      link: "mailto:starkwave@outlook.com",
-      color: "#34d399" // green from skills section
+      link: "mailto:starkwave@outlook.com"
     },
     {
-      icon: <Phone size={24} />,
+      icon: <Phone size={20} />,
       title: "Phone",
       value: "+234 9077798350",
-      link: "tel:+2349077798350",
-      color: "#60a5fa" // blue from skills section
+      link: "tel:+2349077798350"
     },
     {
-      icon: <MapPin size={24} />,
+      icon: <MapPin size={20} />,
       title: "Location",
       value: "Lagos, Nigeria",
-      link: null,
-      color: "#a78bfa" // purple from skills section
+      link: null
     }
   ];
 
+  // Social media links
+  const socialLinks = [
+    { icon: <Github size={20} />, url: "https://github.com/DebrainStark" },
+    { icon: <Linkedin size={20} />, url: "https://www.linkedin.com/in/otoibhi-anthony-b-eng-gnse-970049161" },
+    { icon: <Twitter size={20} />, url: "https://twitter.com/yourhandle" }
+  ];
+
   return (
-    <section id="contact" className="contact-section py-6 py-lg-8 position-relative">
-      {/* Background with gradient similar to skills section */}
-      <div className="contact-bg-gradient"></div>
-      
-      <div className="container mb-5">
-        <div className="row justify-content-center">
-          <div className="col-lg-8 text-center">
-            <h2 className="display-5 fw-bold mt-5 text-white mb-4 contact-title">
-              Get In Touch
-            </h2>
-            <div className="text-center mb-5">
-              <div className="d-inline-block px-4 py-1 rounded-pill contact-subtitle-container">
-                <span className="contact-subtitle">I'm Always Open To New Opportunities</span>
-              </div>
-            </div>
-          </div>
-        </div>
+    <section id="contact" className="contact-section">
+      <div className="cyber-grid"></div>
+      <div className="cyber-gradients">
+        <div className="cyber-gradient-primary"></div>
+        <div className="cyber-gradient-secondary"></div>
       </div>
       
       <div className="container">
-        <div className="row g-4">
-          {/* Contact Info Cards */}
-          <div className="col-lg-5">
-            <div className="contact-section-header mb-4">
-              <div className="contact-section-badge" style={{ backgroundColor: `#34d39920`, borderColor: '#34d399' }}>
-                <Mail size={20} className="contact-section-icon" />
-                <span className="contact-section-text" style={{ color: '#34d399' }}>Contact Info</span>
-              </div>
-              <div className="contact-section-line" style={{ backgroundColor: '#34d399' }}></div>
-            </div>
+        {/* Section Header */}
+        <div className="section-title-container">
+          <div className="title-frame">
+            <div className="corner top-left"></div>
+            <div className="corner top-right"></div>
+            <div className="corner bottom-left"></div>
+            <div className="corner bottom-right"></div>
             
-            <div className="contact-info-container">
+            <h2 className="section-title">
+              <span className="title-prefix">./connect</span>
+              <span className="title-main">contact_me.sh</span>
+            </h2>
+          </div>
+          <p className="section-subtitle">Communication protocols are ready and waiting</p>
+        </div>
+        
+        <div className="contact-container">
+          {/* Contact Info */}
+          <div className="contact-info">
+            <div className="info-cards">
               {contactInfo.map((info, index) => (
-                <div 
-                  key={index} 
-                  className="contact-info-card mb-4"
-                  style={{ 
-                    borderColor: `${info.color}40`,
-                    backgroundColor: `${info.color}10`
-                  }}
-                >
-                  <div className="contact-info-content">
-                    <div className="contact-info-icon" style={{ backgroundColor: `${info.color}20`, color: info.color }}>
-                      {info.icon}
-                    </div>
-                    <div className="contact-info-details">
-                      <h4 className="contact-info-title" style={{ color: info.color }}>{info.title}</h4>
-                      {info.link ? (
-                        <a href={info.link} className="contact-info-value">{info.value}</a>
-                      ) : (
-                        <span className="contact-info-value">{info.value}</span>
-                      )}
-                    </div>
+                <div key={index} className="info-card">
+                  <div className="info-icon">{info.icon}</div>
+                  <div className="info-content">
+                    <h4>{info.title}</h4>
+                    {info.link ? (
+                      <a href={info.link} className="info-value">{info.value}</a>
+                    ) : (
+                      <span className="info-value">{info.value}</span>
+                    )}
                   </div>
-                  {/* Glare effect will be added by JS */}
                 </div>
               ))}
             </div>
             
-            <div className="contact-availability-indicator">
-              <div className="contact-pulse"></div>
-              <span className="contact-availability-text">Currently Available for Freelance</span>
+            <div className="availability">
+              <div className="dot"></div>
+              <span>Available for work</span>
+            </div>
+            
+            <div className="terminal-window">
+              <div className="terminal-header">
+                <div className="terminal-controls">
+                  <span className="terminal-control red"></span>
+                  <span className="terminal-control yellow"></span>
+                  <span className="terminal-control green"></span>
+                </div>
+                <div className="terminal-title">connect@terminal:~</div>
+              </div>
+              <div className="terminal-body">
+                <div className="terminal-line">
+                  <span className="terminal-prompt">$ </span>
+                  <span className="terminal-command">contact --status</span>
+                </div>
+                <div className="terminal-line terminal-output">Available for freelance and full-time opportunities</div>
+                <div className="terminal-line">
+                  <span className="terminal-prompt">$ </span>
+                  <span className="terminal-command">contact --location</span>
+                </div>
+                <div className="terminal-line terminal-output">Lagos, Nigeria</div>
+                <div className="terminal-line">
+                  <span className="terminal-prompt">$ </span>
+                  <span className="terminal-command">connect --socials</span>
+                </div>
+                <div className="terminal-line">
+                  <div className="social-links">
+                    {socialLinks.map((social, index) => (
+                      <a key={index} href={social.url} target="_blank" rel="noopener noreferrer" className="social-link">
+                        {social.icon}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           
           {/* Contact Form */}
-          <div className="col-lg-7">
-            <div className="contact-section-header mb-4">
-              <div className="contact-section-badge" style={{ backgroundColor: `#60a5fa20`, borderColor: '#60a5fa' }}>
-                <Mail size={20} className="contact-section-icon" />
-                <span className="contact-section-text" style={{ color: '#60a5fa' }}>Send Message</span>
-              </div>
-              <div className="contact-section-line" style={{ backgroundColor: '#60a5fa' }}></div>
+          <div className="contact-form-container">
+            <div className="form-header">
+              <Terminal size={18} className="form-header-icon" />
+              <h3 className="form-title">Send Message</h3>
             </div>
             
-            <div className="contact-form-container">
-              {showSuccess ? (
-                <div className="contact-success-message">
-                  <div className="contact-success-icon">✓</div>
-                  <h4>Message Sent Successfully!</h4>
-                  <p>Thanks for reaching out. I'll get back to you as soon as possible.</p>
+            {showSuccess ? (
+              <div className="success-message">
+                <div className="success-icon">
+                  <span>✓</span>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit}>
-                  <div className="row g-4 mb-4">
-                    <div className="col-md-6">
-                      <div className="contact-form-group">
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleChange}
-                          required
-                          className="contact-form-input"
-                          placeholder=" "
-                        />
-                        <label htmlFor="name" className="contact-form-label">Name</label>
-                        <div className="contact-input-highlight"></div>
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="contact-form-group">
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          required
-                          className="contact-form-input"
-                          placeholder=" "
-                        />
-                        <label htmlFor="email" className="contact-form-label">Email</label>
-                        <div className="contact-input-highlight"></div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="contact-form-group mb-4">
+                <h4>Transmission Successful</h4>
+                <p>Your message has been received. Expect a response shortly.</p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="cyber-form">
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="name">
+                      <span className="label-text">Name</span>
+                      <span className="label-decorators">&lt;required&gt;</span>
+                    </label>
                     <input
                       type="text"
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
+                      id="name"
+                      name="name"
+                      value={formData.name}
                       onChange={handleChange}
+                      className="cyber-input"
+                      placeholder="Enter your name"
                       required
-                      className="contact-form-input"
-                      placeholder=" "
                     />
-                    <label htmlFor="subject" className="contact-form-label">Subject</label>
-                    <div className="contact-input-highlight"></div>
                   </div>
                   
-                  <div className="contact-form-group mb-4">
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
+                  <div className="form-group">
+                    <label htmlFor="email">
+                      <span className="label-text">Email</span>
+                      <span className="label-decorators">&lt;required&gt;</span>
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
                       onChange={handleChange}
+                      className="cyber-input"
+                      placeholder="Enter your email"
                       required
-                      rows="5"
-                      className="contact-form-input contact-form-textarea"
-                      placeholder=" "
-                    ></textarea>
-                    <label htmlFor="message" className="contact-form-label">Message</label>
-                    <div className="contact-input-highlight"></div>
+                    />
                   </div>
-                  
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="contact-submit-btn"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <span className="contact-spinner"></span>
-                        <span>Sending...</span>
-                      </>
-                    ) : 'Send Message'}
-                  </button>
-                </form>
-              )}
-            </div>
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="message">
+                    <span className="label-text">Message</span>
+                    <span className="label-decorators">&lt;required&gt;</span>
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="cyber-input cyber-textarea"
+                    placeholder="Enter your message"
+                    required
+                    rows="5"
+                  ></textarea>
+                </div>
+                
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="cyber-button"
+                >
+                  {isSubmitting ? 'Transmitting...' : 'Send Transmission'}
+                  <ExternalLink size={16} className="button-icon" />
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </div>
 
       <style jsx>{`
+        /* Main section styling */
         .contact-section {
+          background-color: #0a0e17;
+          color: #d1e3ff;
+          padding: 5rem 0;
           position: relative;
           overflow: hidden;
-          background-color: rgba(17, 24, 39, 0.8);
+          min-height: 100vh;
         }
         
-        .contact-bg-gradient {
+        /* Cyberpunk background */
+        .cyber-grid {
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-          background: 
-            radial-gradient(circle at 80% 20%, rgba(52, 211, 153, 0.15), transparent 30%),
-            radial-gradient(circle at 20% 60%, rgba(96, 165, 250, 0.15), transparent 30%),
-            radial-gradient(circle at 50% 90%, rgba(167, 139, 250, 0.15), transparent 30%);
-          filter: blur(50px);
+          background-image: 
+            linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+          background-size: 40px 40px;
           z-index: 0;
-        }
-        
-        .contact-title {
-          position: relative;
-          z-index: 1;
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .contact-subtitle-container {
-          background: rgba(52, 211, 153, 0.1);
-          border: 1px solid rgba(52, 211, 153, 0.2);
-          position: relative;
-          z-index: 1;
-        }
-        
-        .contact-subtitle {
-          color: #34d399;
-          font-weight: 500;
-          position: relative;
-        }
-        
-        .contact-section-header {
-          display: flex;
-          align-items: center;
-          margin-bottom: 1rem;
-          margin-left: 2rem;
-        }
-        
-        .contact-section-badge {
-          display: flex;
-          align-items: center;
-          padding: 0.5rem 1rem;
-          border-radius: 100px;
-          border: 1px solid;
-          margin-right: 1rem;
-          z-index: 2;
-        }
-        
-        .contact-section-icon {
-          margin-right: 0.5rem;
-        }
-        
-        .contact-section-text {
-          font-weight: 600;
-          letter-spacing: 0.03em;
-        }
-        
-        .contact-section-line {
-          height: 2px;
-          flex-grow: 1;
           opacity: 0.5;
         }
         
-        .contact-info-container {
-          margin-bottom: 2rem;
-        }
-        
-        .contact-info-card {
-          border-radius: 0.75rem;
-          border: 1px solid;
-          padding: 1.25rem;
-          backdrop-filter: blur(8px);
-          transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
-          position: relative;
-          overflow: hidden;
-          cursor: pointer;
-        }
-        
-        .contact-info-content {
-          display: flex;
-          align-items: center;
-          position: relative;
-          z-index: 1;
-        }
-        
-        .contact-info-icon {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-right: 1rem;
-          flex-shrink: 0;
-        }
-        
-        .contact-info-details {
-          flex-grow: 1;
-        }
-        
-        .contact-info-title {
-          font-weight: 600;
-          font-size: 1.125rem;
-          margin-bottom: 0.25rem;
-        }
-        
-        .contact-info-value {
-          color: rgba(255, 255, 255, 0.7);
-          text-decoration: none;
-          transition: color 0.2s ease;
-          display: block;
-        }
-        
-        .contact-info-value:hover {
-          color: rgba(255, 255, 255, 0.9);
-        }
-        
-        .contact-card-glare {
+        .cyber-gradients {
           position: absolute;
-          width: 100px;
-          height: 100px;
-          background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 50%);
-          border-radius: 50%;
           top: 0;
           left: 0;
-          opacity: 0;
-          transition: opacity 0.2s ease-out;
-          pointer-events: none;
+          width: 100%;
+          height: 100%;
           z-index: 0;
         }
         
-        .contact-availability-indicator {
-          display: flex;
-          align-items: center;
-          padding: 0.75rem 1.5rem;
-          background-color: rgba(52, 211, 153, 0.1);
-          border: 1px solid rgba(52, 211, 153, 0.2);
-          border-radius: 100px;
-          width: fit-content;
-        }
-        
-        .contact-pulse {
-          width: 12px;
-          height: 12px;
-          background-color: #34d399;
-          border-radius: 50%;
-          margin-right: 0.75rem;
-          position: relative;
-        }
-        
-        .contact-pulse::before {
-          content: '';
+        .cyber-gradient-primary {
           position: absolute;
-          width: 100%;
-          height: 100%;
+          top: -10%;
+          right: -10%;
+          width: 70%;
+          height: 70%;
+          background: radial-gradient(circle, rgba(0, 255, 204, 0.15), transparent 70%);
           border-radius: 50%;
-          background-color: rgba(52, 211, 153, 0.8);
-          animation: pulse 2s infinite;
-          top: 0;
-          left: 0;
-          z-index: -1;
+          filter: blur(70px);
+          animation: pulse 8s ease-in-out infinite alternate;
         }
         
-        .contact-availability-text {
-          color: rgba(255, 255, 255, 0.8);
-          font-size: 0.875rem;
+        .cyber-gradient-secondary {
+          position: absolute;
+          bottom: -10%;
+          left: -10%;
+          width: 70%;
+          height: 70%;
+          background: radial-gradient(circle, rgba(255, 0, 85, 0.15), transparent 70%);
+          border-radius: 50%;
+          filter: blur(70px);
+          animation: pulse 8s ease-in-out infinite alternate-reverse;
         }
         
         @keyframes pulse {
-          0% {
-            transform: scale(1);
-            opacity: 0.8;
-          }
-          70% {
-            transform: scale(2.5);
-            opacity: 0;
-          }
-          100% {
-            transform: scale(2.5);
-            opacity: 0;
-          }
+          0% { opacity: 0.5; }
+          100% { opacity: 1; }
         }
         
-        .contact-form-container {
-          background-color: rgba(30, 30, 30, 0.5);
-          backdrop-filter: blur(8px);
-          border-radius: 0.75rem;
-          padding: 2rem;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .contact-form-group {
-          position: relative;
-          margin-bottom: 1.5rem;
-        }
-        
-        .contact-form-input {
+        /* Container styling */
+        .container {
           width: 100%;
-          padding: 0.75rem 1rem;
-          background-color: rgba(30, 30, 30, 0.8);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          border-radius: 0.5rem;
-          color: white;
-          font-size: 1rem;
-          transition: border-color 0.2s ease, box-shadow 0.2s ease;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 1.5rem;
+          position: relative;
           z-index: 1;
+        }
+        
+        /* Section title styling */
+        .section-title-container {
+          text-align: center;
+          margin-bottom: 3rem;
+        }
+        
+        .title-frame {
+          display: inline-block;
           position: relative;
+          padding: 1.5rem 2rem;
+          margin-bottom: 1rem;
         }
         
-        .contact-form-textarea {
-          resize: none;
-          min-height: 120px;
-        }
-        
-        .contact-form-label {
+        .corner {
           position: absolute;
-          left: 1rem;
-          top: 0.75rem;
-          color: rgba(255, 255, 255, 0.5);
-          transition: transform 0.2s ease, font-size 0.2s ease, color 0.2s ease;
-          pointer-events: none;
-          z-index: 2;
+          width: 15px;
+          height: 15px;
         }
         
-        .contact-form-input:focus,
-        .contact-form-input:not(:placeholder-shown) {
-          border-color: #60a5fa;
-          outline: none;
-        }
-        
-        .contact-form-input:focus ~ .contact-form-label,
-        .contact-form-input:not(:placeholder-shown) ~ .contact-form-label {
-          transform: translateY(-1.4rem);
-          font-size: 0.75rem;
-          color: #60a5fa;
-        }
-        
-        .contact-input-highlight {
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          width: 0;
-          height: 2px;
-          background-color: #60a5fa;
-          transition: width 0.3s ease, left 0.3s ease;
-        }
-        
-        .input-focused .contact-input-highlight {
-          width: 100%;
+        .top-left {
+          top: 0;
           left: 0;
+          border-top: 2px solid #0fc;
+          border-left: 2px solid #0fc;
         }
         
-        .contact-submit-btn {
+        .top-right {
+          top: 0;
+          right: 0;
+          border-top: 2px solid #0fc;
+          border-right: 2px solid #0fc;
+        }
+        
+        .bottom-left {
+          bottom: 0;
+          left: 0;
+          border-bottom: 2px solid #0fc;
+          border-left: 2px solid #0fc;
+        }
+        
+        .bottom-right {
+          bottom: 0;
+          right: 0;
+          border-bottom: 2px solid #0fc;
+          border-right: 2px solid #0fc;
+        }
+        
+        .section-title {
+          font-size: 2.5rem;
+          font-weight: 800;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        .title-prefix {
+          display: block;
+          font-size: 1rem;
+          font-family: 'Courier New', monospace;
+          color: #0fc;
+          margin-bottom: 0.5rem;
+          opacity: 0.8;
+        }
+        
+        .title-main {
+          background: linear-gradient(90deg, #0fc, #f05);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          display: inline-block;
+          text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+        
+        .section-subtitle {
+          color: #94a3b8;
+          font-family: 'Courier New', monospace;
+          font-size: 1rem;
+        }
+        
+        /* Contact container */
+        .contact-container {
+          display: grid;
+          grid-template-columns: 1fr 1.5fr;
+          gap: 2rem;
+        }
+        
+        /* Contact info styles */
+        .contact-info {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+        
+        .info-cards {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+        
+        .info-card {
+          display: flex;
+          align-items: center;
+          padding: 1rem;
+          background-color: rgba(0, 0, 0, 0.5);
+          border: 1px solid rgba(0, 255, 204, 0.2);
+          border-radius: 4px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .info-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 5px 15px rgba(0, 255, 204, 0.1);
+          border-color: rgba(0, 255, 204, 0.4);
+        }
+        
+        .info-icon {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 100%;
-          padding: 0.875rem 1.5rem;
-          background: linear-gradient(45deg, #34d399, #60a5fa);
-          border: none;
-          border-radius: 0.5rem;
-          color: white;
+          width: 36px;
+          height: 36px;
+          border-radius: 4px;
+          background-color: rgba(0, 255, 204, 0.1);
+          color: #0fc;
+          margin-right: 1rem;
+        }
+        
+        .info-content h4 {
+          font-size: 0.9rem;
           font-weight: 600;
-          cursor: pointer;
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
+          color: white;
+          margin: 0 0 0.25rem 0;
+          font-family: 'Courier New', monospace;
+        }
+        
+        .info-value {
+          font-size: 0.9rem;
+          color: #94a3b8;
+          text-decoration: none;
+          transition: color 0.2s ease;
+        }
+        
+        a.info-value:hover {
+          color: #0fc;
+        }
+        
+        /* Availability indicator */
+        .availability {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.75rem 1rem;
+          background-color: rgba(0, 0, 0, 0.5);
+          border: 1px solid rgba(0, 255, 204, 0.2);
+          border-radius: 4px;
+          font-family: 'Courier New', monospace;
+        }
+        
+        .dot {
+          width: 8px;
+          height: 8px;
+          background-color: #0fc;
+          border-radius: 50%;
           position: relative;
+        }
+        
+        .dot::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 8px;
+          height: 8px;
+          background-color: rgba(0, 255, 204, 0.5);
+          border-radius: 50%;
+          transform-origin: center;
+          animation: pulse-dot 2s ease-out infinite;
+        }
+        
+        @keyframes pulse-dot {
+          0% { transform: translate(-50%, -50%) scale(0.8); opacity: 1; }
+          100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+        }
+        
+        .availability span {
+          color: #94a3b8;
+          font-size: 0.9rem;
+        }
+        
+        /* Terminal styling */
+        .terminal-window {
+          background-color: rgba(0, 0, 0, 0.7);
+          border-radius: 4px;
+          border: 1px solid rgba(0, 255, 204, 0.3);
+          overflow: hidden;
+          font-family: 'Courier New', monospace;
+          margin-top: auto;
+        }
+        
+        .terminal-header {
+          background-color: rgba(0, 0, 0, 0.8);
+          padding: 8px 12px;
+          display: flex;
+          align-items: center;
+          border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+        }
+        
+        .terminal-controls {
+          display: flex;
+          gap: 6px;
+          margin-right: 12px;
+        }
+        
+        .terminal-control {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+        }
+        
+        .terminal-control.red { background-color: #ff5f56; }
+        .terminal-control.yellow { background-color: #ffbd2e; }
+        .terminal-control.green { background-color: #27c93f; }
+        
+        .terminal-title {
+          font-size: 0.8rem;
+          color: #0fc;
+        }
+        
+        .terminal-body {
+          padding: 1rem;
+          font-size: 0.9rem;
+        }
+        
+        .terminal-line {
+          margin-bottom: 0.75rem;
+          display: flex;
+          align-items: flex-start;
+        }
+        
+        .terminal-prompt {
+          color: #0fc;
+          margin-right: 0.5rem;
+        }
+        
+        .terminal-command {
+          color: white;
+        }
+        
+        .terminal-output {
+          color: #d1e3ff;
+          margin-left: 1rem;
+        }
+        
+        /* Social links - in terminal */
+        .social-links {
+          display: flex;
+          gap: 0.75rem;
+          margin-left: 1rem;
+        }
+        
+        .social-link {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          border-radius: 4px;
+          background-color: rgba(0, 0, 0, 0.5);
+          color: #94a3b8;
+          border: 1px solid rgba(0, 255, 204, 0.2);
+          transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+          color: #0fc;
+          transform: translateY(-3px);
+          box-shadow: 0 5px 10px rgba(0, 255, 204, 0.2);
+          border-color: rgba(0, 255, 204, 0.4);
+        }
+        
+        /* Contact form */
+        .contact-form-container {
+          background-color: rgba(0, 0, 0, 0.5);
+          border: 1px solid rgba(0, 255, 204, 0.2);
+          border-radius: 4px;
           overflow: hidden;
         }
         
-        .contact-submit-btn:before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.2) 50%,
-            rgba(255, 255, 255, 0) 100%
-          );
-          transition: left 0.7s ease;
+        .form-header {
+          display: flex;
+          align-items: center;
+          padding: 1rem 1.5rem;
+          background-color: rgba(0, 0, 0, 0.7);
+          border-bottom: 1px solid rgba(0, 255, 204, 0.2);
         }
         
-        .contact-submit-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(52, 211, 153, 0.3);
+        .form-header-icon {
+          color: #0fc;
+          margin-right: 0.75rem;
         }
         
-        .contact-submit-btn:hover:before {
-          left: 100%;
+        .form-title {
+          color: white;
+          font-size: 1rem;
+          font-weight: 600;
+          margin: 0;
+          font-family: 'Courier New', monospace;
         }
         
-        .contact-submit-btn:disabled {
+        .cyber-form {
+          padding: 1.5rem;
+        }
+        
+        .form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1.5rem;
+          margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+          margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 0.5rem;
+          font-size: 0.9rem;
+          color: #94a3b8;
+          font-family: 'Courier New', monospace;
+        }
+        
+        .label-decorators {
+          color: #0fc;
           opacity: 0.7;
+        }
+        
+        .cyber-input {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          background-color: rgba(0, 0, 0, 0.7);
+          border: 1px solid rgba(0, 255, 204, 0.2);
+          border-radius: 4px;
+          color: white;
+          font-size: 0.9rem;
+          font-family: 'Courier New', monospace;
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .cyber-input:focus {
+          outline: none;
+          border-color: #0fc;
+          box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+        }
+        
+        .cyber-textarea {
+          resize: vertical;
+          min-height: 120px;
+        }
+        
+        .cyber-button {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 0.75rem 1.5rem;
+          background-color: rgba(0, 0, 0, 0.7);
+          color: #0fc;
+          border: 1px solid rgba(0, 255, 204, 0.3);
+          border-radius: 4px;
+          font-size: 0.9rem;
+          font-weight: 500;
+          font-family: 'Courier New', monospace;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        
+        .cyber-button:hover {
+          background-color: rgba(0, 255, 204, 0.1);
+          transform: translateY(-3px);
+          box-shadow: 0 5px 15px rgba(0, 255, 204, 0.15);
+        }
+        
+        .cyber-button:disabled {
+          opacity: 0.6;
           cursor: not-allowed;
         }
         
-        .contact-spinner {
-          width: 20px;
-          height: 20px;
-          border: 2px solid rgba(255, 255, 255, 0.3);
-          border-top-color: white;
-          border-radius: 50%;
-          margin-right: 0.5rem;
-          animation: spin 1s linear infinite;
+        .button-icon {
+          transition: transform 0.2s ease;
         }
         
-        @keyframes spin {
-          to { transform: rotate(360deg); }
+        .cyber-button:hover .button-icon {
+          transform: translateX(3px);
         }
         
-        .contact-success-message {
+        /* Success message */
+        .success-message {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 3rem 2rem;
           text-align: center;
-          padding: 2rem 1rem;
         }
         
-        .contact-success-icon {
-          width: 60px;
-          height: 60px;
-          background-color: rgba(52, 211, 153, 0.2);
-          color: #34d399;
-          border-radius: 50%;
+        .success-icon {
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 2rem;
-          margin: 0 auto 1.5rem;
-          position: relative;
-        }
-        
-        .contact-success-icon:before {
-          content: '';
-          position: absolute;
-          width: 100%;
-          height: 100%;
+          width: 60px;
+          height: 60px;
+          background-color: rgba(0, 255, 204, 0.1);
+          color: #0fc;
+          border: 1px solid rgba(0, 255, 204, 0.3);
           border-radius: 50%;
-          border: 2px solid #34d399;
-          animation: ripple 1.5s ease-out infinite;
-        }
-        
-        .contact-success-message h4 {
-          color: white;
           font-size: 1.5rem;
-          margin-bottom: 0.5rem;
+          margin-bottom: 1.5rem;
         }
         
-        .contact-success-message p {
-          color: rgba(255, 255, 255, 0.7);
+        .success-message h4 {
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin: 0 0 0.75rem 0;
+          color: white;
+          font-family: 'Courier New', monospace;
         }
         
-        @keyframes ripple {
-          0% {
-            transform: scale(1);
-            opacity: 0.5;
-          }
-          100% {
-            transform: scale(1.5);
-            opacity: 0;
+        .success-message p {
+          color: #94a3b8;
+          font-size: 0.9rem;
+          max-width: 400px;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 992px) {
+          .contact-container {
+            grid-template-columns: 1fr;
+            gap: 2rem;
           }
         }
         
         @media (max-width: 768px) {
-          .contact-section-badge {
-            padding: 0.4rem 0.8rem;
+          .section-title {
+            font-size: 2rem;
           }
           
-          .contact-section-text {
-            font-size: 0.875rem;
+          .form-row {
+            grid-template-columns: 1fr;
+            gap: 1rem;
           }
-          
-          .contact-form-container {
-            padding: 1.5rem;
-          }
-          
-          .contact-availability-indicator {
-            padding: 0.6rem 1rem;
+        }
+        
+        @media (max-width: 480px) {
+          .section-title {
+            font-size: 1.75rem;
           }
         }
       `}</style>
@@ -700,4 +778,4 @@ const EnhancedContactSection = () => {
   );
 };
 
-export default EnhancedContactSection;
+export default CyberpunkContactSection;

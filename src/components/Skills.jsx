@@ -1,12 +1,19 @@
 import React, { useEffect } from 'react';
+import { 
+  Code, 
+  Server, 
+  Database, 
+  Wrench,
+  Terminal
+} from 'lucide-react';
 
-const CreativeSkillsSection = () => {
-  // Enhanced skills with icons and proficiency levels
+const CyberpunkSkillsSection = () => {
+  // Enhanced skills with cyberpunk styling and icons
   const skillGroups = [
     {
       category: "Frontend",
-      icon: "🎨",
-      color: "#34d399",
+      icon: <Code size={20} />,
+      color: "#0fc", // Cyan - primary color
       skills: [
         { name: "React", level: 95 },
         { name: "JavaScript", level: 90 },
@@ -19,8 +26,8 @@ const CreativeSkillsSection = () => {
     },
     {
       category: "Backend",
-      icon: "⚙️",
-      color: "#60a5fa",
+      icon: <Server size={20} />,
+      color: "#f05", // Magenta - secondary color
       skills: [
         { name: "Node.js", level: 90 },
         { name: "Express", level: 88 },
@@ -31,8 +38,8 @@ const CreativeSkillsSection = () => {
     },
     {
       category: "Database",
-      icon: "🗄️",
-      color: "#a78bfa",
+      icon: <Database size={20} />,
+      color: "#fc0", // Yellow - tertiary color
       skills: [
         { name: "MongoDB", level: 90 },
         { name: "PostgreSQL", level: 85 },
@@ -42,8 +49,8 @@ const CreativeSkillsSection = () => {
     },
     {
       category: "Tools",
-      icon: "🔧",
-      color: "#f59e0b",
+      icon: <Wrench size={20} />,
+      color: "#8338ec", // Purple - quaternary color
       skills: [
         { name: "Git", level: 92 },
         { name: "Docker", level: 85 },
@@ -54,210 +61,314 @@ const CreativeSkillsSection = () => {
       ]
     }
   ];
-  
-  // Initialize tilt effect for skills
+
+  // Simple hover effect
   useEffect(() => {
-    const skillItems = document.querySelectorAll('.skill-item');
-    
-    const handleMouseMove = (e, item) => {
-      const rect = item.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      const deltaX = (x - centerX) / centerX;
-      const deltaY = (y - centerY) / centerY;
-      
-      item.style.transform = `perspective(800px) rotateX(${deltaY * -5}deg) rotateY(${deltaX * 5}deg) scale3d(1.05, 1.05, 1.05)`;
-      item.style.boxShadow = `${deltaX * 10}px ${deltaY * 10}px 20px rgba(0, 0, 0, 0.1)`;
-      
-      const glare = item.querySelector('.skill-glare');
-      if (glare) {
-        glare.style.opacity = '0.15';
-        glare.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
-      }
-    };
-    
-    const handleMouseLeave = (item) => {
-      item.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-      item.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
-      
-      const glare = item.querySelector('.skill-glare');
-      if (glare) {
-        glare.style.opacity = '0';
-      }
-    };
+    const skillItems = document.querySelectorAll('.cyber-skill-item');
     
     skillItems.forEach(item => {
-      // Create glare effect element
-      const glare = document.createElement('div');
-      glare.className = 'skill-glare';
-      item.appendChild(glare);
+      item.addEventListener('mouseover', () => {
+        item.classList.add('skill-hover');
+      });
       
-      item.addEventListener('mousemove', (e) => handleMouseMove(e, item));
-      item.addEventListener('mouseleave', () => handleMouseLeave(item));
+      item.addEventListener('mouseleave', () => {
+        item.classList.remove('skill-hover');
+      });
     });
     
     return () => {
       skillItems.forEach(item => {
-        item.removeEventListener('mousemove', handleMouseMove);
-        item.removeEventListener('mouseleave', handleMouseLeave);
+        item.removeEventListener('mouseover', () => {});
+        item.removeEventListener('mouseleave', () => {});
       });
     };
   }, []);
 
   return (
-    <section id="skills" className="skills-section py-6 py-lg-8">
-      <div className="skills-bg-gradient"></div>
+    <section id="skills" className="cyber-skills-section">
+      <div className="cyber-gradients">
+        <div className="cyber-gradient-primary"></div>
+        <div className="cyber-gradient-secondary"></div>
+      </div>
       
-      <div className="container mb-5">
-        <div className="row justify-content-center">
-          <div className="col-lg-8 text-center">
-            <h2 className="display-5 fw-bold mt-5 text-white mb-4 skills-title">
-              Our Tech Toolkit
-            </h2>
-            <div className="text-center mb-5">
-              <div className="d-inline-block px-4 py-1 rounded-pill skills-subtitle-container">
-                <span className="skills-subtitle">Where Creativity Meets Technical Expertise</span>
+      <div className="container">
+        <div className="section-header">
+          <div className="header-frame">
+            <div className="corner top-left"></div>
+            <div className="corner top-right"></div>
+            <div className="corner bottom-left"></div>
+            <div className="corner bottom-right"></div>
+            
+            <div className="title-containerr">
+              <h2 className="section-titlee">
+                <span className="title-prefixx">./execute</span>
+                <span className="title-mainn">Tech_Stack.sys</span>
+              </h2>
+              
+              <div className="title-badge">
+                <Terminal size={16} />
+                <span>Where Code Meets Power</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="skills-showcase-container">
-        {skillGroups.map((group, groupIndex) => (
-          <div key={group.category} className="skill-group mb-5">
-            <div className="skill-group-header">
-              <div className="skill-category-badge" style={{ backgroundColor: `${group.color}20`, borderColor: group.color }}>
-                <span className="skill-category-icon">{group.icon}</span>
-                <span className="skill-category-text" style={{ color: group.color }}>{group.category}</span>
+        <div className="skills-showcase">
+          {skillGroups.map((group, groupIndex) => (
+            <div key={group.category} className="skill-group">
+              <div className="skill-header">
+                <div className="skill-category" style={{ borderColor: group.color }}>
+                  <span className="category-icon" style={{ color: group.color }}>{group.icon}</span>
+                  <span className="category-text" style={{ color: group.color }}>{group.category}</span>
+                </div>
+                <div className="cyber-line" style={{ backgroundColor: group.color }}></div>
               </div>
-              <div className="skill-category-line" style={{ backgroundColor: group.color }}></div>
-            </div>
-            
-            <div className={`skill-track ${groupIndex % 2 === 0 ? 'track-left' : 'track-right'}`}>
-              <div className="skill-track-inner">
-                {/* Double the skills to create seamless loop */}
-                {[...group.skills, ...group.skills].map((skill, idx) => (
-                  <div 
-                    key={`${skill.name}-${idx}`} 
-                    className="skill-item"
-                    style={{ 
-                      borderColor: `${group.color}40`,
-                      backgroundColor: `${group.color}10`
-                    }}
-                  >
-                    <div className="skill-content">
-                      <span className="skill-name" style={{ color: group.color }}>
-                        {skill.name}
-                      </span>
-                      <div className="skill-level-bar">
-                        <div 
-                          className="skill-level-fill" 
-                          style={{ 
-                            width: `${skill.level}%`,
-                            backgroundColor: group.color
-                          }}
-                        ></div>
+              
+              <div className={`skill-track ${groupIndex % 2 === 0 ? 'track-left' : 'track-right'}`}>
+                <div className="track-inner">
+                  {/* Double the skills for seamless animation */}
+                  {[...group.skills, ...group.skills].map((skill, idx) => (
+                    <div 
+                      key={`${skill.name}-${idx}`} 
+                      className="cyber-skill-item"
+                      style={{ borderColor: group.color }}
+                    >
+                      <div className="skill-content">
+                        <span className="skill-name" style={{ color: group.color }}>
+                          {skill.name}
+                        </span>
+                        
+                        <div className="skill-level">
+                          <div className="level-bar">
+                            <div 
+                              className="level-fill" 
+                              style={{ 
+                                width: `${skill.level}%`,
+                                backgroundColor: group.color
+                              }}
+                            >
+                              <div className="level-glitch" style={{ backgroundColor: group.color }}></div>
+                            </div>
+                          </div>
+                          <span className="level-value" style={{ color: group.color }}>{skill.level}%</span>
+                        </div>
                       </div>
                     </div>
-                    {/* Glare element will be added by JS */}
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       <style jsx>{`
-        .skills-section {
+        .cyber-skills-section {
           position: relative;
           overflow: hidden;
-          background-color: rgba(17, 24, 39, 0.8);
+          background-color: #0a0e17;
+          padding: 5rem 0;
+          color: #d1e3ff;
+          min-height: 100vh;
         }
         
-        .skills-bg-gradient {
+        /* Background effects */
+        .cyber-skills-section::before {
+          content: '';
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-          background: 
-            radial-gradient(circle at 20% 20%, rgba(52, 211, 153, 0.15), transparent 30%),
-            radial-gradient(circle at 80% 50%, rgba(96, 165, 250, 0.15), transparent 30%),
-            radial-gradient(circle at 40% 80%, rgba(167, 139, 250, 0.15), transparent 30%);
-          filter: blur(50px);
+          background-image: 
+            linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+          background-size: 40px 40px;
+          z-index: 1;
+          opacity: 0.5;
+        }
+        
+        .cyber-gradients {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
           z-index: 0;
         }
         
-        .skills-title {
-          position: relative;
-          z-index: 1;
-          text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        .cyber-gradient-primary {
+          position: absolute;
+          top: -10%;
+          right: -10%;
+          width: 70%;
+          height: 70%;
+          background: radial-gradient(circle, rgba(0, 255, 204, 0.15), transparent 70%);
+          border-radius: 50%;
+          filter: blur(70px);
+          animation: pulse 8s ease-in-out infinite alternate;
         }
         
-        .skills-subtitle-container {
-          background: rgba(52, 211, 153, 0.1);
-          border: 1px solid rgba(52, 211, 153, 0.2);
-          position: relative;
-          z-index: 1;
+        .cyber-gradient-secondary {
+          position: absolute;
+          bottom: -10%;
+          left: -10%;
+          width: 70%;
+          height: 70%;
+          background: radial-gradient(circle, rgba(255, 0, 85, 0.15), transparent 70%);
+          border-radius: 50%;
+          filter: blur(70px);
+          animation: pulse 8s ease-in-out infinite alternate-reverse;
         }
         
-        .skills-subtitle {
-          color: #34d399;
-          font-weight: 500;
-          position: relative;
+        @keyframes pulse {
+          0% { opacity: 0.5; }
+          100% { opacity: 1; }
         }
         
-        .skills-showcase-container {
-          position: relative;
-          z-index: 1;
-          padding: 2rem 0;
+        /* Container */
+        .container {
+          width: 100%;
           max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 1.5rem;
+          position: relative;
+          z-index: 2;
+        }
+        
+        /* Section header with framed title */
+        .section-header {
+          margin-bottom: 3rem;
+          text-align: center;
+        }
+        
+        .header-frame {
+          display: inline-block;
+          position: relative;
+          padding: 2rem 3rem;
           margin: 0 auto;
         }
         
-        .skill-group {
+        .corner {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+        }
+        
+        .top-left {
+          top: 0;
+          left: 0;
+          border-top: 2px solid #0fc;
+          border-left: 2px solid #0fc;
+        }
+        
+        .top-right {
+          top: 0;
+          right: 0;
+          border-top: 2px solid #0fc;
+          border-right: 2px solid #0fc;
+        }
+        
+        .bottom-left {
+          bottom: 0;
+          left: 0;
+          border-bottom: 2px solid #0fc;
+          border-left: 2px solid #0fc;
+        }
+        
+        .bottom-right {
+          bottom: 0;
+          right: 0;
+          border-bottom: 2px solid #0fc;
+          border-right: 2px solid #0fc;
+        }
+        
+        .title-containerr {
+          text-align: center;
+        }
+        
+        .section-titlee {
+          font-size: 2.5rem;
+          font-weight: 800;
+          margin-bottom: 1rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        .title-prefixx {
+          font-size: 1rem;
+          font-family: 'Courier New', monospace;
+          color: #0fc;
+          margin-bottom: 0.5rem;
+          opacity: 0.8;
+        }
+        
+        .title-mainn {
+          background: linear-gradient(90deg, #0fc, #f05);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+        
+        .title-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(0, 0, 0, 0.7);
+          border-radius: 50px;
+          padding: 0.5rem 1rem;
+          border: 1px solid rgba(0, 255, 204, 0.3);
+          color: #0fc;
+          font-family: 'Courier New', monospace;
+          font-size: 0.9rem;
+        }
+        
+        /* Skills showcase */
+        .skills-showcase {
           position: relative;
         }
         
-        .skill-group-header {
+        .skill-group {
+          margin-bottom: 2.5rem;
+        }
+        
+        .skill-header {
           display: flex;
           align-items: center;
           margin-bottom: 1rem;
           margin-left: 2rem;
         }
         
-        .skill-category-badge {
+        .skill-category {
           display: flex;
           align-items: center;
           padding: 0.5rem 1rem;
-          border-radius: 100px;
+          background: rgba(0, 0, 0, 0.7);
+          border-radius: 4px;
           border: 1px solid;
           margin-right: 1rem;
           z-index: 2;
+          font-family: 'Courier New', monospace;
         }
         
-        .skill-category-icon {
-          font-size: 1.2rem;
+        .category-icon {
           margin-right: 0.5rem;
         }
         
-        .skill-category-text {
+        .category-text {
           font-weight: 600;
           letter-spacing: 0.03em;
         }
         
-        .skill-category-line {
+        .cyber-line {
           height: 2px;
           flex-grow: 1;
-          opacity: 0.5;
+          opacity: 0.7;
         }
         
+        /* Scrolling skill tracks */
         .skill-track {
           position: relative;
           overflow: hidden;
@@ -266,7 +377,7 @@ const CreativeSkillsSection = () => {
           -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
         }
         
-        .skill-track-inner {
+        .track-inner {
           display: flex;
           position: absolute;
           white-space: nowrap;
@@ -275,105 +386,131 @@ const CreativeSkillsSection = () => {
           align-items: center;
         }
         
-        .track-left .skill-track-inner {
-          animation: scrollLeft 35s linear infinite;
+        .track-left .track-inner {
+          animation: cyber-scroll-left 25s linear infinite;
         }
         
-        .track-right .skill-track-inner {
-          animation: scrollRight 35s linear infinite;
+        .track-right .track-inner {
+          animation: cyber-scroll-right 25s linear infinite;
         }
         
-        .skill-item {
-          margin: 0 1rem;
-          padding: 0.75rem 1.5rem;
-          border-radius: 0.75rem;
-          border: 1px solid;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          backdrop-filter: blur(8px);
-          transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
-          position: relative;
-          overflow: hidden;
-          cursor: pointer;
-          min-width: 120px;
-        }
-        
-        .skill-content {
-          z-index: 1;
-        }
-        
-        .skill-name {
-          font-weight: 600;
-          font-size: 1rem;
-          letter-spacing: 0.02em;
-          display: block;
-          text-align: center;
-          margin-bottom: 0.4rem;
-        }
-        
-        .skill-level-bar {
-          height: 4px;
-          background-color: rgba(255, 255, 255, 0.1);
-          border-radius: 2px;
-          overflow: hidden;
-          width: 100%;
-        }
-        
-        .skill-level-fill {
-          height: 100%;
-          border-radius: 2px;
-        }
-        
-        .skill-glare {
-          position: absolute;
-          width: 80px;
-          height: 80px;
-          background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 50%);
-          border-radius: 50%;
-          top: 0;
-          left: 0;
-          opacity: 0;
-          transition: opacity 0.2s ease-out;
-          pointer-events: none;
-          z-index: 0;
-        }
-        
-        @keyframes scrollLeft {
+        @keyframes cyber-scroll-left {
           0% { transform: translateX(0); }
           100% { transform: translateX(calc(-50% - 1rem)); }
         }
         
-        @keyframes scrollRight {
+        @keyframes cyber-scroll-right {
           0% { transform: translateX(calc(-50% - 1rem)); }
           100% { transform: translateX(0); }
         }
         
+        /* Skill items with cyberpunk styling */
+        .cyber-skill-item {
+          margin: 0 1rem;
+          padding: 0.75rem 1.5rem;
+          border-radius: 4px;
+          border: 1px solid;
+          background-color: rgba(0, 0, 0, 0.6);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          overflow: hidden;
+          cursor: pointer;
+          min-width: 150px;
+          box-shadow: 0 0 5px rgba(0, 255, 204, 0.2);
+          transition: all 0.2s ease;
+        }
+        
+        .skill-hover {
+          transform: translateY(-5px);
+          box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
+        }
+        
+        .skill-content {
+          z-index: 1;
+          width: 100%;
+        }
+        
+        .skill-name {
+          font-weight: 600;
+          font-size: 0.9rem;
+          letter-spacing: 0.02em;
+          display: block;
+          font-family: 'Courier New', monospace;
+          margin-bottom: 0.5rem;
+        }
+        
+        /* Level bar with cyberpunk styling */
+        .skill-level {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+        
+        .level-bar {
+          flex: 1;
+          height: 4px;
+          background-color: rgba(0, 0, 0, 0.5);
+          border-radius: 2px;
+          overflow: hidden;
+          position: relative;
+        }
+        
+        .level-fill {
+          height: 100%;
+          border-radius: 2px;
+          position: relative;
+        }
+        
+        .level-value {
+          font-size: 0.8rem;
+          font-family: 'Courier New', monospace;
+          min-width: 40px;
+          text-align: right;
+        }
+        
+        /* Responsive adjustments */
         @media (max-width: 768px) {
-          .skill-category-badge {
+          .section-title {
+            font-size: 2rem;
+          }
+          
+          .skill-category {
             padding: 0.4rem 0.8rem;
           }
           
-          .skill-category-icon {
-            font-size: 1rem;
-          }
-          
-          .skill-category-text {
+          .category-text {
             font-size: 0.875rem;
           }
           
-          .skill-item {
+          .cyber-skill-item {
             padding: 0.6rem 1rem;
             margin: 0 0.75rem;
-            min-width: 100px;
+            min-width: 130px;
           }
           
           .skill-name {
-            font-size: 0.875rem;
+            font-size: 0.8rem;
           }
           
           .skill-track {
             height: 4.5rem;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .section-title {
+            font-size: 1.75rem;
+          }
+          
+          .header-frame {
+            padding: 1.5rem;
+          }
+          
+          .title-badge {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
           }
         }
       `}</style>
@@ -381,4 +518,4 @@ const CreativeSkillsSection = () => {
   );
 };
 
-export default CreativeSkillsSection;
+export default CyberpunkSkillsSection;

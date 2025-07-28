@@ -1,545 +1,589 @@
 import React, { useState } from 'react';
-import ProjectCard from './ProjectCard';
-import { Code, Filter, Star, LayoutGrid, ArrowRight } from 'lucide-react';
+import { Terminal, Code, Server, Database, ExternalLink, Github } from 'lucide-react';
 
-const Projects = () => {
-  // Projects organized by type
-  const projectsData = {
-    featured: [
-      {
-        id: "Portfolio",
-        title: "Ace Concept Portfolio",
-        description: "A modern, responsive portfolio website showcasing client achievements and creative work with a clean, intuitive interface and seamless navigation experience.",
-        image: "/assets/images/proj1.png",
-        technologies: ["React", "Next.js", "Tailwind CSS", "Framer Motion"],
-        category: "Web App",
-        liveUrl: "https://aceconcept.vercel.app/",
-        githubUrl: "https://github.com/username/project3",
-        featured: true
-      }
-    ],
-    webApps: [
-      {
-        id: "app",
-        title: "Memory Vault",
-        description: "A secure digital storage solution that enables users to preserve, organize, and selectively share life's important memories through an encrypted and intuitive platform.",
-        image: "/assets/images/proj2.png",
-        technologies: ["React", "Firebase", "Cloud Storage", "Authentication"],
-        category: "Web App",
-        liveUrl: "https://memoryvault10.netlify.app/",
-        githubUrl: "https://github.com/username/project3"
-      }
-    ],
-    ecommerce: [
-      {
-        id: "E-commerce",
-        title: "TEGHESE",
-        description: "TEGHESE is a feature-rich e-commerce website built with React and Node.js that offers seamless shopping experiences with real-time product browsing, secure payments, and innovative live customer support.",
-        image: "/assets/images/proj3.png",
-        technologies: ["React", "Node.js", "MongoDB", "WebRTC"],
-        category: "Mobile App",
-        liveUrl: "https://teghese.netlify.app/",
-        githubUrl: "https://github.com/username/project5"
-      }
-    ],
-    aiProjects: [
-      {
-        id: "AI Company website",
-        title: "AI Company",
-        description: "A corporate website for an AI innovation firm showcasing their cutting-edge solutions, research initiatives, and industry applications through an elegant and informative digital presence.",
-        image: "/assets/images/proj4.png",
-        technologies: ["React", "Three.js", "GSAP", "Contentful CMS"],
-        category: "AI",
-        liveUrl: "https://starkwaveinc.netlify.app/",
-        githubUrl: "https://github.com/username/project6"
-      }
-    ]
-  };
+const CyberpunkProjects = () => {
+  const [activeTab, setActiveTab] = useState('all');
   
-  // Get all projects flattened for filtering
-  const allProjects = [
-    ...projectsData.featured,
-    ...projectsData.webApps,
-    ...projectsData.ecommerce,
-    ...projectsData.aiProjects
+  // Simplified project data
+  const projects = [
+    {
+      id: "portfolio",
+      title: "Ace Concept Portfolio",
+      description: "Modern, responsive portfolio website with clean interface and seamless navigation experience.",
+      image: "/assets/images/proj1.png",
+      technologies: ["React", "Next.js", "Tailwind CSS"],
+      category: "frontend",
+      liveUrl: "https://aceconcept.vercel.app/",
+      githubUrl: "https://github.com/username/project3"
+    },
+    {
+      id: "vault",
+      title: "Memory Vault",
+      description: "Secure digital storage solution for preserving and sharing life's important memories.",
+      image: "/assets/images/proj2.png",
+      technologies: ["React", "Firebase", "Cloud Storage"],
+      category: "fullstack",
+      liveUrl: "https://memoryvault10.netlify.app/",
+      githubUrl: "https://github.com/username/project3"
+    },
+    {
+      id: "learning",
+      title: "MEBI Learning Platform",
+      description: "Comprehensive education platform with personalized learning paths for remote environments.",
+      image: "/assets/images/proj3.png",
+      technologies: ["React Native", "Node.js", "MongoDB"],
+      category: "mobile",
+      liveUrl: "https://example.com/project5",
+      githubUrl: "https://github.com/username/project5"
+    },
+    {
+      id: "ai",
+      title: "AI Company",
+      description: "Corporate website for AI innovation firm showcasing cutting-edge solutions and research.",
+      image: "/assets/images/proj4.png",
+      technologies: ["React", "Three.js", "GSAP"],
+      category: "frontend",
+      liveUrl: "https://starkwaveinc.netlify.app/",
+      githubUrl: "https://github.com/username/project6"
+    }
   ];
-  
-  // Extract unique categories for filtering
-  const categories = ["All", ...new Set(allProjects.map(project => project.category))];
-  
-  const [activeSection, setActiveSection] = useState('featured');
-  const [filter, setFilter] = useState("All");
-  
-  const filteredProjects = filter === "All" 
-    ? allProjects 
-    : allProjects.filter(project => project.category === filter);
-  
-  // Function to handle when a user clicks on a specific section
-  const handleSectionChange = (section) => {
-    setActiveSection(section);
-    setFilter("All"); // Reset filter when changing sections
+
+  // Filter projects based on active tab
+  const filteredProjects = activeTab === 'all' 
+    ? projects 
+    : projects.filter(project => project.category === activeTab);
+
+  // Category icon mapping
+  const getCategoryIcon = (category) => {
+    switch(category) {
+      case 'frontend': return <Code size={16} />;
+      case 'fullstack': return <Server size={16} />;
+      case 'mobile': return <Terminal size={16} />;
+      default: return <Database size={16} />;
+    }
   };
-  
+
   return (
-    <section id="projects" className="projects-section py-5 py-lg-7 position-relative">
-      {/* Background elements */}
-      <div className="position-absolute top-0 start-0 w-100 h-100 bg-pattern"></div>
+    <section id="projects" className="cyber-projects">
+      <div className="cyber-grid"></div>
       
-      <div className="container position-relative">
+      <div className="cyber-container">
         {/* Section header */}
-        <div className="row mb-5">
-          <div className="col-lg-8 mx-auto text-center">
-            <div className="section-badge mb-3">
-              <Code size={16} className="me-2" />
-              <span>Projects Portfolio</span>
-            </div>
-            <p className="section-subtitle">
-              Browse through my latest projects showcasing my expertise in web development, 
-              mobile applications, and artificial intelligence solutions.
-            </p>
+        <div className="cyber-header">
+          <div className="title-frame">
+            <div className="corner top-left"></div>
+            <div className="corner top-right"></div>
+            <div className="corner bottom-left"></div>
+            <div className="corner bottom-right"></div>
+            
+            <h2 className="cyber-title">
+              <span className="title-prefix">./list</span>
+              <span className="title-main">projects.exe</span>
+            </h2>
           </div>
+          
+          <p className="cyber-subtitle">
+            &gt; Executing command: display projects...
+          </p>
         </div>
         
         {/* Project navigation */}
-        <div className="project-navigation mb-5">
+        <div className="cyber-tabs">
           <button 
-            className={`navigation-item ${activeSection === 'featured' ? 'active' : ''}`}
-            onClick={() => handleSectionChange('featured')}
+            className={`cyber-tab ${activeTab === 'all' ? 'active' : ''}`}
+            onClick={() => setActiveTab('all')}
           >
-            <Star size={18} />
-            <span>Featured</span>
+            <Terminal size={16} />
+            <span>all_projects</span>
           </button>
           
           <button 
-            className={`navigation-item ${activeSection === 'all' ? 'active' : ''}`}
-            onClick={() => handleSectionChange('all')}
+            className={`cyber-tab ${activeTab === 'frontend' ? 'active' : ''}`}
+            onClick={() => setActiveTab('frontend')}
           >
-            <LayoutGrid size={18} />
-            <span>All Projects</span>
+            <Code size={16} />
+            <span>frontend</span>
           </button>
           
-          <div className="navigation-divider"></div>
+          <button 
+            className={`cyber-tab ${activeTab === 'fullstack' ? 'active' : ''}`}
+            onClick={() => setActiveTab('fullstack')}
+          >
+            <Server size={16} />
+            <span>fullstack</span>
+          </button>
           
-          <div className="filter-container">
-            <Filter size={16} className="filter-icon" />
-            {categories.map(category => (
-              <button
-                key={category}
-                className={`filter-btn ${filter === category ? 'active' : ''}`}
-                onClick={() => setFilter(category)}
-                disabled={activeSection !== 'all'}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+          <button 
+            className={`cyber-tab ${activeTab === 'mobile' ? 'active' : ''}`}
+            onClick={() => setActiveTab('mobile')}
+          >
+            <Terminal size={16} />
+            <span>mobile</span>
+          </button>
         </div>
         
-        {/* Featured Projects Section */}
-        {activeSection === 'featured' && (
-          <>
-            <div className="section-header mb-4">
-              <h3 className="section-subheading">
-                <Star size={18} className="me-2" />
-                Featured Projects
-              </h3>
-            </div>
-            
-            <div className="row g-4 mb-5">
-              {projectsData.featured.map((project, index) => (
-                <div className="col-lg-6" key={project.id}>
-                  <ProjectCard project={project} index={index} />
+        {/* Projects grid */}
+        <div className="projects-container">
+          <div className="projects-count">
+            <span className="count-indicator">{filteredProjects.length}</span>
+            <span className="count-label">projects found</span>
+          </div>
+          
+          <div className="cyber-grid-container">
+            {filteredProjects.map((project, index) => (
+              <div className="cyber-project" key={project.id}>
+                <div className="project-image-container">
+                  <div className="project-overlay"></div>
+                  <img 
+                    src={project.image} 
+                    alt={project.title} 
+                    className="project-image" 
+                  />
+                  <div className="project-category" style={{ 
+                    backgroundColor: project.category === 'frontend' ? 'rgba(0, 255, 204, 0.2)' : 
+                                      project.category === 'fullstack' ? 'rgba(255, 0, 85, 0.2)' : 
+                                      'rgba(255, 195, 0, 0.2)',
+                    color: project.category === 'frontend' ? '#0fc' : 
+                           project.category === 'fullstack' ? '#f05' : 
+                           '#fc0'
+                  }}>
+                    {getCategoryIcon(project.category)}
+                    <span>{project.category}</span>
+                  </div>
                 </div>
-              ))}
-            </div>
-            
-            <div className="view-more-container text-center mb-5">
+                
+                <div className="project-content">
+                  <h3 className="project-title">{project.title}</h3>
+                  <p className="project-description">{project.description}</p>
+                  
+                  <div className="project-tech">
+                    {project.technologies.map((tech, i) => (
+                      <span 
+                        className="tech-tag" 
+                        key={i}
+                        style={{
+                          backgroundColor: i % 3 === 0 ? 'rgba(0, 255, 204, 0.1)' : 
+                                           i % 3 === 1 ? 'rgba(255, 0, 85, 0.1)' : 
+                                           'rgba(255, 195, 0, 0.1)',
+                          color: i % 3 === 0 ? '#0fc' : 
+                                i % 3 === 1 ? '#f05' : 
+                                '#fc0',
+                          borderColor: i % 3 === 0 ? 'rgba(0, 255, 204, 0.3)' : 
+                                        i % 3 === 1 ? 'rgba(255, 0, 85, 0.3)' : 
+                                        'rgba(255, 195, 0, 0.3)'
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <div className="project-links">
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="cyber-link live-link">
+                      <ExternalLink size={16} />
+                      <span>Open Project</span>
+                    </a>
+                    
+                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="cyber-link github-link">
+                      <Github size={16} />
+                      <span>View Code</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {filteredProjects.length === 0 && (
+            <div className="no-projects">
+              <p>No projects found in this category.</p>
               <button 
-                className="view-more-btn"
-                onClick={() => handleSectionChange('all')}
+                className="reset-btn"
+                onClick={() => setActiveTab('all')}
               >
-                View All Projects
-                <ArrowRight size={16} className="ms-2" />
+                Reset Filters
               </button>
             </div>
-            
-            {/* Category sections preview */}
-            <div className="project-categories">
-              {/* Web Apps Preview */}
-              <div className="category-preview">
-                <div className="category-header">
-                  <h3 className="category-title">Web Applications</h3>
-                  <button 
-                    className="see-more-link"
-                    onClick={() => {
-                      handleSectionChange('all');
-                      setFilter('Web App');
-                    }}
-                  >
-                    See more <ArrowRight size={14} />
-                  </button>
-                </div>
-                
-                <div className="row g-4">
-                  {projectsData.webApps.slice(0, 2).map((project, index) => (
-                    <div className="col-md-6" key={project.id}>
-                      <ProjectCard project={project} index={index} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              {/* E-commerce & AI Projects Preview */}
-              <div className="row g-4 mt-5">
-                <div className="col-lg-6">
-                  <div className="category-preview">
-                    <div className="category-header">
-                      <h3 className="category-title">E-commerce</h3>
-                      <button 
-                        className="see-more-link"
-                        onClick={() => {
-                          handleSectionChange('all');
-                          setFilter('Mobile App'); // Changed from 'ecommerce' to match category
-                        }}
-                      >
-                        See more <ArrowRight size={14} />
-                      </button>
-                    </div>
-                    
-                    <div className="row g-4">
-                      {projectsData.ecommerce.slice(0, 1).map((project, index) => (
-                        <div className="col-12" key={project.id}>
-                          <ProjectCard project={project} index={index} />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="col-lg-6">
-                  <div className="category-preview">
-                    <div className="category-header">
-                      <h3 className="category-title">AI Projects</h3>
-                      <button 
-                        className="see-more-link"
-                        onClick={() => {
-                          handleSectionChange('all');
-                          setFilter('AI');
-                        }}
-                      >
-                        See more <ArrowRight size={14} />
-                      </button>
-                    </div>
-                    
-                    <div className="row g-4">
-                      {projectsData.aiProjects.slice(0, 1).map((project, index) => (
-                        <div className="col-12" key={project.id}>
-                          <ProjectCard project={project} index={index} />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-        
-        {/* All Projects (Filtered) Section */}
-        {activeSection === 'all' && (
-          <>
-            <div className="section-header mb-4">
-              <h3 className="section-subheading">
-                <LayoutGrid size={18} className="me-2" />
-                {filter === 'All' ? 'All Projects' : `${filter} Projects`}
-              </h3>
-              <span className="project-count">{filteredProjects.length} Projects</span>
-            </div>
-            
-            <div className="row g-4">
-              {filteredProjects.map((project, index) => (
-                <div className="col-md-6 col-lg-4" key={project.id}>
-                  <ProjectCard project={project} index={index} />
-                </div>
-              ))}
-            </div>
-            
-            {filteredProjects.length === 0 && (
-              <div className="no-projects text-center py-5">
-                <p>No projects found in this category.</p>
-              </div>
-            )}
-          </>
-        )}
+          )}
+        </div>
       </div>
+
       <style jsx>{`
-        .projects-section {
-          background-color: #121212;
+        .cyber-projects {
+          background-color: #0a0e17;
+          color: #d1e3ff;
+          padding: 5rem 0;
+          position: relative;
+          overflow: hidden;
+          min-height: 100vh;
+        }
+        
+        .cyber-grid {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: 
+            linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+          background-size: 40px 40px;
+          z-index: 0;
+          opacity: 0.5;
+        }
+        
+        .cyber-container {
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 1.5rem;
+          position: relative;
+          z-index: 1;
+        }
+        
+        /* Header with cyberpunk styling */
+        .cyber-header {
+          margin-bottom: 3rem;
+          text-align: center;
+        }
+        
+        .title-frame {
+          display: inline-block;
+          position: relative;
+          padding: 1.5rem 2rem;
+          margin: 0 auto 1rem;
+        }
+        
+        .corner {
+          position: absolute;
+          width: 15px;
+          height: 15px;
+        }
+        
+        .top-left {
+          top: 0;
+          left: 0;
+          border-top: 2px solid #0fc;
+          border-left: 2px solid #0fc;
+        }
+        
+        .top-right {
+          top: 0;
+          right: 0;
+          border-top: 2px solid #0fc;
+          border-right: 2px solid #0fc;
+        }
+        
+        .bottom-left {
+          bottom: 0;
+          left: 0;
+          border-bottom: 2px solid #0fc;
+          border-left: 2px solid #0fc;
+        }
+        
+        .bottom-right {
+          bottom: 0;
+          right: 0;
+          border-bottom: 2px solid #0fc;
+          border-right: 2px solid #0fc;
+        }
+        
+        .cyber-title {
+          font-size: 2.5rem;
+          font-weight: 800;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        .title-prefix {
+          display: block;
+          font-size: 1rem;
+          font-family: 'Courier New', monospace;
+          color: #0fc;
+          margin-bottom: 0.5rem;
+          opacity: 0.8;
+        }
+        
+        .title-main {
+          background: linear-gradient(90deg, #0fc, #f05);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          display: inline-block;
+          text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+        
+        .cyber-subtitle {
+          color: #94a3b8;
+          font-family: 'Courier New', monospace;
+          margin-top: 1rem;
+        }
+        
+        /* Project tabs with cyberpunk styling */
+        .cyber-tabs {
+          display: flex;
+          gap: 0.75rem;
+          flex-wrap: wrap;
+          margin-bottom: 2rem;
+          padding: 0.5rem;
+          background-color: rgba(0, 0, 0, 0.4);
+          border-radius: 4px;
+          border: 1px solid rgba(0, 255, 204, 0.1);
+        }
+        
+        .cyber-tab {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: #94a3b8;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          font-family: 'Courier New', monospace;
+          font-size: 0.9rem;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        
+        .cyber-tab:hover {
+          background-color: rgba(255, 255, 255, 0.05);
+          color: white;
+        }
+        
+        .cyber-tab.active {
+          background-color: rgba(0, 255, 204, 0.1);
+          color: #0fc;
+          border-color: rgba(0, 255, 204, 0.3);
+        }
+        
+        /* Projects count */
+        .projects-container {
+          position: relative;
+        }
+        
+        .projects-count {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-bottom: 1.5rem;
+          font-family: 'Courier New', monospace;
+        }
+        
+        .count-indicator {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 30px;
+          height: 30px;
+          background-color: rgba(0, 255, 204, 0.1);
+          color: #0fc;
+          border: 1px solid rgba(0, 255, 204, 0.3);
+          border-radius: 4px;
+          font-weight: 600;
+        }
+        
+        .count-label {
+          color: #94a3b8;
+        }
+        
+        /* Projects grid */
+        .cyber-grid-container {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+          gap: 2rem;
+        }
+        
+        .cyber-project {
+          border: 1px solid rgba(0, 255, 204, 0.2);
+          border-radius: 4px;
+          overflow: hidden;
+          background-color: rgba(0, 0, 0, 0.5);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          position: relative;
+        }
+        
+        .cyber-project:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2);
+        }
+        
+        .project-image-container {
+          position: relative;
+          height: 180px;
           overflow: hidden;
         }
         
-        .bg-pattern {
-          background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-          background-size: 20px 20px;
-          opacity: 0.2;
-          z-index: 0;
-        }
-        
-        .section-badge {
-          display: inline-flex;
-          align-items: center;
-          background-color: rgba(52, 211, 153, 0.1);
-          color: #34d399;
-          border: 1px solid rgba(52, 211, 153, 0.2);
-          border-radius: 100px;
-          padding: 0.5rem 1rem;
-          font-weight: 500;
-          font-size: 0.875rem;
-        }
-        
-        .section-title {
-          font-size: 2.5rem;
-          font-weight: 700;
-          color: white;
-          position: relative;
-          display: inline-block;
-        }
-        
-        .section-title::after {
-          content: '';
+        .project-overlay {
           position: absolute;
-          bottom: -0.5rem;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 80px;
-          height: 3px;
-          background: linear-gradient(to right, #34d399, #3b82f6);
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(to bottom, 
+            rgba(0, 0, 0, 0.1), 
+            rgba(0, 0, 0, 0.5)
+          );
+          z-index: 1;
         }
         
-        .section-subtitle {
-          color: #ADB5BD;
-          font-size: 1.1rem;
-          max-width: 700px;
-          margin: 0 auto;
+        .project-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s ease;
         }
         
-        /* Project Navigation */
-        .project-navigation {
-          display: flex;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 0.5rem;
-          background-color: rgba(52, 58, 64, 0.3);
-          border-radius: 8px;
-          padding: 0.5rem;
-          margin-bottom: 2rem;
-          border: 1px solid rgba(255, 255, 255, 0.05);
+        .cyber-project:hover .project-image {
+          transform: scale(1.05);
         }
         
-        .navigation-item {
+        .project-category {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          background: transparent;
-          border: none;
-          color: #ADB5BD;
-          padding: 0.5rem 1rem;
-          border-radius: 6px;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-        
-        .navigation-item:hover {
-          color: white;
-        }
-        
-        .navigation-item.active {
-          background-color: rgba(52, 211, 153, 0.1);
-          color: #34d399;
-        }
-        
-        .navigation-divider {
-          width: 1px;
-          height: 24px;
-          background-color: rgba(255, 255, 255, 0.1);
-          margin: 0 0.5rem;
-        }
-        
-        .filter-container {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          flex-wrap: wrap;
-        }
-        
-        .filter-icon {
-          color: #ADB5BD;
-          margin-right: 0.25rem;
-        }
-        
-        .filter-btn {
-          background: transparent;
-          border: none;
-          color: #ADB5BD;
-          padding: 0.4rem 0.8rem;
+          padding: 0.3rem 0.75rem;
           border-radius: 4px;
-          font-size: 0.875rem;
-          cursor: pointer;
-          transition: all 0.2s ease;
+          font-size: 0.8rem;
+          font-family: 'Courier New', monospace;
+          z-index: 2;
         }
         
-        .filter-btn:hover:not(:disabled) {
+        .project-content {
+          padding: 1.5rem;
+        }
+        
+        .project-title {
           color: white;
+          font-size: 1.25rem;
+          margin: 0 0 0.75rem;
+          font-weight: 600;
         }
         
-        .filter-btn.active {
-          background-color: rgba(255, 255, 255, 0.1);
-          color: white;
+        .project-description {
+          color: #94a3b8;
+          font-size: 0.9rem;
+          line-height: 1.5;
+          margin-bottom: 1.25rem;
         }
         
-        .filter-btn:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-        }
-        
-        /* Section Headers */
-        .section-header {
+        .project-tech {
           display: flex;
-          justify-content: space-between;
-          align-items: center;
+          flex-wrap: wrap;
+          gap: 0.5rem;
           margin-bottom: 1.5rem;
         }
         
-        .section-subheading {
+        .tech-tag {
+          padding: 0.25rem 0.5rem;
+          border-radius: 4px;
+          font-size: 0.75rem;
+          font-family: 'Courier New', monospace;
+          border: 1px solid;
+        }
+        
+        .project-links {
+          display: flex;
+          gap: 1rem;
+        }
+        
+        .cyber-link {
           display: flex;
           align-items: center;
-          color: white;
-          font-size: 1.5rem;
-          font-weight: 600;
-          margin: 0;
-        }
-        
-        .project-count {
-          background-color: rgba(255, 255, 255, 0.1);
-          color: #ADB5BD;
-          padding: 0.25rem 0.75rem;
-          border-radius: 100px;
-          font-size: 0.875rem;
-          font-weight: 500;
-        }
-        
-        /* Categories */
-        .project-categories {
-          margin-top: 3rem;
-        }
-        
-        .category-preview {
-          margin-bottom: 2rem;
-        }
-        
-        .category-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 1.25rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-          padding-bottom: 0.5rem;
-        }
-        
-        .category-title {
-          color: white;
-          font-size: 1.25rem;
-          font-weight: 600;
-          margin: 0;
-        }
-        
-        .see-more-link {
-          display: flex;
-          align-items: center;
-          gap: 0.25rem;
-          background: transparent;
-          border: none;
-          color: #34d399;
-          font-size: 0.875rem;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          padding: 0;
-        }
-        
-        .see-more-link:hover {
-          color: #10b981;
-        }
-        
-        .see-more-link svg {
-          transition: transform 0.2s ease;
-        }
-        
-        .see-more-link:hover svg {
-          transform: translateX(3px);
-        }
-        
-        /* View More Button */
-        .view-more-container {
-          margin: 2rem 0 4rem;
-        }
-        
-        .view-more-btn {
-          display: inline-flex;
-          align-items: center;
-          background: transparent;
-          border: 1px solid rgba(52, 211, 153, 0.3);
-          color: #34d399;
-          padding: 0.75rem 2rem;
-          border-radius: 100px;
-          font-weight: 500;
-          cursor: pointer;
+          gap: 0.5rem;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          font-size: 0.85rem;
+          font-family: 'Courier New', monospace;
+          text-decoration: none;
           transition: all 0.2s ease;
         }
         
-        .view-more-btn:hover {
-          background-color: rgba(52, 211, 153, 0.1);
+        .live-link {
+          background-color: rgba(0, 255, 204, 0.1);
+          color: #0fc;
+          border: 1px solid rgba(0, 255, 204, 0.3);
+        }
+        
+        .github-link {
+          background-color: rgba(255, 255, 255, 0.05);
+          color: #94a3b8;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .live-link:hover {
+          background-color: rgba(0, 255, 204, 0.2);
           transform: translateY(-2px);
         }
         
-        .view-more-btn svg {
-          transition: transform 0.2s ease;
+        .github-link:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+          color: white;
+          transform: translateY(-2px);
         }
         
-        .view-more-btn:hover svg {
-          transform: translateX(3px);
+        /* No projects state */
+        .no-projects {
+          text-align: center;
+          padding: 3rem 1rem;
+          background-color: rgba(0, 0, 0, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          border-radius: 4px;
+          margin-top: 1rem;
+        }
+        
+        .no-projects p {
+          color: #94a3b8;
+          margin-bottom: 1.5rem;
+        }
+        
+        .reset-btn {
+          background-color: rgba(0, 255, 204, 0.1);
+          color: #0fc;
+          border: 1px solid rgba(0, 255, 204, 0.3);
+          border-radius: 4px;
+          padding: 0.5rem 1rem;
+          font-family: 'Courier New', monospace;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        
+        .reset-btn:hover {
+          background-color: rgba(0, 255, 204, 0.2);
         }
         
         /* Responsive adjustments */
-        @media (max-width: 992px) {
-          .project-navigation {
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 1rem;
-          }
-          
-          .navigation-divider {
-            width: 100%;
-            height: 1px;
-            margin: 0.5rem 0;
-          }
-          
-          .filter-container {
-            width: 100%;
-            justify-content: flex-start;
-          }
-        }
-        
         @media (max-width: 768px) {
-          .section-title {
+          .cyber-tabs {
+            justify-content: center;
+          }
+          
+          .cyber-title {
             font-size: 2rem;
           }
           
-          .category-header {
+          .projects-count {
+            justify-content: center;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .cyber-title {
+            font-size: 1.75rem;
+          }
+          
+          .project-links {
             flex-direction: column;
-            align-items: flex-start;
-            gap: 0.5rem;
+          }
+          
+          .cyber-link {
+            width: 100%;
+            justify-content: center;
           }
         }
       `}</style>
@@ -547,4 +591,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default CyberpunkProjects;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Clock, Heart } from 'lucide-react';
+import { Github, Linkedin, Mail, Clock, Heart, Terminal } from 'lucide-react';
 
-const EnhancedFooter = () => {
+const CyberpunkFooter = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   
   // Update the time every second
@@ -27,89 +27,97 @@ const EnhancedFooter = () => {
     day: 'numeric'
   });
   
-  // Social links with same color scheme as contact section
+  // Social links
   const socialLinks = [
     {
-      icon: <Github size={20} />,
-      url: "https://github.com",
-      label: "GitHub",
-      color: "#34d399" // green
+      icon: <Github size={18} />,
+      url: "https://github.com/DebrainStark",
+      label: "GitHub"
     },
     {
-      icon: <Linkedin size={20} />,
-      url: "https://linkedin.com",
-      label: "LinkedIn",
-      color: "#60a5fa" // blue
+      icon: <Linkedin size={18} />,
+      url: "https://www.linkedin.com/in/otoibhi-anthony-b-eng-gnse-970049161",
+      label: "LinkedIn"
     },
     {
-      icon: <Mail size={20} />,
-      url: "mailto:contact@example.com",
-      label: "Email",
-      color: "#a78bfa" // purple
+      icon: <Mail size={18} />,
+      url: "mailto:starkwave@outlook.com",
+      label: "Email"
     }
   ];
 
   // Footer navigation links
   const navLinks = [
     { text: "Home", url: "#home" },
-    { text: "About", url: "#about" },
-    { text: "Projects", url: "#projects" },
     { text: "Skills", url: "#skills" },
+    { text: "Projects", url: "#projects" },
+    { text: "About", url: "#about" },
     { text: "Contact", url: "#contact" }
   ];
 
   return (
-    <footer className="footer-section py-8 relative overflow-hidden">
-      {/* Background with gradient similar to contact section */}
-      <div className="footer-bg-gradient"></div>
+    <footer className="neo-footer">
+      <div className="neo-footer__grid"></div>
+      <div className="neo-footer__gradients">
+        <div className="neo-footer__gradient-primary"></div>
+        <div className="neo-footer__gradient-secondary"></div>
+      </div>
       
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Top Row - Logo */}
-        <div className="footer-row footer-top-row">
-         
+      <div className="neo-container">
+        {/* Navigation */}
+        <div className="neo-footer__nav">
+          <ul className="neo-footer__nav-list">
+            {navLinks.map((link, index) => (
+              <li key={index} className="neo-footer__nav-item">
+                <a href={link.url} className="neo-footer__nav-link">
+                  {link.text}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
         
-        {/* Second Row - Navigation */}
-        <div className="footer-row footer-nav-row">
-          <nav className="footer-navigation">
-            <ul className="footer-nav-list">
-              {navLinks.map((link, index) => (
-                <li key={index} className="footer-nav-item">
-                  <a href={link.url} className="footer-nav-link">
-                    {link.text}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-        
-        {/* Third Row - Time Display */}
-        <div className="footer-row footer-time-row">
-          <div className="footer-time-display">
-            <div className="footer-time-icon">
-              <Clock size={18} />
-            </div>
-            <div className="footer-time-content">
-              <div className="footer-current-time">{formattedTime}</div>
-              <div className="footer-current-date">{formattedDate}</div>
+        {/* Time Display */}
+        <div className="neo-footer__time">
+          <div className="neo-footer__time-frame">
+            <div className="neo-footer__time-corner top-left"></div>
+            <div className="neo-footer__time-corner top-right"></div>
+            <div className="neo-footer__time-corner bottom-left"></div>
+            <div className="neo-footer__time-corner bottom-right"></div>
+            
+            <div className="neo-footer__time-content">
+              <div className="neo-footer__time-icon">
+                <Clock size={16} />
+              </div>
+              <div className="neo-footer__time-info">
+                <div className="neo-footer__time-main">{formattedTime}</div>
+                <div className="neo-footer__time-sub">{formattedDate}</div>
+              </div>
             </div>
           </div>
         </div>
         
-        <div className="footer-divider"></div>
+        <div className="neo-footer__divider">
+          <div className="neo-footer__divider-line"></div>
+        </div>
         
-        {/* Fourth Row - Copyright & Social Links */}
-        <div className="footer-row footer-bottom-row">
-          <div className="footer-copyright-container">
-            <p className="footer-copyright">
-              &copy; {new Date().getFullYear()} StarkWave. All rights reserved.
-            </p>
-            <p className="footer-made-with">
-              Made with <Heart size={14} className="footer-heart-icon" /></p>
+        {/* Bottom Row */}
+        <div className="neo-footer__bottom">
+          <div className="neo-footer__copyright">
+            <div className="neo-footer__copyright-badge">
+              <Terminal size={14} />
+              <span>System.v1.0</span>
+            </div>
+            <div className="neo-footer__copyright-text">
+              &copy; {new Date().getFullYear()} Otoibhi Anthony. All rights reserved.
+            </div>
+            <div className="neo-footer__made-with">
+              <span>Made with</span>
+              <Heart size={12} className="neo-footer__heart" />
+            </div>
           </div>
           
-          <div className="footer-social-container">
+          <div className="neo-footer__social">
             {socialLinks.map((link, index) => (
               <a 
                 key={index}
@@ -117,14 +125,10 @@ const EnhancedFooter = () => {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label={link.label}
-                className="footer-social-link"
-                style={{
-                  '--hover-color': link.color,
-                  '--hover-bg': `${link.color}20`
-                }}
+                className="neo-footer__social-link"
               >
-                <span className="footer-social-icon">{link.icon}</span>
-                <span className="footer-social-glow"></span>
+                {link.icon}
+                <span className="neo-footer__social-glow"></span>
               </a>
             ))}
           </div>
@@ -132,312 +136,352 @@ const EnhancedFooter = () => {
       </div>
 
       <style jsx>{`
-        .footer-section {
-          background-color: rgba(17, 24, 39, 0.9);
-          border-top: 1px solid rgba(255, 255, 255, 0.05);
+        /* Main footer styling */
+        .neo-footer {
+          position: relative;
+          background-color: rgba(10, 14, 23, 0.9);
+          padding: 3rem 0 2rem;
+          color: #d1e3ff;
+          overflow: hidden;
+          border-top: 1px solid rgba(0, 255, 204, 0.1);
         }
         
-        .footer-bg-gradient {
+        /* Background elements */
+        .neo-footer__grid {
           position: absolute;
           top: 0;
           left: 0;
           width: 100%;
           height: 100%;
-          background: 
-            radial-gradient(circle at 90% 10%, rgba(52, 211, 153, 0.08), transparent 25%),
-            radial-gradient(circle at 10% 30%, rgba(96, 165, 250, 0.08), transparent 25%),
-            radial-gradient(circle at 50% 80%, rgba(167, 139, 250, 0.08), transparent 25%);
-          filter: blur(40px);
+          background-image: 
+            linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+          background-size: 40px 40px;
+          z-index: 0;
+          opacity: 0.5;
+        }
+        
+        .neo-footer__gradients {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
           z-index: 0;
         }
         
-        .footer-row {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-bottom: 1.5rem;
-        }
-        
-        .footer-top-row {
-          padding-top: 1rem;
-        }
-        
-        .footer-bottom-row {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin-top: 1.5rem;
-        }
-        
-        @media (min-width: 768px) {
-          .footer-bottom-row {
-            flex-direction: row;
-            justify-content: space-between;
-          }
-        }
-        
-        .footer-logo-container {
-          background: linear-gradient(45deg, rgba(52, 211, 153, 0.2), rgba(96, 165, 250, 0.2));
-          width: 70px;
-          height: 70px;
-          border-radius: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: relative;
-          overflow: hidden;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        
-        .footer-logo-container::before {
-          content: '';
+        .neo-footer__gradient-primary {
           position: absolute;
-          width: 140px;
-          height: 140px;
-          background: linear-gradient(45deg, #34d399, #60a5fa, #a78bfa);
-          animation: rotate 4s linear infinite;
-          top: -70px;
-          left: -70px;
+          top: -10%;
+          right: -10%;
+          width: 50%;
+          height: 50%;
+          background: radial-gradient(circle, rgba(0, 255, 204, 0.1), transparent 70%);
+          border-radius: 50%;
+          filter: blur(50px);
         }
         
-        @keyframes rotate {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
+        .neo-footer__gradient-secondary {
+          position: absolute;
+          bottom: -10%;
+          left: -10%;
+          width: 50%;
+          height: 50%;
+          background: radial-gradient(circle, rgba(255, 0, 85, 0.1), transparent 70%);
+          border-radius: 50%;
+          filter: blur(50px);
         }
         
-        .footer-logo {
+        /* Container */
+        .neo-container {
           position: relative;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 1.5rem;
           z-index: 1;
-          font-weight: 700;
-          font-size: 24px;
-          color: white;
-          background: rgba(17, 24, 39, 0.8);
-          width: 66px;
-          height: 66px;
-          border-radius: 10px;
+        }
+        
+        /* Navigation */
+        .neo-footer__nav {
+          margin-bottom: 2rem;
           display: flex;
-          align-items: center;
           justify-content: center;
         }
         
-        .footer-navigation {
-          display: flex;
-          justify-content: center;
-          width: 100%;
-        }
-        
-        .footer-nav-list {
+        .neo-footer__nav-list {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
-          gap: 1rem;
+          list-style: none;
           margin: 0;
           padding: 0;
-          list-style: none;
+          gap: 1rem;
         }
         
-        .footer-nav-item {
-          position: relative;
-        }
-        
-        .footer-nav-link {
+        .neo-footer__nav-link {
+          display: block;
+          padding: 0.5rem 1rem;
           color: rgba(255, 255, 255, 0.7);
           text-decoration: none;
-          font-size: 0.95rem;
-          font-weight: 500;
-          padding: 0.5rem 0.75rem;
-          border-radius: 4px;
-          transition: all 0.2s ease;
+          font-family: 'Courier New', monospace;
+          font-size: 0.9rem;
           position: relative;
-          z-index: 1;
+          transition: all 0.3s ease;
+          border-radius: 4px;
         }
         
-        .footer-nav-link::before {
-          content: '';
+        .neo-footer__nav-link:hover {
+          color: #0fc;
+          background-color: rgba(0, 255, 204, 0.05);
+        }
+        
+        /* Time display */
+        .neo-footer__time {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 2rem;
+        }
+        
+        .neo-footer__time-frame {
+          position: relative;
+          padding: 0.75rem 1.5rem;
+          border-radius: 4px;
+          background-color: rgba(0, 0, 0, 0.5);
+          border: 1px solid rgba(0, 255, 204, 0.2);
+          min-width: 200px;
+        }
+        
+        .neo-footer__time-corner {
           position: absolute;
+          width: 10px;
+          height: 10px;
+        }
+        
+        .top-left {
           top: 0;
           left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(45deg, rgba(52, 211, 153, 0.1), rgba(96, 165, 250, 0.1));
-          border-radius: 4px;
-          z-index: -1;
-          opacity: 0;
-          transform: scale(0.9);
-          transition: all 0.3s ease;
+          border-top: 1px solid #0fc;
+          border-left: 1px solid #0fc;
         }
         
-        .footer-nav-link:hover {
-          color: white;
+        .top-right {
+          top: 0;
+          right: 0;
+          border-top: 1px solid #0fc;
+          border-right: 1px solid #0fc;
         }
         
-        .footer-nav-link:hover::before {
-          opacity: 1;
-          transform: scale(1);
+        .bottom-left {
+          bottom: 0;
+          left: 0;
+          border-bottom: 1px solid #0fc;
+          border-left: 1px solid #0fc;
         }
         
-        .footer-time-row {
-          margin: 1.5rem 0;
+        .bottom-right {
+          bottom: 0;
+          right: 0;
+          border-bottom: 1px solid #0fc;
+          border-right: 1px solid #0fc;
         }
         
-        .footer-time-display {
+        .neo-footer__time-content {
           display: flex;
           align-items: center;
-          padding: 0.75rem 1.25rem;
-          background-color: rgba(96, 165, 250, 0.1);
-          border: 1px solid rgba(96, 165, 250, 0.2);
-          border-radius: 100px;
-          backdrop-filter: blur(4px);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        .footer-time-display:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .footer-time-icon {
-          margin-right: 0.75rem;
-          color: #60a5fa;
+        .neo-footer__time-icon {
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          background-color: rgba(96, 165, 250, 0.15);
+          width: 32px;
+          height: 32px;
+          border-radius: 4px;
+          background-color: rgba(0, 255, 204, 0.1);
+          color: #0fc;
+          margin-right: 1rem;
         }
         
-        .footer-time-content {
+        .neo-footer__time-info {
           display: flex;
           flex-direction: column;
         }
         
-        .footer-current-time {
-          font-size: 1.125rem;
+        .neo-footer__time-main {
+          font-size: 1rem;
           font-weight: 600;
-          color: rgba(255, 255, 255, 0.9);
+          color: white;
+          font-family: 'Courier New', monospace;
           letter-spacing: 0.05em;
         }
         
-        .footer-current-date {
-          font-size: 0.875rem;
-          color: rgba(255, 255, 255, 0.6);
+        .neo-footer__time-sub {
+          font-size: 0.8rem;
+          color: #94a3b8;
+          font-family: 'Courier New', monospace;
         }
         
-        .footer-divider {
+        /* Divider */
+        .neo-footer__divider {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 2rem;
+        }
+        
+        .neo-footer__divider-line {
+          width: 100%;
+          max-width: 600px;
           height: 1px;
-          background: linear-gradient(to right, 
+          background: linear-gradient(90deg, 
             transparent, 
-            rgba(52, 211, 153, 0.3), 
-            rgba(96, 165, 250, 0.3), 
-            rgba(167, 139, 250, 0.3), 
+            rgba(0, 255, 204, 0.3), 
+            rgba(255, 0, 85, 0.3), 
             transparent
           );
-          margin: 1rem 0;
         }
         
-        .footer-copyright-container {
-          text-align: center;
+        /* Bottom row */
+        .neo-footer__bottom {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        
+        .neo-footer__copyright {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           margin-bottom: 1.5rem;
         }
         
-        @media (min-width: 768px) {
-          .footer-copyright-container {
-            text-align: left;
-            margin-bottom: 0;
-          }
-        }
-        
-        .footer-copyright {
-          color: rgba(255, 255, 255, 0.6);
-          font-size: 0.875rem;
-          letter-spacing: 0.02em;
-          margin-bottom: 0.4rem;
-        }
-        
-        .footer-made-with {
-          color: rgba(255, 255, 255, 0.4);
-          font-size: 0.75rem;
+        .neo-footer__copyright-badge {
           display: flex;
           align-items: center;
-          justify-content: center;
+          padding: 0.25rem 0.5rem;
+          background-color: rgba(0, 0, 0, 0.5);
+          border: 1px solid rgba(0, 255, 204, 0.2);
+          border-radius: 4px;
+          font-size: 0.75rem;
+          color: #0fc;
+          font-family: 'Courier New', monospace;
+          margin-bottom: 0.5rem;
+        }
+        
+        .neo-footer__copyright-badge svg {
+          margin-right: 0.25rem;
+        }
+        
+        .neo-footer__copyright-text {
+          font-size: 0.85rem;
+          color: rgba(255, 255, 255, 0.6);
+          margin-bottom: 0.5rem;
+        }
+        
+        .neo-footer__made-with {
+          display: flex;
+          align-items: center;
           gap: 0.25rem;
+          font-size: 0.75rem;
+          color: rgba(255, 255, 255, 0.4);
         }
         
-        @media (min-width: 768px) {
-          .footer-made-with {
-            justify-content: flex-start;
-          }
-        }
-        
-        .footer-heart-icon {
-          color: #f43f5e;
+        .neo-footer__heart {
+          color: #f05;
           animation: heartBeat 2s ease infinite;
         }
         
         @keyframes heartBeat {
           0% { transform: scale(1); }
-          14% { transform: scale(1.3); }
+          14% { transform: scale(1.2); }
           28% { transform: scale(1); }
-          42% { transform: scale(1.3); }
+          42% { transform: scale(1.2); }
           70% { transform: scale(1); }
         }
         
-        .footer-social-container {
+        /* Social links */
+        .neo-footer__social {
           display: flex;
           gap: 1rem;
         }
         
-        .footer-social-link {
-          position: relative;
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
+        .neo-footer__social-link {
           display: flex;
           align-items: center;
           justify-content: center;
+          width: 36px;
+          height: 36px;
+          background-color: rgba(0, 0, 0, 0.5);
+          border: 1px solid rgba(0, 255, 204, 0.2);
+          border-radius: 4px;
           color: rgba(255, 255, 255, 0.7);
-          background-color: rgba(255, 255, 255, 0.05);
-          transition: all 0.3s ease;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          overflow: hidden;
-        }
-        
-        .footer-social-link:hover {
-          color: white;
-          transform: translateY(-3px);
-          background-color: var(--hover-bg);
-          border-color: var(--hover-color);
-          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .footer-social-icon {
           position: relative;
-          z-index: 1;
-          transition: transform 0.2s ease;
+          overflow: hidden;
+          transition: all 0.3s ease;
         }
         
-        .footer-social-link:hover .footer-social-icon {
-          transform: scale(1.1);
+        .neo-footer__social-link:hover {
+          color: #0fc;
+          border-color: rgba(0, 255, 204, 0.4);
+          transform: translateY(-3px);
+          box-shadow: 0 5px 15px rgba(0, 255, 204, 0.1);
         }
         
-        .footer-social-glow {
+        .neo-footer__social-glow {
           position: absolute;
           width: 60px;
           height: 60px;
-          background: radial-gradient(circle, var(--hover-color) 0%, rgba(255, 255, 255, 0) 70%);
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(0, 255, 204, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
           opacity: 0;
           transition: opacity 0.3s ease;
         }
         
-        .footer-social-link:hover .footer-social-glow {
-          opacity: 0.2;
+        .neo-footer__social-link:hover .neo-footer__social-glow {
+          opacity: 1;
+        }
+        
+        /* Responsive styles */
+        @media (min-width: 768px) {
+          .neo-footer__bottom {
+            flex-direction: row;
+            justify-content: space-between;
+          }
+          
+          .neo-footer__copyright {
+            align-items: flex-start;
+            margin-bottom: 0;
+          }
+        }
+        
+        @media (max-width: 576px) {
+          .neo-footer {
+            padding: 2rem 0 1.5rem;
+          }
+          
+          .neo-footer__nav-list {
+            gap: 0.5rem;
+          }
+          
+          .neo-footer__nav-link {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8rem;
+          }
+          
+          .neo-footer__time-frame {
+            padding: 0.5rem 1rem;
+          }
+          
+          .neo-footer__time-main {
+            font-size: 0.9rem;
+          }
+          
+          .neo-footer__time-sub {
+            font-size: 0.7rem;
+          }
         }
       `}</style>
     </footer>
   );
 };
 
-export default EnhancedFooter;
+export default CyberpunkFooter;
