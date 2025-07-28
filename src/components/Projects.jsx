@@ -1,51 +1,52 @@
-import React, { useState } from 'react';
-import { Terminal, Code, Server, Database, ExternalLink, Github } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Terminal, Code, Server, Database, Zap, Gamepad2, Brain, Rocket, Coffee, AlertTriangle } from 'lucide-react';
 
 const CyberpunkProjects = () => {
   const [activeTab, setActiveTab] = useState('all');
+  const [scanningPhase, setScanningPhase] = useState(0);
+  const [showMessage, setShowMessage] = useState(false);
   
-  // Simplified project data
-  const projects = [
-    {
-      id: "portfolio",
-      title: "Ace Concept Portfolio",
-      description: "Modern, responsive portfolio website with clean interface and seamless navigation experience.",
-      image: "/assets/images/proj1.png",
-      technologies: ["React", "Next.js", "Tailwind CSS"],
-      category: "frontend",
-      liveUrl: "https://aceconcept.vercel.app/",
-      githubUrl: "https://github.com/username/project3"
-    },
-    {
-      id: "vault",
-      title: "Memory Vault",
-      description: "Secure digital storage solution for preserving and sharing life's important memories.",
-      image: "/assets/images/proj2.png",
-      technologies: ["React", "Firebase", "Cloud Storage"],
-      category: "fullstack",
-      liveUrl: "https://memoryvault10.netlify.app/",
-      githubUrl: "https://github.com/username/project3"
-    },
-    {
-      id: "learning",
-      title: "MEBI Learning Platform",
-      description: "Comprehensive education platform with personalized learning paths for remote environments.",
-      image: "/assets/images/proj3.png",
-      technologies: ["React Native", "Node.js", "MongoDB"],
-      category: "mobile",
-      liveUrl: "https://example.com/project5",
-      githubUrl: "https://github.com/username/project5"
-    },
-    {
-      id: "ai",
-      title: "AI Company",
-      description: "Corporate website for AI innovation firm showcasing cutting-edge solutions and research.",
-      image: "/assets/images/proj4.png",
-      technologies: ["React", "Three.js", "GSAP"],
-      category: "frontend",
-      liveUrl: "https://starkwaveinc.netlify.app/",
-      githubUrl: "https://github.com/username/project6"
-    }
+  // Empty projects array - no projects to display
+  const projects = [];
+
+  useEffect(() => {
+    const phases = [
+      "Initializing quantum scanner...",
+      "Scanning neural pathways...",  
+      "Detecting creative algorithms...",
+      "Searching project database...",
+      "Analyzing code repositories...",
+      "Checking backup servers...",
+      "Scanning parallel dimensions...",
+      "ERROR: Projects not found",
+      "FINAL_RESULT: Zero projects detected"
+    ];
+
+    const interval = setInterval(() => {
+      setScanningPhase((prev) => {
+        if (prev < phases.length - 1) {
+          return prev + 1;
+        } else {
+          setShowMessage(true);
+          clearInterval(interval);
+          return prev;
+        }
+      });
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const scanningMessages = [
+    "Initializing quantum scanner...",
+    "Scanning neural pathways...",  
+    "Detecting creative algorithms...",
+    "Searching project database...",
+    "Analyzing code repositories...",
+    "Checking backup servers...",
+    "Scanning parallel dimensions...",
+    "ERROR: Projects not found",
+    "FINAL_RESULT: Zero projects detected"
   ];
 
   // Filter projects based on active tab
@@ -53,19 +54,23 @@ const CyberpunkProjects = () => {
     ? projects 
     : projects.filter(project => project.category === activeTab);
 
-  // Category icon mapping
+  // Category icon mapping with more exciting icons
   const getCategoryIcon = (category) => {
     switch(category) {
-      case 'frontend': return <Code size={16} />;
-      case 'fullstack': return <Server size={16} />;
-      case 'mobile': return <Terminal size={16} />;
-      default: return <Database size={16} />;
+      case 'ai': return <Brain size={16} />;
+      case 'gaming': return <Gamepad2 size={16} />;
+      case 'blockchain': return <Database size={16} />;
+      case 'creative': return <Zap size={16} />;
+      case 'vr': return <Rocket size={16} />;
+      case 'experimental': return <Terminal size={16} />;
+      default: return <Code size={16} />;
     }
   };
 
   return (
     <section id="projects" className="cyber-projects">
       <div className="cyber-grid"></div>
+      <div className="floating-particles"></div>
       
       <div className="cyber-container">
         {/* Section header */}
@@ -77,13 +82,13 @@ const CyberpunkProjects = () => {
             <div className="corner bottom-right"></div>
             
             <h2 className="cyber-title">
-              <span className="title-prefix">./list</span>
-              <span className="title-main">projects.exe</span>
+              <span className="title-prefix">./execute</span>
+              <span className="title-main">project.scan</span>
             </h2>
           </div>
           
           <p className="cyber-subtitle">
-            &gt; Executing command: display projects...
+            &gt; {scanningMessages[scanningPhase]}
           </p>
         </div>
         
@@ -98,27 +103,43 @@ const CyberpunkProjects = () => {
           </button>
           
           <button 
-            className={`cyber-tab ${activeTab === 'frontend' ? 'active' : ''}`}
-            onClick={() => setActiveTab('frontend')}
+            className={`cyber-tab ${activeTab === 'ai' ? 'active' : ''}`}
+            onClick={() => setActiveTab('ai')}
+          >
+            <Brain size={16} />
+            <span>neural_ai</span>
+          </button>
+          
+          <button 
+            className={`cyber-tab ${activeTab === 'gaming' ? 'active' : ''}`}
+            onClick={() => setActiveTab('gaming')}
+          >
+            <Gamepad2 size={16} />
+            <span>quantum_games</span>
+          </button>
+          
+          <button 
+            className={`cyber-tab ${activeTab === 'creative' ? 'active' : ''}`}
+            onClick={() => setActiveTab('creative')}
+          >
+            <Zap size={16} />
+            <span>creative_tech</span>
+          </button>
+          
+          <button 
+            className={`cyber-tab ${activeTab === 'vr' ? 'active' : ''}`}
+            onClick={() => setActiveTab('vr')}
+          >
+            <Rocket size={16} />
+            <span>immersive_vr</span>
+          </button>
+          
+          <button 
+            className={`cyber-tab ${activeTab === 'experimental' ? 'active' : ''}`}
+            onClick={() => setActiveTab('experimental')}
           >
             <Code size={16} />
-            <span>frontend</span>
-          </button>
-          
-          <button 
-            className={`cyber-tab ${activeTab === 'fullstack' ? 'active' : ''}`}
-            onClick={() => setActiveTab('fullstack')}
-          >
-            <Server size={16} />
-            <span>fullstack</span>
-          </button>
-          
-          <button 
-            className={`cyber-tab ${activeTab === 'mobile' ? 'active' : ''}`}
-            onClick={() => setActiveTab('mobile')}
-          >
-            <Terminal size={16} />
-            <span>mobile</span>
+            <span>experimental</span>
           </button>
         </div>
         
@@ -126,83 +147,55 @@ const CyberpunkProjects = () => {
         <div className="projects-container">
           <div className="projects-count">
             <span className="count-indicator">{filteredProjects.length}</span>
-            <span className="count-label">projects found</span>
+            <span className="count-label">projects detected</span>
           </div>
           
-          <div className="cyber-grid-container">
-            {filteredProjects.map((project, index) => (
-              <div className="cyber-project" key={project.id}>
-                <div className="project-image-container">
-                  <div className="project-overlay"></div>
-                  <img 
-                    src={project.image} 
-                    alt={project.title} 
-                    className="project-image" 
-                  />
-                  <div className="project-category" style={{ 
-                    backgroundColor: project.category === 'frontend' ? 'rgba(0, 255, 204, 0.2)' : 
-                                      project.category === 'fullstack' ? 'rgba(255, 0, 85, 0.2)' : 
-                                      'rgba(255, 195, 0, 0.2)',
-                    color: project.category === 'frontend' ? '#0fc' : 
-                           project.category === 'fullstack' ? '#f05' : 
-                           '#fc0'
-                  }}>
-                    {getCategoryIcon(project.category)}
-                    <span>{project.category}</span>
-                  </div>
-                </div>
-                
-                <div className="project-content">
-                  <h3 className="project-title">{project.title}</h3>
-                  <p className="project-description">{project.description}</p>
-                  
-                  <div className="project-tech">
-                    {project.technologies.map((tech, i) => (
-                      <span 
-                        className="tech-tag" 
-                        key={i}
-                        style={{
-                          backgroundColor: i % 3 === 0 ? 'rgba(0, 255, 204, 0.1)' : 
-                                           i % 3 === 1 ? 'rgba(255, 0, 85, 0.1)' : 
-                                           'rgba(255, 195, 0, 0.1)',
-                          color: i % 3 === 0 ? '#0fc' : 
-                                i % 3 === 1 ? '#f05' : 
-                                '#fc0',
-                          borderColor: i % 3 === 0 ? 'rgba(0, 255, 204, 0.3)' : 
-                                        i % 3 === 1 ? 'rgba(255, 0, 85, 0.3)' : 
-                                        'rgba(255, 195, 0, 0.3)'
-                        }}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  <div className="project-links">
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="cyber-link live-link">
-                      <ExternalLink size={16} />
-                      <span>Open Project</span>
-                    </a>
-                    
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="cyber-link github-link">
-                      <Github size={16} />
-                      <span>View Code</span>
-                    </a>
-                  </div>
+          {/* Developer joke empty state */}
+          {!showMessage ? (
+            <div className="scanning-state">
+              <div className="scanner-animation">
+                <div className="scanner-line"></div>
+              </div>
+              <div className="scanning-text">
+                <Terminal size={32} className="scanning-icon" />
+                <p>SCANNING IN PROGRESS...</p>
+                <div className="progress-bar">
+                  <div 
+                    className="progress-fill" 
+                    style={{ width: `${(scanningPhase / 8) * 100}%` }}
+                  ></div>
                 </div>
               </div>
-            ))}
-          </div>
-          
-          {filteredProjects.length === 0 && (
+            </div>
+          ) : (
             <div className="no-projects">
-              <p>No projects found in this category.</p>
-              <button 
-                className="reset-btn"
-                onClick={() => setActiveTab('all')}
-              >
-                Reset Filters
-              </button>
+              <div className="empty-icon-container">
+                <Code size={64} className="warning-icon" />
+                <div className="glitch-text">// TODO: Add projects</div>
+              </div>
+              
+              <div className="joke-message">
+                <h3>99 little bugs in the code... 🐛</h3>
+                <p>99 little bugs in the code,</p>
+                <p>99 little bugs!</p>
+                <p>Take one down, patch it around,</p>
+                <p className="punchline">117 little bugs in the code! 😅</p>
+              </div>
+
+              <div className="dev-truth">
+                <Coffee size={24} />
+                <div className="truth-text">
+                  <p><strong>Developer Status:</strong> Currently debugging why there are no projects to show</p>
+                  <p><strong>Stack Overflow visits today:</strong> ∞</p>
+                  <p><strong>Coffee level:</strong> Dangerously low ☕</p>
+                </div>
+              </div>
+
+              <div className="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
             </div>
           )}
         </div>
@@ -210,7 +203,7 @@ const CyberpunkProjects = () => {
 
       <style jsx>{`
         .cyber-projects {
-          background-color: #0a0e17;
+          background: linear-gradient(135deg, #0a0e17 0%, #1a0b2e 50%, #16213e 100%);
           color: #d1e3ff;
           padding: 5rem 0;
           position: relative;
@@ -230,6 +223,34 @@ const CyberpunkProjects = () => {
           background-size: 40px 40px;
           z-index: 0;
           opacity: 0.5;
+          animation: gridPulse 4s ease-in-out infinite;
+        }
+        
+        .floating-particles {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: 
+            radial-gradient(2px 2px at 20px 30px, #ff006e, transparent),
+            radial-gradient(2px 2px at 40px 70px, #06ffa5, transparent),
+            radial-gradient(1px 1px at 90px 40px, #ff9500, transparent),
+            radial-gradient(1px 1px at 130px 80px, #7209b7, transparent);
+          background-size: 200px 200px;
+          animation: float 20s linear infinite;
+          opacity: 0.3;
+          z-index: 0;
+        }
+        
+        @keyframes gridPulse {
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 0.6; }
+        }
+        
+        @keyframes float {
+          0% { transform: translateY(0px) rotate(0deg); }
+          100% { transform: translateY(-100px) rotate(360deg); }
         }
         
         .cyber-container {
@@ -241,7 +262,7 @@ const CyberpunkProjects = () => {
           z-index: 1;
         }
         
-        /* Header with cyberpunk styling */
+        /* Enhanced header styling */
         .cyber-header {
           margin-bottom: 3rem;
           text-align: center;
@@ -252,6 +273,8 @@ const CyberpunkProjects = () => {
           position: relative;
           padding: 1.5rem 2rem;
           margin: 0 auto 1rem;
+          background: rgba(0, 0, 0, 0.3);
+          backdrop-filter: blur(10px);
         }
         
         .corner {
@@ -263,29 +286,41 @@ const CyberpunkProjects = () => {
         .top-left {
           top: 0;
           left: 0;
-          border-top: 2px solid #0fc;
-          border-left: 2px solid #0fc;
+          border-top: 2px solid #ff006e;
+          border-left: 2px solid #ff006e;
+          animation: cornerGlow 2s ease-in-out infinite alternate;
         }
         
         .top-right {
           top: 0;
           right: 0;
-          border-top: 2px solid #0fc;
-          border-right: 2px solid #0fc;
+          border-top: 2px solid #06ffa5;
+          border-right: 2px solid #06ffa5;
+          animation: cornerGlow 2s ease-in-out infinite alternate;
+          animation-delay: 0.5s;
         }
         
         .bottom-left {
           bottom: 0;
           left: 0;
-          border-bottom: 2px solid #0fc;
-          border-left: 2px solid #0fc;
+          border-bottom: 2px solid #ff9500;
+          border-left: 2px solid #ff9500;
+          animation: cornerGlow 2s ease-in-out infinite alternate;
+          animation-delay: 1s;
         }
         
         .bottom-right {
           bottom: 0;
           right: 0;
-          border-bottom: 2px solid #0fc;
-          border-right: 2px solid #0fc;
+          border-bottom: 2px solid #7209b7;
+          border-right: 2px solid #7209b7;
+          animation: cornerGlow 2s ease-in-out infinite alternate;
+          animation-delay: 1.5s;
+        }
+        
+        @keyframes cornerGlow {
+          0% { opacity: 0.5; filter: brightness(1); }
+          100% { opacity: 1; filter: brightness(1.5) drop-shadow(0 0 5px currentColor); }
         }
         
         .cyber-title {
@@ -301,34 +336,55 @@ const CyberpunkProjects = () => {
           display: block;
           font-size: 1rem;
           font-family: 'Courier New', monospace;
-          color: #0fc;
+          color: #06ffa5;
           margin-bottom: 0.5rem;
           opacity: 0.8;
+          animation: typewriter 3s steps(30) infinite;
+        }
+        
+        @keyframes typewriter {
+          0%, 50% { opacity: 1; }
+          51%, 100% { opacity: 0.5; }
         }
         
         .title-main {
-          background: linear-gradient(90deg, #0fc, #f05);
+          background: linear-gradient(90deg, #ff006e, #06ffa5, #ff9500, #7209b7);
+          background-size: 300% 100%;
           -webkit-background-clip: text;
           background-clip: text;
           -webkit-text-fill-color: transparent;
           display: inline-block;
-          text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+          animation: gradientShift 3s ease-in-out infinite;
+          text-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+        }
+        
+        @keyframes gradientShift {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
         }
         
         .cyber-subtitle {
           color: #94a3b8;
           font-family: 'Courier New', monospace;
           margin-top: 1rem;
+          animation: pulse 2s ease-in-out infinite;
+          min-height: 1.5rem;
         }
         
-        /* Project tabs with cyberpunk styling */
+        @keyframes pulse {
+          0%, 100% { opacity: 0.7; }
+          50% { opacity: 1; }
+        }
+        
+        /* Enhanced project tabs */
         .cyber-tabs {
           display: flex;
           gap: 0.75rem;
           flex-wrap: wrap;
           margin-bottom: 2rem;
           padding: 0.5rem;
-          background-color: rgba(0, 0, 0, 0.4);
+          background: rgba(0, 0, 0, 0.4);
+          backdrop-filter: blur(10px);
           border-radius: 4px;
           border: 1px solid rgba(0, 255, 204, 0.1);
         }
@@ -345,219 +401,270 @@ const CyberpunkProjects = () => {
           font-family: 'Courier New', monospace;
           font-size: 0.9rem;
           cursor: pointer;
-          transition: all 0.2s ease;
+          transition: all 0.3s ease;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .cyber-tab::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+          transition: left 0.5s;
+        }
+        
+        .cyber-tab:hover::before {
+          left: 100%;
         }
         
         .cyber-tab:hover {
           background-color: rgba(255, 255, 255, 0.05);
           color: white;
+          transform: translateY(-2px);
         }
         
         .cyber-tab.active {
-          background-color: rgba(0, 255, 204, 0.1);
-          color: #0fc;
-          border-color: rgba(0, 255, 204, 0.3);
+          background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(6, 255, 165, 0.1));
+          color: #06ffa5;
+          border-color: rgba(6, 255, 165, 0.3);
+          box-shadow: 0 0 10px rgba(6, 255, 165, 0.2);
         }
         
-        /* Projects count */
-        .projects-container {
-          position: relative;
-        }
-        
+        /* Projects count styling */
         .projects-count {
           display: flex;
           align-items: center;
           gap: 0.5rem;
           margin-bottom: 1.5rem;
           font-family: 'Courier New', monospace;
+          justify-content: center;
         }
         
         .count-indicator {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          width: 30px;
-          height: 30px;
-          background-color: rgba(0, 255, 204, 0.1);
-          color: #0fc;
-          border: 1px solid rgba(0, 255, 204, 0.3);
-          border-radius: 4px;
+          width: 35px;
+          height: 35px;
+          background: linear-gradient(135deg, rgba(255, 0, 110, 0.1), rgba(255, 0, 110, 0.2));
+          color: #ff006e;
+          border: 1px solid rgba(255, 0, 110, 0.3);
+          border-radius: 50%;
           font-weight: 600;
+          animation: countPulse 2s ease-in-out infinite;
+          box-shadow: 0 0 10px rgba(255, 0, 110, 0.2);
+        }
+        
+        @keyframes countPulse {
+          0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 0, 110, 0.2); }
+          50% { transform: scale(1.05); box-shadow: 0 0 15px rgba(255, 0, 110, 0.4); }
         }
         
         .count-label {
           color: #94a3b8;
+          font-weight: 400;
         }
         
-        /* Projects grid */
-        .cyber-grid-container {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-          gap: 2rem;
-        }
-        
-        .cyber-project {
-          border: 1px solid rgba(0, 255, 204, 0.2);
-          border-radius: 4px;
-          overflow: hidden;
-          background-color: rgba(0, 0, 0, 0.5);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* Scanning state */
+        .scanning-state {
+          text-align: center;
+          padding: 4rem 2rem;
+          background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+          border: 1px solid rgba(6, 255, 165, 0.2);
+          border-radius: 8px;
+          margin-top: 2rem;
+          backdrop-filter: blur(10px);
           position: relative;
-        }
-        
-        .cyber-project:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2);
-        }
-        
-        .project-image-container {
-          position: relative;
-          height: 180px;
           overflow: hidden;
         }
         
-        .project-overlay {
+        .scanner-animation {
+          position: relative;
+          width: 200px;
+          height: 200px;
+          margin: 0 auto 2rem;
+          border: 2px solid rgba(6, 255, 165, 0.3);
+          border-radius: 50%;
+        }
+        
+        .scanner-line {
           position: absolute;
-          top: 0;
-          left: 0;
+          top: 50%;
+          left: 50%;
+          width: 2px;
+          height: 80px;
+          background: linear-gradient(to bottom, #06ffa5, transparent);
+          transform-origin: bottom center;
+          transform: translate(-50%, -100%) rotate(0deg);
+          animation: scan 2s linear infinite;
+        }
+        
+        @keyframes scan {
+          0% { transform: translate(-50%, -100%) rotate(0deg); }
+          100% { transform: translate(-50%, -100%) rotate(360deg); }
+        }
+        
+        .scanning-text {
+          color: #06ffa5;
+          font-family: 'Courier New', monospace;
+        }
+        
+        .scanning-icon {
+          margin-bottom: 1rem;
+          animation: pulse 1s ease-in-out infinite;
+        }
+        
+        .progress-bar {
           width: 100%;
+          max-width: 300px;
+          height: 4px;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 2px;
+          margin: 1rem auto;
+          overflow: hidden;
+        }
+        
+        .progress-fill {
           height: 100%;
-          background: linear-gradient(to bottom, 
-            rgba(0, 0, 0, 0.1), 
-            rgba(0, 0, 0, 0.5)
-          );
-          z-index: 1;
+          background: linear-gradient(90deg, #06ffa5, #ff006e);
+          border-radius: 2px;
+          transition: width 0.5s ease;
         }
         
-        .project-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 0.5s ease;
-        }
-        
-        .cyber-project:hover .project-image {
-          transform: scale(1.05);
-        }
-        
-        .project-category {
-          position: absolute;
-          top: 1rem;
-          right: 1rem;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.3rem 0.75rem;
-          border-radius: 4px;
-          font-size: 0.8rem;
-          font-family: 'Courier New', monospace;
-          z-index: 2;
-        }
-        
-        .project-content {
-          padding: 1.5rem;
-        }
-        
-        .project-title {
-          color: white;
-          font-size: 1.25rem;
-          margin: 0 0 0.75rem;
-          font-weight: 600;
-        }
-        
-        .project-description {
-          color: #94a3b8;
-          font-size: 0.9rem;
-          line-height: 1.5;
-          margin-bottom: 1.25rem;
-        }
-        
-        .project-tech {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.5rem;
-          margin-bottom: 1.5rem;
-        }
-        
-        .tech-tag {
-          padding: 0.25rem 0.5rem;
-          border-radius: 4px;
-          font-size: 0.75rem;
-          font-family: 'Courier New', monospace;
-          border: 1px solid;
-        }
-        
-        .project-links {
-          display: flex;
-          gap: 1rem;
-        }
-        
-        .cyber-link {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem 1rem;
-          border-radius: 4px;
-          font-size: 0.85rem;
-          font-family: 'Courier New', monospace;
-          text-decoration: none;
-          transition: all 0.2s ease;
-        }
-        
-        .live-link {
-          background-color: rgba(0, 255, 204, 0.1);
-          color: #0fc;
-          border: 1px solid rgba(0, 255, 204, 0.3);
-        }
-        
-        .github-link {
-          background-color: rgba(255, 255, 255, 0.05);
-          color: #94a3b8;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .live-link:hover {
-          background-color: rgba(0, 255, 204, 0.2);
-          transform: translateY(-2px);
-        }
-        
-        .github-link:hover {
-          background-color: rgba(255, 255, 255, 0.1);
-          color: white;
-          transform: translateY(-2px);
-        }
-        
-        /* No projects state */
+        /* Funny empty state */
         .no-projects {
           text-align: center;
-          padding: 3rem 1rem;
-          background-color: rgba(0, 0, 0, 0.3);
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          border-radius: 4px;
-          margin-top: 1rem;
+          padding: 3rem 2rem;
+          background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+          border: 1px solid rgba(255, 0, 110, 0.2);
+          border-radius: 8px;
+          margin-top: 2rem;
+          backdrop-filter: blur(10px);
+          max-width: 800px;
+          margin-left: auto;
+          margin-right: auto;
         }
         
-        .no-projects p {
-          color: #94a3b8;
-          margin-bottom: 1.5rem;
+        .empty-icon-container {
+          margin-bottom: 2rem;
         }
         
-        .reset-btn {
-          background-color: rgba(0, 255, 204, 0.1);
-          color: #0fc;
-          border: 1px solid rgba(0, 255, 204, 0.3);
-          border-radius: 4px;
-          padding: 0.5rem 1rem;
+        .warning-icon {
+          color: #06ffa5;
+          margin-bottom: 1rem;
+          animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+          0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+          40% { transform: translateY(-10px); }
+          60% { transform: translateY(-5px); }
+        }
+        
+        .glitch-text {
           font-family: 'Courier New', monospace;
-          cursor: pointer;
-          transition: all 0.2s ease;
+          font-size: 1.2rem;
+          color: #06ffa5;
+          animation: glitch 2s ease-in-out infinite;
+          text-shadow: 1px 0 #ff006e, -1px 0 #ff9500;
         }
         
-        .reset-btn:hover {
-          background-color: rgba(0, 255, 204, 0.2);
+        @keyframes glitch {
+          0%, 100% { transform: translateX(0); }
+          20% { transform: translateX(-1px); }
+          40% { transform: translateX(1px); }
+          60% { transform: translateX(-1px); }
+          80% { transform: translateX(1px); }
         }
         
-        /* Responsive adjustments */
+        .joke-message {
+          margin: 2rem 0;
+          padding: 2rem;
+          background: rgba(255, 255, 255, 0.02);
+          border-radius: 8px;
+          border-left: 4px solid #ff006e;
+        }
+        
+        .joke-message h3 {
+          color: #ff006e;
+          margin-bottom: 1rem;
+          font-size: 1.3rem;
+        }
+        
+        .joke-message p {
+          color: #94a3b8;
+          margin-bottom: 0.3rem;
+          line-height: 1.6;
+          font-family: 'Courier New', monospace;
+        }
+        
+        .punchline {
+          color: #06ffa5 !important;
+          font-weight: bold;
+          font-size: 1.1em;
+          animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .dev-truth {
+          display: flex;
+          align-items: flex-start;
+          gap: 1rem;
+          margin: 2rem 0;
+          padding: 1.5rem;
+          background: linear-gradient(135deg, rgba(255, 149, 0, 0.1), rgba(255, 149, 0, 0.05));
+          border: 1px solid rgba(255, 149, 0, 0.3);
+          border-radius: 8px;
+          text-align: left;
+        }
+        
+        .dev-truth svg {
+          color: #ff9500;
+          margin-top: 0.2rem;
+          flex-shrink: 0;
+        }
+        
+        .truth-text p {
+          color: #94a3b8;
+          margin-bottom: 0.5rem;
+          line-height: 1.5;
+          font-family: 'Courier New', monospace;
+        }
+        
+        /* Remove unused styles */
+        
+        .loading-dots {
+          display: flex;
+          justify-content: center;
+          gap: 0.5rem;
+          margin-top: 2rem;
+        }
+        
+        .loading-dots span {
+          width: 8px;
+          height: 8px;
+          background: #06ffa5;
+          border-radius: 50%;
+          animation: loadingDots 1.5s ease-in-out infinite;
+        }
+        
+        .loading-dots span:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+        
+        .loading-dots span:nth-child(3) {
+          animation-delay: 0.4s;
+        }
+        
+        @keyframes loadingDots {
+          0%, 60%, 100% { opacity: 0.3; transform: scale(1); }
+          30% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        /* Responsive design */
         @media (max-width: 768px) {
           .cyber-tabs {
             justify-content: center;
@@ -567,8 +674,9 @@ const CyberpunkProjects = () => {
             font-size: 2rem;
           }
           
-          .projects-count {
-            justify-content: center;
+          .motivation-box {
+            flex-direction: column;
+            text-align: center;
           }
         }
         
@@ -577,13 +685,8 @@ const CyberpunkProjects = () => {
             font-size: 1.75rem;
           }
           
-          .project-links {
-            flex-direction: column;
-          }
-          
-          .cyber-link {
-            width: 100%;
-            justify-content: center;
+          .no-projects {
+            padding: 2rem 1rem;
           }
         }
       `}</style>
