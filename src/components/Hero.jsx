@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { 
   Github, 
   Linkedin, 
@@ -15,41 +15,32 @@ import {
   Clock,
   Terminal
 } from 'lucide-react';
-import { useState } from 'react';
 import './hero.css';
 
-const Hero = () => {
-  const heroRef = useRef(null);
-  const profileRef = useRef(null);
-  const titleRef = useRef(null);
-  const [isGlitching, setIsGlitching] = useState(false);
-  
-  // Glitch effect trigger
-  useEffect(() => {
-    const glitchInterval = setInterval(() => {
-      setIsGlitching(true);
-      setTimeout(() => setIsGlitching(false), 200);
-    }, 5000);
-    
-    return () => clearInterval(glitchInterval);
-  }, []);
-  
-  // Matrix code rain effect
+// Custom hook for matrix animation
+const useMatrixAnimation = (canvasId) => {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     
-    const canvas = document.getElementById('matrix-canvas');
+    const canvas = document.getElementById(canvasId);
     if (!canvas) return;
     
     const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    let animationId;
+    
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
     
     const characters = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const columns = Math.floor(canvas.width / 20);
     const drops = Array(columns).fill(1);
     
-    function draw() {
+    const draw = () => {
       ctx.fillStyle = 'rgba(0, 10, 20, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
@@ -66,62 +57,186 @@ const Hero = () => {
         
         drops[i]++;
       }
-    }
+      
+      animationId = requestAnimationFrame(draw);
+    };
     
-    const matrixInterval = setInterval(draw, 50);
+    draw();
     
-    return () => clearInterval(matrixInterval);
-  }, []);
-
-  // Typing effect for the description - FIXED VERSION
-  const [displayText, setDisplayText] = useState('');
-  const fullText = "I create modern web solutions that solve real business problems. With expertise in both frontend and backend technologies, I build applications that are intuitive, scalable, and maintainable.";
-  
-  // Reference to control the typing animation
-  const typingRef = useRef({
-    textIndex: 0,
-    typingSpeed: 30,
-    interval: null
-  });
-  
-  useEffect(() => {
-    // Clear any existing interval
-    if (typingRef.current.interval) {
-      clearInterval(typingRef.current.interval);
-    }
-    
-    // Reset the display text
-    setDisplayText('');
-    typingRef.current.textIndex = 0;
-    
-    // Start a new typing interval
-    typingRef.current.interval = setInterval(() => {
-      if (typingRef.current.textIndex < fullText.length) {
-        setDisplayText(fullText.substring(0, typingRef.current.textIndex + 1));
-        typingRef.current.textIndex++;
-      } else {
-        clearInterval(typingRef.current.interval);
-      }
-    }, typingRef.current.typingSpeed);
-    
-    // Cleanup function
     return () => {
-      if (typingRef.current.interval) {
-        clearInterval(typingRef.current.interval);
+      window.removeEventListener('resize', resizeCanvas);
+      if (animationId) {
+        cancelAnimationFrame(animationId);
       }
     };
-  }, [fullText]); // Re-run if fullText changes
+  }, [canvasId]);
+};
+
+// Custom hook for typing animation
+const useTypingEffect = (text, speed = 30) => {
+  const [displayText, setDisplayText] = useState('');
+  const [isComplete, setIsComplete] = useState(false);
+  
+  useEffect(() => {
+    let index = 0;
+    setDisplayText('');
+    setIsComplete(false);
+    
+    const timer = setInterval(() => {
+      if (index < text.length) {
+        setDisplayText(text.substring(0, index + 1));
+        index++;
+      } else {
+        setIsComplete(true);
+        clearInterval(timer);
+      }
+    }, speed);
+    
+    return () => clearInterval(timer);
+  }, [text, speed]);
+  
+  return { displayText, isComplete };
+};
+
+// Custom hook for glitch effect
+const useGlitchEffect = (interval = 5000, duration = 200) => {
+  const [isGlitching, setIsGlitching] = useState(false);
+  
+  useEffect(() => {
+    const glitchInterval = setInterval(() => {
+      setIsGlitching(true);
+      const timeout = setTimeout(() => setIsGlitching(false), duration);
+      return () => clearTimeout(timeout);
+    }, interval);
+    
+    return () => clearInterval(glitchInterval);
+  }, [interval, duration]);
+  
+  return isGlitching;
+};
+
+// Skill item component
+const SkillItem = React.memo(({ icon: Icon, label, variant }) => (
+  <div className="skill-item">
+    <div className={`icon-container ${variant}`}>
+      <Icon size={18} aria-hidden="true" />
+    </div>
+    <span>{label}</span>
+  </div>
+));
+
+SkillItem.displayName = 'SkillItem';
+
+// Stat card component
+const StatCard = React.memo(({ number, label }) => (
+  <div className="stat-card">
+    <span className="stat-number">{number}</span>
+    <span className="stat-label">{label}</span>
+  </div>
+));
+
+StatCard.displayName = 'StatCard';
+
+// Social link component
+const SocialLink = React.memo(({ href, icon: Icon, variant, label, ...props }) => (
+  <a 
+    href={href} 
+    className="social-link" 
+    aria-label={label}
+    {...props}
+  >
+    <div className={`social-icon ${variant}`}>
+      <Icon size={18} aria-hidden="true" />
+    </div>
+  </a>
+));
+
+SocialLink.displayName = 'SocialLink';
+
+const Hero = () => {
+  const heroRef = useRef(null);
+  const profileRef = useRef(null);
+  const titleRef = useRef(null);
+  
+  // Custom hooks
+  const isGlitching = useGlitchEffect(5000, 200);
+  useMatrixAnimation('matrix-canvas');
+  
+  const fullText = "I create modern web solutions that solve real business problems. With expertise in both frontend and backend technologies, I build applications that are intuitive, scalable, and maintainable.";
+  const { displayText, isComplete } = useTypingEffect(fullText, 30);
+  
+  // Memoized data
+  const skills = useMemo(() => [
+    { icon: Monitor, label: 'Frontend', variant: 'primary' },
+    { icon: Server, label: 'Backend', variant: 'secondary' },
+    { icon: Database, label: 'Database', variant: 'tertiary' },
+    { icon: Terminal, label: 'DevOps', variant: 'quaternary' }
+  ], []);
+  
+  const stats = useMemo(() => [
+    { number: '5+', label: 'Years_XP' },
+    { number: '50+', label: 'Projects_Done' },
+    { number: '20+', label: 'Clients_Served' }
+  ], []);
+  
+  const socialLinks = useMemo(() => [
+    {
+      href: 'https://github.com/DebrainStark',
+      icon: Github,
+      variant: 'github',
+      label: 'GitHub Profile',
+      target: '_blank',
+      rel: 'noopener noreferrer'
+    },
+    {
+      href: 'https://www.linkedin.com/in/otoibhi-anthony-b-eng-gnse-970049161',
+      icon: Linkedin,
+      variant: 'linkedin',
+      label: 'LinkedIn Profile',
+      target: '_blank',
+      rel: 'noopener noreferrer'
+    },
+    {
+      href: 'mailto:anuoluwaotoibhi@gmail.com',
+      icon: Mail,
+      variant: 'mail',
+      label: 'Send Email'
+    }
+  ], []);
+  
+  // Event handlers
+  const handleProjectsClick = useCallback((e) => {
+    e.preventDefault();
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+  
+  const handleDownloadCV = useCallback(() => {
+    // Analytics or tracking can be added here
+    console.log('CV download initiated');
+  }, []);
 
   return (
-    <section id="home" className={`hero-section ${isGlitching ? 'glitch' : ''}`}>
+    <section 
+      id="home" 
+      className={`hero-section ${isGlitching ? 'glitch' : ''}`}
+      ref={heroRef}
+      aria-label="Hero section"
+    >
       {/* Matrix code background */}
-      <canvas id="matrix-canvas" className="matrix-background"></canvas>
+      <canvas 
+        id="matrix-canvas" 
+        className="matrix-background"
+        aria-hidden="true"
+      />
       
       {/* Cyberpunk overlay gradients */}
-      <div className="hero-background">
-        <div className="gradient-primary"></div>
-        <div className="gradient-secondary"></div>
-        <div className="grid-overlay"></div>
+      <div className="hero-background" aria-hidden="true">
+        <div className="gradient-primary" />
+        <div className="gradient-secondary" />
+        <div className="grid-overlay" />
       </div>
       
       <div className="container">
@@ -131,51 +246,35 @@ const Hero = () => {
             <div className="profile-wrapperr">
               {/* Profile image with neon frame */}
               <div className="profile-image-containerr">
-                <div className="cyberpunk-frame">
-                  <div className="corner top-left"></div>
-                  <div className="corner top-right"></div>
-                  <div className="corner bottom-left"></div>
-                  <div className="corner bottom-right"></div>
+                <div className="cyberpunk-frame" aria-hidden="true">
+                  <div className="corner top-left" />
+                  <div className="corner top-right" />
+                  <div className="corner bottom-left" />
+                  <div className="corner bottom-right" />
                 </div>
-                <div className="speech-bubble">
+                <div className="speech-bubble" aria-hidden="true">
                   <span>./init.sh</span>
                 </div>
-                <div className="profile-glow"></div>
+                <div className="profile-glow" aria-hidden="true" />
                 <img 
                   src="/logoo.png" 
-                  alt="Otoibhi Anthony" 
+                  alt="Otoibhi Anthony - Full Stack Developer" 
                   className="profile-image"
+                  loading="eager"
+                  width="200"
+                  height="200"
                 />
-                <div className="scanline"></div>
+                <div className="scanline" aria-hidden="true" />
               </div>
               
               {/* Skills with hacker-style icons */}
               <div className="skills-container">
-                <div className="skills-grid">
-                  <div className="skill-item">
-                    <div className="icon-container primary">
-                      <Monitor size={18} />
+                <div className="skills-grid" role="list" aria-label="Technical skills">
+                  {skills.map((skill, index) => (
+                    <div key={`${skill.label}-${index}`} role="listitem">
+                      <SkillItem {...skill} />
                     </div>
-                    <span>Frontend</span>
-                  </div>
-                  <div className="skill-item">
-                    <div className="icon-container secondary">
-                      <Server size={18} />
-                    </div>
-                    <span>Backend</span>
-                  </div>
-                  <div className="skill-item">
-                    <div className="icon-container tertiary">
-                      <Database size={18} />
-                    </div>
-                    <span>Database</span>
-                  </div>
-                  <div className="skill-item">
-                    <div className="icon-container quaternary">
-                      <Terminal size={18} />
-                    </div>
-                    <span>DevOps</span>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -184,59 +283,60 @@ const Hero = () => {
           {/* Content Column */}
           <div className="hero-content">
             {/* Hacker Badge */}
-            <div className="role-badge">
-              <div className="badge-icon">⟨⧸⟩</div>
+            <div className="role-badge" role="banner">
+              <div className="badge-icon" aria-hidden="true">⟨⧸⟩</div>
               <span>Full-Stack Developer</span>
             </div>
             
             {/* Hero Title with cyber style */}
-            <h1 className="hero-title" ref={titleRef}>
-              <span className="cyber-greeting">sudo ./greet</span>
-              <div className="title-main">
+            <header className="hero-title" ref={titleRef}>
+              <span className="cyber-greeting" aria-hidden="true">sudo ./greet</span>
+              <h1 className="title-main">
                 Hi, I'm <span className="gradient-text">Otoibhi Anthony</span>
-              </div>
-            </h1>
+              </h1>
+            </header>
             
-            <div className="terminal-window">
-              <div className="terminal-header">
-                <span className="terminal-button"></span>
-                <span className="terminal-button"></span>
-                <span className="terminal-button"></span>
+            <div className="terminal-window" role="complementary" aria-label="About me">
+              <div className="terminal-header" aria-hidden="true">
+                <span className="terminal-button" />
+                <span className="terminal-button" />
+                <span className="terminal-button" />
                 <span className="terminal-title">anthony@developer:~$</span>
               </div>
               <p className="hero-description">
-                <span className="cursor">█</span> {displayText}
+                <span className={`cursor ${isComplete ? 'blink' : ''}`} aria-hidden="true">█</span>
+                <span aria-live="polite">{displayText}</span>
               </p>
             </div>
             
             {/* Hero Stats with cyber styling */}
-            <div className="hero-stats">
-              <div className="stat-card">
-                <span className="stat-number">5+</span>
-                <span className="stat-label">Years_XP</span>
-              </div>
-              
-              <div className="stat-card">
-                <span className="stat-number">50+</span>
-                <span className="stat-label">Projects_Done</span>
-              </div>
-              
-              <div className="stat-card">
-                <span className="stat-number">20+</span>
-                <span className="stat-label">Clients_Served</span>
-              </div>
+            <div className="hero-stats" role="region" aria-label="Professional statistics">
+              {stats.map((stat, index) => (
+                <StatCard key={`${stat.label}-${index}`} {...stat} />
+              ))}
             </div>
             
             {/* CTA Buttons with cyber styling */}
-            <div className="hero-cta">
-              <a href="#projects" className="btn-primary">
+            <div className="hero-cta" role="navigation" aria-label="Main actions">
+              <a 
+                href="#projects" 
+                className="btn-primary"
+                onClick={handleProjectsClick}
+                aria-label="View my projects"
+              >
                 <span>View Projects</span>
-                <div className="btn-icon">
+                <div className="btn-icon" aria-hidden="true">
                   <ArrowRight size={18} />
                 </div>
               </a>
-              <a href="/resume.pdf" className="btn-secondary" download>
-                <div className="btn-icon secondary">
+              <a 
+                href="/resume.pdf" 
+                className="btn-secondary" 
+                download
+                onClick={handleDownloadCV}
+                aria-label="Download my CV/Resume"
+              >
+                <div className="btn-icon secondary" aria-hidden="true">
                   <Download size={18} />
                 </div>
                 <span>Download CV</span>
@@ -244,27 +344,15 @@ const Hero = () => {
             </div>
             
             {/* Social Links with cyber styling */}
-            <div className="hero-social">
-              <a href="https://github.com/DebrainStark" target="_blank" rel="noopener noreferrer" className="social-link">
-                <div className="social-icon github">
-                  <Github size={18} />
-                </div>
-              </a>
-              <a href="https://www.linkedin.com/in/otoibhi-anthony-b-eng-gnse-970049161" target="_blank" rel="noopener noreferrer" className="social-link">
-                <div className="social-icon linkedin">
-                  <Linkedin size={18} />
-                </div>
-              </a>
-              <a href="mailto:anuoluwaotoibhi@gmail.com" className="social-link">
-                <div className="social-icon mail">
-                  <Mail size={18} />
-                </div>
-              </a>
+            <div className="hero-social" role="navigation" aria-label="Social media links">
+              {socialLinks.map((link, index) => (
+                <SocialLink key={`social-${index}`} {...link} />
+              ))}
               
-              <div className="social-divider"></div>
+              <div className="social-divider" aria-hidden="true" />
               
-              <div className="availability-indicator">
-                <div className="availability-dot"></div>
+              <div className="availability-indicator" role="status" aria-label="Current availability">
+                <div className="availability-dot" aria-hidden="true" />
                 <span>System_Online</span>
               </div>
             </div>
