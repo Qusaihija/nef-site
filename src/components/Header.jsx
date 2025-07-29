@@ -5,7 +5,7 @@ import { Menu, X, Home, Code, FolderOpen, User, Mail, Terminal } from 'lucide-re
 const NAVIGATION_ITEMS = [
   { id: 'home', label: 'Home', icon: <Home size={20} /> },
   { id: 'skills', label: 'Skills', icon: <Code size={20} /> },
-  { id: 'projects', label: 'Projects', icon: <FolderOpen size={20} /> },
+  { id: 'projects', label: 'Experience', icon: <FolderOpen size={20} /> },
   { id: 'about', label: 'About', icon: <User size={20} /> },
   { id: 'contact', label: 'Contact', icon: <Mail size={20} /> }
 ];
