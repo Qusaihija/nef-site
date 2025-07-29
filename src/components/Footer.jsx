@@ -50,7 +50,7 @@ const CyberpunkFooter = () => {
   const navLinks = [
     { text: "Home", url: "#home" },
     { text: "Skills", url: "#skills" },
-    { text: "Projects", url: "#projects" },
+    { text: "Experience", url: "#projects" },
     { text: "About", url: "#about" },
     { text: "Contact", url: "#contact" }
   ];
