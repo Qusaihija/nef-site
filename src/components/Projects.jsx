@@ -180,7 +180,7 @@ const CyberpunkProjects = () => {
                 <p>Attempting to reconstruct past deployments...</p>
                 <p>Quantum resume checksum failed!</p>
                 <p>Take one down, patch it around,</p>
-                <p className="punchline">Your skills exist, but HR can't detect them 😅</p>
+                <p className="punchline">Your experience exist, but HR can't detect them 😅</p>
               </div>
 
               <div className="dev-truth">
