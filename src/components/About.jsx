@@ -160,7 +160,7 @@ const CyberpunkAbout = () => {
                         <span className="terminal-prompt">$ </span>
                         <span className="terminal-command">whoami</span>
                       </div>
-                      <div className="terminal-line terminal-output">Otoibhi Anthony</div>
+                      <div className="terminal-line terminal-output">Qusai AKA Nefarious</div>
                       <div className="terminal-line">
                         <span className="terminal-prompt">$ </span>
                         <span className="terminal-command">skills --top</span>
