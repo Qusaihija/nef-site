@@ -6,7 +6,7 @@ const WelcomeModal = ({ onClose }) => {
   const [showCursor, setShowCursor] = useState(true);
   const [typingComplete, setTypingComplete] = useState(false);
   
-  const welcomeMessage = `> INITIALIZING SYSTEM...\n> ESTABLISHING SECURE CONNECTION...\n> ACCESS GRANTED...\n\n> Welcome to my portfolio.\n> I'm a developer passionate about creating exceptional digital experiences.\n> Feel free to explore my work and get in touch.\n\n> SYSTEM READY...`;
+  const welcomeMessage = `> INITIALIZING SYSTEM...\n> ESTABLISHING SECURE CONNECTION...\n> ACCESS GRANTED...\n\n> Welcome to my portfolio.\n> I'm a security-focused developer passionate about building robust systems and uncovering vulnerabilities to create secure and reliable digital experiences.\n> Feel free to explore my work and get in touch.\n\n> SYSTEM READY...`;
 
   useEffect(() => {
     // Check if user has visited before
