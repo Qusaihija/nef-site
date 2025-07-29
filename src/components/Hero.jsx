@@ -324,7 +324,7 @@ const Hero = () => {
                 onClick={handleProjectsClick}
                 aria-label="View my projects"
               >
-                <span>View Projects</span>
+                <span>View Experiances</span>
                 <div className="btn-icon" aria-hidden="true">
                   <ArrowRight size={18} />
                 </div>
