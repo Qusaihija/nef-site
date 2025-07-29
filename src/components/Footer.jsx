@@ -31,17 +31,17 @@ const CyberpunkFooter = () => {
   const socialLinks = [
     {
       icon: <Github size={18} />,
-      url: "https://github.com/DebrainStark",
+      url: "https://github.com/Qusaihija",
       label: "GitHub"
     },
     {
       icon: <Linkedin size={18} />,
-      url: "https://www.linkedin.com/in/otoibhi-anthony-b-eng-gnse-970049161",
+      url: "https://www.linkedin.com/in/qusai-abu-al-haija-037927288",
       label: "LinkedIn"
     },
     {
       icon: <Mail size={18} />,
-      url: "mailto:starkwave@outlook.com",
+      url: "mailto:qusayaboalhiga113@gmail.com",
       label: "Email"
     }
   ];
@@ -109,7 +109,7 @@ const CyberpunkFooter = () => {
               <span>System.v1.0</span>
             </div>
             <div className="neo-footer__copyright-text">
-              &copy; {new Date().getFullYear()} Otoibhi Anthony. All rights reserved.
+              &copy; {new Date().getFullYear()} Nefarious. All rights reserved.
             </div>
             <div className="neo-footer__made-with">
               <span>Made with</span>

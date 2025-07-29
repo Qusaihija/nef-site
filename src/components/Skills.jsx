@@ -11,40 +11,40 @@ const CyberpunkSkillsSection = () => {
   // Enhanced skills with cyberpunk styling and icons
   const skillGroups = [
     {
-      category: "Frontend",
+      category: "Penetration Testing Skills",
       icon: <Code size={20} />,
       color: "#0fc", // Cyan - primary color
       skills: [
-        { name: "React", level: 95 },
-        { name: "JavaScript", level: 90 },
-        { name: "TypeScript", level: 85 },
-        { name: "Next.js", level: 88 },
-        { name: "HTML/CSS", level: 92 },
-        { name: "Tailwind", level: 90 },
-        { name: "Redux", level: 85 }
+        { name: "Linux (Privilege Escalation)", level: 95 },
+        { name: "Windows (Active Directory Attacks)", level: 90 },
+        { name: "Web App Hacking", level: 85 },
+        { name: "Social Engineering", level: 88 },
+        { name: "Red Teaming Methodology", level: 92 },
+        { name: "Mobile Application Pentester", level: 90 },
+        { name: "Python (Exploitation Scripting)", level: 85 }
       ]
     },
     {
-      category: "Backend",
+      category: "DevOps",
       icon: <Server size={20} />,
       color: "#f05", // Magenta - secondary color
       skills: [
-        { name: "Node.js", level: 90 },
-        { name: "Express", level: 88 },
-        { name: "REST API", level: 92 },
-        { name: "GraphQL", level: 85 },
-        { name: "Python", level: 80 }
+        { name: "Docker", level: 90 },
+        { name: "Kubernetes", level: 88 },
+        { name: "CI/CD (GitHub Actions, GitLab CI)", level: 92 },
+        { name: "Helm", level: 85 },
+        { name: "AWS", level: 80 }
       ]
     },
     {
-      category: "Database",
+      category: "Cloud",
       icon: <Database size={20} />,
       color: "#fc0", // Yellow - tertiary color
       skills: [
-        { name: "MongoDB", level: 90 },
-        { name: "PostgreSQL", level: 85 },
-        { name: "Firebase", level: 88 },
-        { name: "Redis", level: 82 }
+        { name: "AWS", level: 90 },
+        { name: "Azure", level: 85 },
+        { name: "Google Cloud", level: 88 },
+        { name: "Container Orchestration", level: 82 }
       ]
     },
     {
@@ -56,8 +56,8 @@ const CyberpunkSkillsSection = () => {
         { name: "Docker", level: 85 },
         { name: "AWS", level: 80 },
         { name: "CI/CD", level: 86 },
-        { name: "Jest", level: 84 },
-        { name: "Figma", level: 88 }
+        { name: "Nginx", level: 84 },
+        { name: "Helm", level: 88 }
       ]
     }
   ];
@@ -107,7 +107,7 @@ const CyberpunkSkillsSection = () => {
               
               <div className="title-badge">
                 <Terminal size={16} />
-                <span>Where Code Meets Power</span>
+                <span>Where Vulnerabilities Meet Their Match</span>
               </div>
             </div>
           </div>

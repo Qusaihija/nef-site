@@ -11,15 +11,15 @@ const CyberpunkProjects = () => {
 
   useEffect(() => {
     const phases = [
-      "Initializing quantum scanner...",
-      "Scanning neural pathways...",  
-      "Detecting creative algorithms...",
-      "Searching project database...",
-      "Analyzing code repositories...",
-      "Checking backup servers...",
-      "Scanning parallel dimensions...",
-      "ERROR: Projects not found",
-      "FINAL_RESULT: Zero projects detected"
+    "Accessing memory banks...",
+    "Decrypting career timeline...",
+    "Parsing neural data streams...",
+    "Analyzing skill sectors...",
+    "Verifying certification hashes...",
+    "Cross-referencing Git activity...",
+    "Mapping experience clusters...",
+    "ALERT: Missing logs in timeline",
+    "FINAL_RESULT: Experience scan complete"
     ];
 
     const interval = setInterval(() => {
@@ -38,15 +38,15 @@ const CyberpunkProjects = () => {
   }, []);
 
   const scanningMessages = [
-    "Initializing quantum scanner...",
-    "Scanning neural pathways...",  
-    "Detecting creative algorithms...",
-    "Searching project database...",
-    "Analyzing code repositories...",
-    "Checking backup servers...",
-    "Scanning parallel dimensions...",
-    "ERROR: Projects not found",
-    "FINAL_RESULT: Zero projects detected"
+    "Accessing memory banks...",
+    "Decrypting career timeline...",
+    "Parsing neural data streams...",
+    "Analyzing skill sectors...",
+    "Verifying certification hashes...",
+    "Cross-referencing Git activity...",
+    "Mapping experience clusters...",
+    "ALERT: Missing logs in timeline",
+    "FINAL_RESULT: Experience scan complete"
   ];
 
   // Filter projects based on active tab
@@ -57,12 +57,12 @@ const CyberpunkProjects = () => {
   // Category icon mapping with more exciting icons
   const getCategoryIcon = (category) => {
     switch(category) {
-      case 'ai': return <Brain size={16} />;
-      case 'gaming': return <Gamepad2 size={16} />;
-      case 'blockchain': return <Database size={16} />;
-      case 'creative': return <Zap size={16} />;
-      case 'vr': return <Rocket size={16} />;
-      case 'experimental': return <Terminal size={16} />;
+      case 'pentesting': return <Brain size={16} />;
+      case 'devops': return <Gamepad2 size={16} />;
+      case 'cloud': return <Database size={16} />;
+      case 'infra': return <Zap size={16} />;
+      case 'fullstack': return <Rocket size={16} />;
+      case 'research': return <Terminal size={16} />;
       default: return <Code size={16} />;
     }
   };
@@ -83,7 +83,7 @@ const CyberpunkProjects = () => {
             
             <h2 className="cyber-title">
               <span className="title-prefix">./execute</span>
-              <span className="title-main">project.scan</span>
+              <span className="title-main">experience.scan</span>
             </h2>
           </div>
           
@@ -99,7 +99,7 @@ const CyberpunkProjects = () => {
             onClick={() => setActiveTab('all')}
           >
             <Terminal size={16} />
-            <span>all_projects</span>
+            <span>all_xp</span>
           </button>
           
           <button 
@@ -107,7 +107,7 @@ const CyberpunkProjects = () => {
             onClick={() => setActiveTab('ai')}
           >
             <Brain size={16} />
-            <span>neural_ai</span>
+            <span>Pentesting</span>
           </button>
           
           <button 
@@ -115,7 +115,7 @@ const CyberpunkProjects = () => {
             onClick={() => setActiveTab('gaming')}
           >
             <Gamepad2 size={16} />
-            <span>quantum_games</span>
+            <span>DevOps</span>
           </button>
           
           <button 
@@ -123,7 +123,7 @@ const CyberpunkProjects = () => {
             onClick={() => setActiveTab('creative')}
           >
             <Zap size={16} />
-            <span>creative_tech</span>
+            <span>Cloud</span>
           </button>
           
           <button 
@@ -131,7 +131,7 @@ const CyberpunkProjects = () => {
             onClick={() => setActiveTab('vr')}
           >
             <Rocket size={16} />
-            <span>immersive_vr</span>
+            <span>research</span>
           </button>
           
           <button 
@@ -139,15 +139,16 @@ const CyberpunkProjects = () => {
             onClick={() => setActiveTab('experimental')}
           >
             <Code size={16} />
-            <span>experimental</span>
+            <span>Infra</span>
           </button>
+
         </div>
         
         {/* Projects grid */}
         <div className="projects-container">
           <div className="projects-count">
             <span className="count-indicator">{filteredProjects.length}</span>
-            <span className="count-label">projects detected</span>
+            <span className="count-label">experience detected</span>
           </div>
           
           {/* Developer joke empty state */}
@@ -171,23 +172,23 @@ const CyberpunkProjects = () => {
             <div className="no-projects">
               <div className="empty-icon-container">
                 <Code size={64} className="warning-icon" />
-                <div className="glitch-text">// TODO: Add projects</div>
+                <div className="glitch-text">// ERROR!! too much to handle!</div>
               </div>
               
               <div className="joke-message">
-                <h3>99 little bugs in the code... 🐛</h3>
-                <p>99 little bugs in the code,</p>
-                <p>99 little bugs!</p>
+                <h3>Memory corruption detected 🧠💥</h3>
+                <p>Attempting to reconstruct past deployments...</p>
+                <p>Quantum resume checksum failed!</p>
                 <p>Take one down, patch it around,</p>
-                <p className="punchline">117 little bugs in the code! 😅</p>
+                <p className="punchline">Your skills exist, but HR can't detect them 😅</p>
               </div>
 
               <div className="dev-truth">
                 <Coffee size={24} />
                 <div className="truth-text">
-                  <p><strong>Developer Status:</strong> Currently debugging why there are no projects to show</p>
-                  <p><strong>Stack Overflow visits today:</strong> ∞</p>
-                  <p><strong>Coffee level:</strong> Dangerously low ☕</p>
+                  <p><strong>Developer Status:</strong> Actively synthesizing new experience logs</p>
+                  <p><strong>Resume uptime:</strong> 99.9999%</p>
+                  <p><strong>Coffee level:</strong> Critical ⚠️</p>
                 </div>
               </div>
 
@@ -379,10 +380,13 @@ const CyberpunkProjects = () => {
         /* Enhanced project tabs */
         .cyber-tabs {
           display: flex;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
           gap: 0.75rem;
           flex-wrap: wrap;
           margin-bottom: 2rem;
-          padding: 0.5rem;
+          padding: 0.5rem 0;
           background: rgba(0, 0, 0, 0.4);
           backdrop-filter: blur(10px);
           border-radius: 4px;

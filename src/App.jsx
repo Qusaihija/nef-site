@@ -82,7 +82,7 @@ function App() {
           onMouseLeave={(e) => e.target.style.opacity = '0.25'}
           title="Type 'bug' to see something cool"
         >
-          psst... I'm a programmer
+          psst... I'm a Hacker
         </div>
         
         <Header scrollY={scrollY} />

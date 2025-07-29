@@ -46,28 +46,28 @@ const CyberpunkContactSection = () => {
     {
       icon: <Mail size={20} />,
       title: "Email",
-      value: "starkwave@outlook.com",
-      link: "mailto:starkwave@outlook.com"
+      value: "qusayaboalhiga113@gmail.com",
+      link: "mailto:qusayaboalhiga113@gmail.com"
     },
     {
       icon: <Phone size={20} />,
       title: "Phone",
-      value: "+234 9077798350",
-      link: "tel:+2349077798350"
+      value: "+962 799059357",
+      link: "tel:+962799059357"
     },
     {
       icon: <MapPin size={20} />,
       title: "Location",
-      value: "Lagos, Nigeria",
+      value: "Amman, Jordan",
       link: null
     }
   ];
 
   // Social media links
   const socialLinks = [
-    { icon: <Github size={20} />, url: "https://github.com/DebrainStark" },
-    { icon: <Linkedin size={20} />, url: "https://www.linkedin.com/in/otoibhi-anthony-b-eng-gnse-970049161" },
-    { icon: <Twitter size={20} />, url: "https://twitter.com/yourhandle" }
+    { icon: <Github size={20} />, url: "https://github.com/Qusaihija" },
+    { icon: <Linkedin size={20} />, url: "https://www.linkedin.com/in/qusai-abu-al-haija-037927288/" },
+    { icon: <Twitter size={20} />, url: "https://x.com/elonmusk" }
   ];
 
   return (
@@ -138,7 +138,7 @@ const CyberpunkContactSection = () => {
                   <span className="terminal-prompt">$ </span>
                   <span className="terminal-command">contact --location</span>
                 </div>
-                <div className="terminal-line terminal-output">Lagos, Nigeria</div>
+                <div className="terminal-line terminal-output">Amman, Jordan</div>
                 <div className="terminal-line">
                   <span className="terminal-prompt">$ </span>
                   <span className="terminal-command">connect --socials</span>

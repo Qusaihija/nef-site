@@ -5,18 +5,18 @@ import './about.css';
 const CyberpunkAbout = () => {
   // Skills arrays
   const actualExpertise = [
-    "React & Redux", "TypeScript", "Node.js", "MongoDB", "Express", "GraphQL"
+    "Windows Penetration Tester", "Linux Penetration Tester", "Mobile application Penetration Tester", "Kubernetes", "Docker/Docker-Compose", "AWS"
   ];
   
   const claimedExpertise = [
-    "Copy-Paste", "Googling Error Messages", "Stack Overflow", "Coffee Consumption", "Explaining Why It Works on My Machine"
+    "Copy-Paste", "Googling Error Messages", "HackTheBox", "Coffee Consumption", "Explaining Why It Works on My Machine"
   ];
 
   const funFacts = [
-    { label: "Bugs fixed", value: "Countless" },
-    { label: "Bugs introduced", value: "Countless+1" },
-    { label: "Longest debugging", value: "3 days (missing semicolon)" },
-    { label: "Stack Overflow rep", value: "Lower than my self-esteem" }
+    { label: "Firewalls bypassed", value: "Too many to confess" },
+    { label: "Zero-days discovered", value: "Still hoping" },
+    { label: "Shells popped", value: "Gloriously numerous" },
+    { label: "Exploit attempts at 3am", value: "All of them" }
   ];
 
   // State for mobile expandable sections
@@ -165,7 +165,7 @@ const CyberpunkAbout = () => {
                         <span className="terminal-prompt">$ </span>
                         <span className="terminal-command">skills --top</span>
                       </div>
-                      <div className="terminal-line terminal-output">[React, Node.js, MongoDB, TypeScript]</div>
+                      <div className="terminal-line terminal-output">[Mobile PT, Linux PT,Windows PT , DevOps]</div>
                       <div className="terminal-line">
                         <span className="terminal-prompt">$ </span>
                         <span className="terminal-command">status</span>
@@ -194,12 +194,13 @@ const CyberpunkAbout = () => {
                   
                   <div className="about-panel">
                   <p>
-                    I'm fluent in over 6 million forms of communication, including Python, JavaScript, and Confused Screaming. 
-                      My superpower is making computers do things they didn't know they could do (and occasionally things they shouldn't do).
+                    I'm fluent in over 6 million vulnerabilities, including XSS, RCE, misconfigured S3 buckets, and Awkward Silences on Port 445.  
+                    My superpower is making web apps stutter, Linux boxes confess, Windows hosts panic, and CI/CD pipelines do things they were never meant to.
                     </p>
                     <p className="about-text mb-0">
-                      Legend has it that my code is so clean, it makes Marie Kondo weep with joy. When I'm not arguing with AI 
-                      assistants about tab vs. spaces, I'm probably explaining to my coffee maker why it needs to work overtime tonight.
+                      Legend has it that my exploits are so elegant, even firewalls pause to admire them.  
+                      When I'm not reverse-engineering Windows logs or charming secrets out of misbehaving APIs,  
+                      I'm probably sweet-talking Jenkins into deploying chaos — and explaining to my VPN why it's pulling an all-nighter.
                     </p>
                   </div>
                 </div>
@@ -263,8 +264,8 @@ const CyberpunkAbout = () => {
             <div className="row mt-4">
               <div className="col-12">
                 <blockquote className="final-quote">
-                  <p>"Code is like humor. When you have to explain it, it's bad."</p>
-                  <footer className="quote-footer">— Cory House</footer>
+                  <p>"If you’re explaining why it’s not a vulnerability, it probably is."</p>
+                  <footer className="quote-footer">— 0xNefarious</footer>
                 </blockquote>
               </div>
             </div>
@@ -310,7 +311,7 @@ const CyberpunkAbout = () => {
                       <span className="terminal-prompt">$ </span>
                       <span className="terminal-command">whoami</span>
                     </div>
-                    <div className="terminal-line terminal-output">Otoibhi Anthony</div>
+                    <div className="terminal-line terminal-output">Qusai AKA Nefaious</div>
                     <div className="terminal-line">
                       <span className="terminal-prompt">$ </span>
                       <span className="terminal-command">status</span>

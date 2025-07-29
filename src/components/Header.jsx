@@ -90,7 +90,7 @@ const CyberpunkHeader = () => {
           }}>
             <div className="cp-logo__text">
               <span className="cp-logo__prefix">&lt;dev&gt;</span>
-              <span className="cp-logo__main">Anthony</span>
+              <span className="cp-logo__main">Nefarious</span>
             </div>
             <div className="cp-logo__badge">
               <Terminal size={16} className="cp-logo__icon" />

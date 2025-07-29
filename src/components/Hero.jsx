@@ -162,26 +162,26 @@ const Hero = () => {
   const isGlitching = useGlitchEffect(5000, 200);
   useMatrixAnimation('matrix-canvas');
   
-  const fullText = "I create modern web solutions that solve real business problems. With expertise in both frontend and backend technologies, I build applications that are intuitive, scalable, and maintainable.";
+  const fullText = "I create secure, automated pipelines that keep systems robust and resilient. By blending penetration testing insights with DevOps best practices, I build environments that are scalable, reliable, and hardened against threats.";
   const { displayText, isComplete } = useTypingEffect(fullText, 30);
   
   // Memoized data
   const skills = useMemo(() => [
-    { icon: Monitor, label: 'Frontend', variant: 'primary' },
-    { icon: Server, label: 'Backend', variant: 'secondary' },
-    { icon: Database, label: 'Database', variant: 'tertiary' },
-    { icon: Terminal, label: 'DevOps', variant: 'quaternary' }
+    { icon: Monitor, label: 'Pentester', variant: 'primary' },
+    { icon: Server, label: 'DevOps', variant: 'secondary' },
+    { icon: Database, label: 'Cloud', variant: 'tertiary' },
+    { icon: Terminal, label: 'DevSecOps', variant: 'quaternary' }
   ], []);
   
   const stats = useMemo(() => [
-    { number: '5+', label: 'Years_XP' },
-    { number: '50+', label: 'Projects_Done' },
-    { number: '20+', label: 'Clients_Served' }
+    { number: '1+', label: 'Years_XP' },
+    { number: '250+', label: 'Machines_Pwned' },
+    { number: '100+', label: 'Servers_Managed' }
   ], []);
   
   const socialLinks = useMemo(() => [
     {
-      href: 'https://github.com/DebrainStark',
+      href: 'https://github.com/Qusaihija',
       icon: Github,
       variant: 'github',
       label: 'GitHub Profile',
@@ -189,7 +189,7 @@ const Hero = () => {
       rel: 'noopener noreferrer'
     },
     {
-      href: 'https://www.linkedin.com/in/otoibhi-anthony-b-eng-gnse-970049161',
+      href: 'https://www.linkedin.com/in/qusai-abu-al-haija-037927288',
       icon: Linkedin,
       variant: 'linkedin',
       label: 'LinkedIn Profile',
@@ -197,7 +197,7 @@ const Hero = () => {
       rel: 'noopener noreferrer'
     },
     {
-      href: 'mailto:anuoluwaotoibhi@gmail.com',
+      href: 'mailto:qusayaboalhiga113@gmail.com',
       icon: Mail,
       variant: 'mail',
       label: 'Send Email'
@@ -285,14 +285,14 @@ const Hero = () => {
             {/* Hacker Badge */}
             <div className="role-badge" role="banner">
               <div className="badge-icon" aria-hidden="true">⟨⧸⟩</div>
-              <span>Full-Stack Developer</span>
+              <span>Security-Focused DevOps Specialist</span>
             </div>
             
             {/* Hero Title with cyber style */}
             <header className="hero-title" ref={titleRef}>
               <span className="cyber-greeting" aria-hidden="true">sudo ./greet</span>
               <h1 className="title-main">
-                Hi, I'm <span className="gradient-text">Otoibhi Anthony</span>
+                Hi, I'm <span className="gradient-text">Qusai AKA Nefarious</span>
               </h1>
             </header>
             
@@ -301,7 +301,7 @@ const Hero = () => {
                 <span className="terminal-button" />
                 <span className="terminal-button" />
                 <span className="terminal-button" />
-                <span className="terminal-title">anthony@developer:~$</span>
+                <span className="terminal-title">nefarious@developer:~$</span>
               </div>
               <p className="hero-description">
                 <span className={`cursor ${isComplete ? 'blink' : ''}`} aria-hidden="true">█</span>
@@ -330,7 +330,7 @@ const Hero = () => {
                 </div>
               </a>
               <a 
-                href="/resume.pdf" 
+                href="https://drive.google.com/file/d/1VF9KaqRZUdzRxg3MCR9bH2eCtJhb6HJ4/view?usp=drive_link" 
                 className="btn-secondary" 
                 download
                 onClick={handleDownloadCV}
