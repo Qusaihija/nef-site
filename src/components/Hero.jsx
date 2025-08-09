@@ -330,7 +330,7 @@ const Hero = () => {
                 </div>
               </a>
               <a 
-                href="https://drive.google.com/file/d/1NEwJ0y6RbE1ljmiIqcwZZeYIW54tpXCR/view?usp=sharing" 
+                href="https://drive.google.com/file/d/1CwfJ7zllAR9VtCLCSOdX94klfGZtrcwd/view?usp=sharing" 
                 className="btn-secondary" 
                 download
                 onClick={handleDownloadCV}
